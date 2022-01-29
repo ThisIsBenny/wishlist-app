@@ -19,7 +19,7 @@ version: '3.7'
 
 services:
   wishlist:
-    image: thisisbenny/wishlist-webapp:latest
+    image: thisisbenny/wishlist-app:latest
     ports:
       - '5000:5000'
     volumes:
