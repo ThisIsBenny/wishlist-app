@@ -1,0 +1,17 @@
+name: ci
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up NodeJs
+        uses: actions/setup-node@v2
+      - name: Install dependencies
+        run: npm run ci
+      - name: Linter
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
