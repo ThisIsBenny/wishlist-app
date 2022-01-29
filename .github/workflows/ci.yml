@@ -10,7 +10,7 @@ jobs:
       - name: Set up NodeJs
         uses: actions/setup-node@v2
       - name: Install dependencies
-        run: npm run ci
+        run: npm ci
       - name: Linter
         run: npm run lint
       - name: Typecheck
