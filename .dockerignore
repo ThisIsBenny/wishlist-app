@@ -1,0 +1,10 @@
+dist/
+.vscode
+node_modules
+Dockerfile
+docker-compose.yml
+.gitignore
+.editorconfig
+README.md
+prisma/seed.ts
+data/
