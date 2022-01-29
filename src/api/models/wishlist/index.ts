@@ -1,5 +1,4 @@
 import { prisma } from '../../services'
-import { Wishlist, WishlistItem } from '../../../types'
 
 export default {
   getAll: async (): Promise<any> => {

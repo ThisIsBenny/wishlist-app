@@ -20,7 +20,7 @@ export const getAll = <any>{
       },
     },
   },
-  handler: async (request: FastifyRequest, reply: FastifyReply) => {
+  handler: async () => {
     return await wishlist.getAll()
   },
 }

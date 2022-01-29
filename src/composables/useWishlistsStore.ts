@@ -1,6 +1,6 @@
 import apiService from '@/services/apiService'
 import { Wishlist } from '@/types'
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
 const apiClient = apiService.getClient()
 const prefix = '/wishlist'
 
