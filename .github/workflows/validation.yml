@@ -1,6 +1,6 @@
 name: validation
 
-  pull_request:
+pull_request:
   push:
     branches:
       - main
