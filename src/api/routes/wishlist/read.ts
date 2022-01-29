@@ -51,7 +51,7 @@ export const getBySlugUrl = <RouteOptions>{
                 id: { type: 'number' },
                 title: { type: 'string' },
                 url: { type: 'string' },
-                image: { type: 'string' },
+                imageSrc: { type: 'string' },
                 description: { type: 'string' },
                 comment: { type: 'string' },
                 bought: { type: 'boolean' },

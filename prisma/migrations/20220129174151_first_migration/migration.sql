@@ -12,12 +12,12 @@ CREATE TABLE "Item" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "title" TEXT NOT NULL,
     "url" TEXT,
-    "image" TEXT,
+    "imageSrc" TEXT,
     "description" TEXT NOT NULL,
     "comment" TEXT,
     "bought" BOOLEAN NOT NULL DEFAULT false,
-    "wishlistId" TEXT,
-    CONSTRAINT "Item_wishlistId_fkey" FOREIGN KEY ("wishlistId") REFERENCES "Wishlist" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+    "wishlistId" TEXT NOT NULL,
+    CONSTRAINT "Item_wishlistId_fkey" FOREIGN KEY ("wishlistId") REFERENCES "Wishlist" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex

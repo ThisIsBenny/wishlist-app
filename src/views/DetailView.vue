@@ -46,7 +46,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
       :key="index"
       :title="item.title"
       :url="item.url"
-      :image="item.image"
+      :image="item.imageSrc"
       :description="item.description"
       :comment="item.comment"
       @bought="bought(item)"

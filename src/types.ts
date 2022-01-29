@@ -2,7 +2,7 @@ export interface WishlistItem {
   id: string
   title: string
   url: string
-  image: string
+  imageSrc: string
   description: string
   comment: string
   bought: boolean
