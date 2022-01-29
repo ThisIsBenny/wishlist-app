@@ -4,6 +4,13 @@ The wish list webapp is a simple webapp for publishing wish lists. It allows to 
 
 The app can be easily self-hosted via Docker (see docker-compose example below).
 
+## Feature Roadmap
+
+- i18n support
+- Administrate wishlists
+- Grab title, description and image-url from url via open graph meta tags
+- Login
+- Image upload
 
 ## Docker Setup
 
@@ -18,7 +25,6 @@ services:
     volumes:
       - ./data:/app/data
 ```
-
 
 ## Development Setup
 
