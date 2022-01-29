@@ -31,4 +31,4 @@ coverage
 .env
 data
 prisma/seed.ts
-public/*,jpeg
+public/*.jpeg
