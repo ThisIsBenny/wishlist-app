@@ -3,11 +3,11 @@ import { Wishlist, WishlistItem } from '@/types'
 import { ref } from 'vue'
 const { client } = useAxios()
 
-const refState = ref<Wishlist | any>({})
+const list = ref<Wishlist | null>(null)
 
 const fetch = async (slugText: string): Promise<void> => {
   const { data } = await client.get(`/wishlist/${slugText}`)
-  refState.value = data
+  list.value = data
 }
 
 const updateItem = async (item: WishlistItem): Promise<void> => {
@@ -16,7 +16,7 @@ const updateItem = async (item: WishlistItem): Promise<void> => {
 
 export const useWishlistStore = () => {
   return {
-    list: refState,
+    list,
     fetch,
     updateItem,
   }
