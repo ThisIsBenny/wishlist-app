@@ -1,35 +1,23 @@
-import apiService from '@/services/apiService'
+import useAxios from '@/composables/useAxios'
 import { Wishlist, WishlistItem } from '@/types'
 import { ref } from 'vue'
-const apiClient = apiService.getClient()
+const { client } = useAxios()
 
 const refState = ref<Wishlist | any>({})
-const isLoading = ref(false)
-const hasError = ref(false)
 
-const fetchBySlugUrl = async (slugText: string): Promise<void> => {
-  isLoading.value = true
-  try {
-    const { data } = await apiClient.get(`/wishlist/${slugText}`)
-    refState.value = data
-  } catch (error: any) {
-    console.error(error)
-    hasError.value = true
-  } finally {
-    isLoading.value = false
-  }
+const fetch = async (slugText: string): Promise<void> => {
+  const { data } = await client.get(`/wishlist/${slugText}`)
+  refState.value = data
 }
 
 const updateItem = async (item: WishlistItem): Promise<void> => {
-  await apiClient.put(`/wishlist/${item.wishlistId}/item/${item.id}`, item)
+  await client.put(`/wishlist/${item.wishlistId}/item/${item.id}`, item)
 }
 
-export const useWishlistStore = (slugText: string) => {
-  fetchBySlugUrl(slugText)
+export const useWishlistStore = () => {
   return {
     list: refState,
-    isLoading,
-    hasError,
+    fetch,
     updateItem,
   }
 }

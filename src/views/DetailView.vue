@@ -1,19 +1,16 @@
 <script setup lang="ts">
 import { WishlistItem as WishlistItemType } from '@/types'
-import { computed, watchEffect } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useTitle } from '@vueuse/core'
 import { useWishlistStore, useModal } from '@/composables'
 import Tile from '@/components/Tile.vue'
-import { IconSpinner, IconError } from '@/components/icons'
 import WishlistItem from '@/components/WishlistItem.vue'
 
 const route = useRoute()
 const modal = useModal()
 
-const { list, isLoading, hasError, updateItem } = useWishlistStore(
-  route.params.slug as string
-)
+const { list, fetch, updateItem } = useWishlistStore()
+await fetch(route.params.slug as string)
 
 const notBoughtItems = computed(() => {
   return list.value.items.filter(
@@ -34,21 +31,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
 </script>
 
 <template>
-  <div
-    v-if="isLoading"
-    class="flex flex-row space-x-2 items-center content-center justify-center m-20"
-  >
-    <IconSpinner class="w-4 h-4" />
-    <span> Lade Wunschliste... </span>
-  </div>
-  <div
-    v-else-if="hasError"
-    class="flex flex-row space-x-2 items-center content-center justify-center m-20 text-red-500"
-  >
-    <IconError class="w-4 - h-4" />
-    <span> Es ist ein Fehler aufgetreten... </span>
-  </div>
-  <div v-else>
+  <div v-if="list.id">
     <div
       class="flex flex-col md:flex-row space-x-0 md:space-x-6 space-y-2 md:space-y-0 items-center"
     >

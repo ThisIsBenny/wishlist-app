@@ -1,30 +1,19 @@
-import apiService from '@/services/apiService'
+import useAxios from '@/composables/useAxios'
 import { Wishlist } from '@/types'
 import { ref } from 'vue'
-const apiClient = apiService.getClient()
+const { client } = useAxios()
 const prefix = '/wishlist'
 
 const refState = ref<Wishlist[]>([])
-const isLoading = ref(false)
-const hasError = ref(false)
 
-export const loadAll = async (): Promise<void> => {
-  isLoading.value = true
-  try {
-    const { data } = await apiClient.get(prefix)
-    refState.value = data
-  } catch (error: any) {
-    hasError.value = true
-  } finally {
-    isLoading.value = false
-  }
+export const fetch = async (): Promise<void> => {
+  const { data } = await client.get(prefix)
+  refState.value = data
 }
 
 export const useWishlistsStore = () => {
-  loadAll()
   return {
     lists: refState,
-    hasError,
-    isLoading,
+    fetch,
   }
 }
