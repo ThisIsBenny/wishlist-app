@@ -32,12 +32,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onErrorCaptured } from 'vue'
-import useAxios from './composables/useAxios'
+import { onErrorCaptured, ref } from 'vue'
 import { IconSpinner, IconError } from '@/components/icons'
-const { error } = useAxios()
+
+const error = ref(null)
+
 onErrorCaptured((e: any) => {
   error.value = e
-  return true
+  return false
 })
 </script>
