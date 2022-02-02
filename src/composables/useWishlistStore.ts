@@ -1,7 +1,6 @@
 import apiService from '@/services/apiService'
 import { Wishlist, WishlistItem } from '@/types'
 import { ref } from 'vue'
-import { toReactive } from '@vueuse/core'
 const apiClient = apiService.getClient()
 
 const refState = ref<Wishlist | any>({})
@@ -28,7 +27,7 @@ const updateItem = async (item: WishlistItem): Promise<void> => {
 export const useWishlistStore = (slugText: string) => {
   fetchBySlugUrl(slugText)
   return {
-    list: toReactive(refState),
+    list: refState,
     isLoading,
     hasError,
     updateItem,

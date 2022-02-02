@@ -1,19 +1,24 @@
 <script setup lang="ts">
 import { WishlistItem as WishlistItemType } from '@/types'
+import { computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
+import { useTitle } from '@vueuse/core'
+import { useWishlistStore, useModal } from '@/composables'
 import Tile from '@/components/Tile.vue'
 import { IconSpinner, IconError } from '@/components/icons'
 import WishlistItem from '@/components/WishlistItem.vue'
-import { useWishlistStore, useModal } from '@/composables'
-import { computed } from 'vue'
 
 const route = useRoute()
 const modal = useModal()
+
 const { list, isLoading, hasError, updateItem } = useWishlistStore(
   route.params.slug as string
 )
+
 const notBoughtItems = computed(() => {
-  return list.items.filter((item: WishlistItemType) => item.bought === false)
+  return list.value.items.filter(
+    (item: WishlistItemType) => item.bought === false
+  )
 })
 
 const bought = async (item: WishlistItemType): Promise<void> => {
