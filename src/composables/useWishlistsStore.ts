@@ -1,17 +1,30 @@
 import apiService from '@/services/apiService'
 import { Wishlist } from '@/types'
-import { reactive } from 'vue'
+import { ref } from 'vue'
 const apiClient = apiService.getClient()
 const prefix = '/wishlist'
 
-export const getAll = async (): Promise<Wishlist[]> => {
-  const { data } = await apiClient.get(prefix)
-  return data
+const refState = ref<Wishlist[]>([])
+const isLoading = ref(false)
+const hasError = ref(false)
+
+export const loadAll = async (): Promise<void> => {
+  isLoading.value = true
+  try {
+    const { data } = await apiClient.get(prefix)
+    refState.value = data
+  } catch (error: any) {
+    hasError.value = true
+  } finally {
+    isLoading.value = false
+  }
 }
 
-export const useWishlistsStore = async () => {
-  const lists = reactive(await getAll())
-  return reactive({
-    lists,
-  })
+export const useWishlistsStore = () => {
+  loadAll()
+  return {
+    lists: refState,
+    hasError,
+    isLoading,
+  }
 }
