@@ -6,7 +6,6 @@ The app can be easily self-hosted via Docker (see docker-compose example below).
 
 ## Feature Roadmap
 
-- i18n support
 - Administrate wishlists
 - Grab title, description and image-url from url via open graph meta tags
 - Login
