@@ -13,7 +13,7 @@ const { list, fetch, updateItem } = useWishlistStore()
 await fetch(route.params.slug as string)
 
 const notBoughtItems = computed(() => {
-  return list.value.items.filter(
+  return list.value?.items.filter(
     (item: WishlistItemType) => item.bought === false
   )
 })
@@ -31,7 +31,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
 </script>
 
 <template>
-  <div v-if="list.id">
+  <div v-if="list !== null">
     <div
       class="flex flex-col md:flex-row space-x-0 md:space-x-6 space-y-2 md:space-y-0 items-center"
     >
