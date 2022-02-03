@@ -4,6 +4,12 @@ The wishlist app is a simple webapp for publishing wishlists. It allows to share
 
 The app can be easily self-hosted via Docker (see docker-compose example below).
 
+## Features
+
+- Support of multiple wishlists
+- Items can be removed from the wishlist by users
+- i18n support
+
 ## Feature Roadmap
 
 - Administrate wishlists
@@ -43,14 +49,20 @@ npm run dev
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### Run Unit Tests
 
 ```sh
 npm run test:unit
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Lint
 
 ```sh
 npm run lint
+```
+
+### Typecheck
+
+```sh
+npm run typecheck
 ```
