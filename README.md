@@ -34,7 +34,7 @@ services:
 ## Development Setup
 
 ```sh
-npm install
+npm install && npm run prepare
 ```
 
 ### Compile and Hot-Reload for Development
