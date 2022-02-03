@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
 import IconLink from './icons/IconLink.vue'
 import IconImagePlaceholder from './icons/IconImagePlaceholder.vue'
 import BaseButton from './BaseButton.vue'
@@ -10,6 +11,7 @@ defineProps<{
   description: string
   comment?: string
 }>()
+const { t } = useI18n()
 </script>
 
 <template>
@@ -41,14 +43,16 @@ defineProps<{
           class="text-sm mt-1 text-stone-500 flex flex-row items-center w-fit"
         >
           <IconLink class="mr-1 w-4 h-4" />
-          <span>Produktseite öffnen</span>
+          <span>{{
+            t('components.wishlist-item.external-product-page-link.text')
+          }}</span>
         </a>
       </div>
       <BaseButton
         class="mt-4 sm:mt-2 text-xs"
         :icon="IconCart"
         @click="$emit('bought')"
-        >Gekauft</BaseButton
+        >{{ t('components.wishlist-item.bought-button.text') }}</BaseButton
       >
     </div>
   </div>

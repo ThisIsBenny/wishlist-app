@@ -1,0 +1,46 @@
+{
+  "common": {
+    "app-title": {
+      "text": "Wishlists"
+    },
+    "loading": {
+      "text": "Loading..."
+    }
+  },
+  "errors": {
+    "not-found": {
+      "text": "Oops, it looks like the page you're looking for doesn't exist."
+    },
+    "generic": {
+      "text": "An error has occurred..."
+    }
+  },
+  "pages": {
+    "detail-view": {
+      "confirmation-modal": {
+        "title": {
+          "text": "Do you want to remove the item from the list?"
+        },
+        "body": {
+          "text": "By taking it down from the list, this item is no longer visible to others."
+        },
+        "confirm-button": {
+          "text": "Yes"
+        },
+        "cancel-button": {
+          "text": "No"
+        }
+      }
+    }
+  },
+  "components": {
+    "wishlist-item": {
+      "external-product-page-link": {
+        "text": "Open product page"
+      },
+      "bought-button": {
+        "text": "Bought"
+      }
+    }
+  }
+}

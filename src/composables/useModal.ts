@@ -7,8 +7,15 @@ const callback = (confirmed: boolean) => {
   _resolve(confirmed)
 }
 
-const show = (title: string, text = '') => {
+const show = (
+  title: string,
+  confirmText: string,
+  cancelText: string,
+  text = ''
+) => {
   data.title = title
+  data.confirmText = confirmText
+  data.cancelText = cancelText
   data.text = text
   data.isShown = true
   return new Promise((resolve) => {
@@ -21,9 +28,9 @@ const data = reactive({
   show,
   title: '',
   text: '',
-  confirmText: 'Ja',
+  confirmText: '',
   confirm: () => callback(true),
-  cancelText: 'Nein',
+  cancelText: '',
   cancel: () => callback(false),
 })
 

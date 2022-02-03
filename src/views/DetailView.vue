@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { WishlistItem as WishlistItemType } from '@/types'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
@@ -8,6 +9,8 @@ import WishlistItem from '@/components/WishlistItem.vue'
 
 const route = useRoute()
 const modal = useModal()
+
+const { t } = useI18n()
 
 const { list, fetch, updateItem } = useWishlistStore()
 await fetch(route.params.slug as string)
@@ -20,8 +23,10 @@ const notBoughtItems = computed(() => {
 
 const bought = async (item: WishlistItemType): Promise<void> => {
   const confirmed = await modal.show(
-    'Möchten Sie den Gegenstand von der Liste nehmen?',
-    'Durch das das runternehmen von der Liste ist dieser Gegenstand nicht mehr andere sichtbar.'
+    t('pages.detail-view.confirmation-modal.title.text'),
+    t('pages.detail-view.confirmation-modal.confirm-button.text'),
+    t('pages.detail-view.confirmation-modal.cancel-button.text'),
+    t('pages.detail-view.confirmation-modal.body.text')
   )
   if (confirmed) {
     item.bought = true

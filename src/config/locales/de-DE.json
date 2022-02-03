@@ -1,0 +1,46 @@
+{
+  "common": {
+    "app-title": {
+      "text": "Wunschlisten"
+    },
+    "loading": {
+      "text": "Lade..."
+    }
+  },
+  "errors": {
+    "not-found": {
+      "text": "Ups, es sieht so aus, als ob die Seite, die du suchst, nicht existiert."
+    },
+    "generic": {
+      "text": "Es ist ein Fehler aufgetreten..."
+    }
+  },
+  "pages": {
+    "detail-view": {
+      "confirmation-modal": {
+        "title": {
+          "text": "Möchten Sie den Gegenstand von der Liste nehmen?"
+        },
+        "body": {
+          "text": "Durch das das runternehmen von der Liste ist dieser Gegenstand nicht mehr andere sichtbar."
+        },
+        "confirm-button": {
+          "text": "Ja"
+        },
+        "cancel-button": {
+          "text": "Nein"
+        }
+      }
+    }
+  },
+  "components": {
+    "wishlist-item": {
+      "external-product-page-link": {
+        "text": "Produktseite öffnen"
+      },
+      "bought-button": {
+        "text": "Gekauft"
+      }
+    }
+  }
+}

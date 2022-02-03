@@ -9,7 +9,7 @@
               class="flex flex-row space-x-2 items-center content-center justify-center m-20 text-red-500"
             >
               <IconError class="w-4 h-4" />
-              <span>Es ist ein Fehler aufgetreten...</span>
+              <span>{{ t('errors.generic.text') }}</span>
             </div>
             <suspense v-else>
               <template #default>
@@ -20,7 +20,7 @@
                   class="flex flex-row space-x-2 items-center content-center justify-center m-20"
                 >
                   <IconSpinner class="w-4 h-4" />
-                  <span> Lade... </span>
+                  <span> {{ t('common.loading.text') }} </span>
                 </div>
               </template>
             </suspense>
@@ -34,6 +34,8 @@
 <script setup lang="ts">
 import { onErrorCaptured, ref } from 'vue'
 import { IconSpinner, IconError } from '@/components/icons'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const error = ref(null)
 
