@@ -11,12 +11,12 @@ const show = (
   title: string,
   confirmText: string,
   cancelText: string,
-  text = ''
-) => {
+  body = ''
+): Promise<boolean> => {
   data.title = title
   data.confirmText = confirmText
   data.cancelText = cancelText
-  data.text = text
+  data.body = body
   data.isShown = true
   return new Promise((resolve) => {
     _resolve = resolve
@@ -27,7 +27,7 @@ const data = reactive({
   isShown: false,
   show,
   title: '',
-  text: '',
+  body: '',
   confirmText: '',
   confirm: () => callback(true),
   cancelText: '',
