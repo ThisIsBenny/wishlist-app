@@ -4,7 +4,7 @@ FROM node:lts as builder
 RUN mkdir /app
 WORKDIR /app
 COPY package.json package-lock.json /app/
-RUN npm ci --omit=dev --ignore-scripts
+RUN npm ci --ignore-scripts
 
 ENV NODE_ENV=production
 
