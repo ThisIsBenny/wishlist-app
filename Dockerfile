@@ -25,7 +25,7 @@ RUN mkdir data
 
 COPY package.json package-lock.json /app/
 COPY ./prisma /app/prisma
-RUN npm ci --ignore-scriptss
+RUN npm ci --ignore-scripts
 COPY --from=builder /app/dist /app
 
 EXPOSE 5000
