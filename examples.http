@@ -1,0 +1,33 @@
+@BASE_URL=http://localhost:5000/api
+
+
+###
+# @name createWishlistFirst
+POST {{BASE_URL}}/wishlist
+Content-Type: application/json
+
+{
+  "title": "Junior",
+  "imageSrc": "https://unsplash.com/photos/JZ51o_-UOY8/download?force=true&w=200",
+  "slugUrlText": "junior"
+}
+
+###
+# @name createWishlistSecond
+POST {{BASE_URL}}/wishlist
+Content-Type: application/json
+
+{
+  "title": "Wedding",
+  "imageSrc": "https://unsplash.com/photos/8vaQKYnawHw/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjQ0MDQ4MTIy&force=true&w=200",
+  "description": "We are getting married",
+  "slugUrlText": "wedding"
+}
+
+###
+# @name getWishlists
+GET {{BASE_URL}}/wishlist
+
+###
+# @name getFirstWishlist
+GET {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.slugUrlText}}

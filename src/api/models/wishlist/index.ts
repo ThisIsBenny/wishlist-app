@@ -1,4 +1,5 @@
 import { prisma } from '../../services'
+import { Wishlist } from '@/types'
 
 export default {
   getAll: async (): Promise<any> => {
@@ -15,6 +16,11 @@ export default {
         slugUrlText: value,
       },
       include: { items: includeItems },
+    })
+  },
+  create: async (payload: Wishlist) => {
+    return await prisma.client.wishlist.create({
+      data: payload,
     })
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
