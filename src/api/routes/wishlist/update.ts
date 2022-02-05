@@ -3,6 +3,12 @@ import { prisma } from '../../services'
 import { Wishlist } from '@/types'
 import { FastifyRequest, FastifyReply, RouteOptions } from 'fastify'
 import { wishlist } from '../../models'
+import {
+  wishlistRequestSchema,
+  wishlistResponseSchema,
+  wishlistItemRequestSchema,
+  wishlistItemResponseSchema,
+} from '../../config/schemas'
 
 interface updateRequest extends FastifyRequest {
   params: {
@@ -20,28 +26,9 @@ export const updateList = <RouteOptions>{
   method: 'PUT',
   url: '/:wishlistId',
   schema: {
-    body: {
-      type: 'object',
-      additionalProperties: false,
-      required: ['title', 'imageSrc', 'slugUrlText'],
-      properties: {
-        title: { type: 'string' },
-        imageSrc: { type: 'string' },
-        description: { type: 'string' },
-        slugUrlText: { type: 'string' },
-      },
-    },
+    body: wishlistRequestSchema,
     response: {
-      200: {
-        type: 'object',
-        properties: {
-          id: { type: 'string' },
-          title: { type: 'string' },
-          imageSrc: { type: 'string' },
-          description: { type: 'string' },
-          slugUrlText: { type: 'string' },
-        },
-      },
+      200: wishlistResponseSchema,
     },
   },
   errorHandler: (error, request, reply) => {
@@ -68,32 +55,9 @@ export const updateItem = <RouteOptions>{
   method: 'PUT',
   url: '/:wishlistId/item/:itemId',
   schema: {
-    body: {
-      type: 'object',
-      additionalProperties: false,
-      properties: {
-        title: { type: 'string' },
-        url: { type: 'string' },
-        image: { type: 'string' },
-        description: { type: 'string' },
-        comment: { type: 'string' },
-        bought: { type: 'boolean' },
-      },
-    },
+    body: wishlistItemRequestSchema,
     response: {
-      204: {
-        type: 'object',
-        properties: {
-          id: { type: 'number' },
-          title: { type: 'string' },
-          url: { type: 'string' },
-          image: { type: 'string' },
-          description: { type: 'string' },
-          comment: { type: 'string' },
-          bought: { type: 'boolean' },
-          wishlistId: { type: 'string' },
-        },
-      },
+      200: wishlistItemResponseSchema,
     },
   },
   handler: async (request: updateItemRequest, reply: FastifyReply) => {

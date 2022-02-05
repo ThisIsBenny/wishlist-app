@@ -1,5 +1,6 @@
 import { FastifyRequest, FastifyReply, RouteOptions } from 'fastify'
 import { wishlist } from '../../models'
+import { wishlistResponseSchema } from '../../config/schemas'
 
 export const getAll = <RouteOptions>{
   method: 'GET',
@@ -8,15 +9,7 @@ export const getAll = <RouteOptions>{
     response: {
       200: {
         type: 'array',
-        items: {
-          properties: {
-            id: { type: 'string' },
-            title: { type: 'string' },
-            imageSrc: { type: 'string' },
-            description: { type: 'string' },
-            slugUrlText: { type: 'string' },
-          },
-        },
+        items: wishlistResponseSchema,
       },
     },
   },
@@ -36,31 +29,7 @@ export const getBySlugUrl = <RouteOptions>{
   url: '/:slugText',
   schema: {
     response: {
-      200: {
-        type: 'object',
-        properties: {
-          id: { type: 'string' },
-          title: { type: 'string' },
-          imageSrc: { type: 'string' },
-          description: { type: 'string' },
-          slugUrlText: { type: 'string' },
-          items: {
-            type: 'array',
-            items: {
-              properties: {
-                id: { type: 'number' },
-                title: { type: 'string' },
-                url: { type: 'string' },
-                imageSrc: { type: 'string' },
-                description: { type: 'string' },
-                comment: { type: 'string' },
-                bought: { type: 'boolean' },
-                wishlistId: { type: 'string' },
-              },
-            },
-          },
-        },
-      },
+      200: wishlistResponseSchema,
     },
   },
   handler: async (request: GetBySlugUrlTextRequest, reply: FastifyReply) => {

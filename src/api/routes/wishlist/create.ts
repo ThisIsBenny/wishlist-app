@@ -3,33 +3,18 @@ import { FastifyRequest, FastifyReply, RouteOptions } from 'fastify'
 import { wishlist } from '../../models'
 import { prisma } from '../../services'
 import { uniqueKeyError } from '../../config/errors'
+import {
+  wishlistRequestSchema,
+  wishlistResponseSchema,
+} from '../../config/schemas'
 
 export const createList = <RouteOptions>{
   method: 'POST',
   url: '/',
   schema: {
-    body: {
-      type: 'object',
-      additionalProperties: false,
-      required: ['title', 'imageSrc', 'slugUrlText'],
-      properties: {
-        title: { type: 'string' },
-        imageSrc: { type: 'string' },
-        description: { type: 'string' },
-        slugUrlText: { type: 'string' },
-      },
-    },
+    body: wishlistRequestSchema,
     response: {
-      201: {
-        type: 'object',
-        properties: {
-          id: { type: 'string' },
-          title: { type: 'string' },
-          imageSrc: { type: 'string' },
-          description: { type: 'string' },
-          slugUrlText: { type: 'string' },
-        },
-      },
+      201: wishlistResponseSchema,
     },
   },
   errorHandler: (error, request, reply) => {
