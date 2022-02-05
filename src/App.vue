@@ -3,28 +3,26 @@
     <main>
       <router-view v-slot="{ Component }">
         <template v-if="Component">
-          <keep-alive>
-            <div
-              v-if="error"
-              class="flex flex-row space-x-2 items-center content-center justify-center m-20 text-red-500"
-            >
-              <IconError class="w-4 h-4" />
-              <span>{{ t('errors.generic.text') }}</span>
-            </div>
-            <suspense v-else>
-              <template #default>
-                <component :is="Component"></component>
-              </template>
-              <template #fallback>
-                <div
-                  class="flex flex-row space-x-2 items-center content-center justify-center m-20"
-                >
-                  <IconSpinner class="w-4 h-4" />
-                  <span> {{ t('common.loading.text') }} </span>
-                </div>
-              </template>
-            </suspense>
-          </keep-alive>
+          <div
+            v-if="error"
+            class="flex flex-row space-x-2 items-center content-center justify-center m-20 text-red-500"
+          >
+            <IconError class="w-4 h-4" />
+            <span>{{ t('errors.generic.text') }}</span>
+          </div>
+          <suspense v-else>
+            <template #default>
+              <component :is="Component"></component>
+            </template>
+            <template #fallback>
+              <div
+                class="flex flex-row space-x-2 items-center content-center justify-center m-20"
+              >
+                <IconSpinner class="w-4 h-4" />
+                <span> {{ t('common.loading.text') }} </span>
+              </div>
+            </template>
+          </suspense>
         </template>
       </router-view>
     </main>
