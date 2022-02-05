@@ -15,6 +15,7 @@ interface updateRequest extends FastifyRequest {
     wishlistId: string
   }
 }
+
 interface updateItemRequest extends FastifyRequest {
   params: {
     wishlistId: string
@@ -67,12 +68,9 @@ export const updateItem = <RouteOptions>{
       request.body
     )
     if (item) {
-      return item
+      reply.send(item)
     } else {
-      return reply.code(404).send({
-        error: 'notFound',
-        http: 404,
-      })
+      reply.callNotFound()
     }
   },
 }

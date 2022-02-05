@@ -1,7 +1,7 @@
 export const wishlistItemRequestSchema = {
   type: 'object',
   additionalProperties: false,
-  required: ['title', 'imageSrc'],
+  required: ['title', 'description'],
   properties: {
     title: { type: 'string' },
     url: { type: 'string' },

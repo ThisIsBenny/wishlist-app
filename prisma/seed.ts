@@ -12,30 +12,12 @@ const wishlistData: Prisma.WishlistCreateInput[] = [
     items: {
       create: [
         {
-          title: 'Mr Maria Lion "First Light" Lampe',
-          url: 'https://babykochs.de/mr-maria-lion-first-light-lampe/',
+          title: 'Goldfish 40442 | BrickHeadz',
+          url: 'https://www.lego.com/en-de/product/goldfish-40442',
           imageSrc:
-            'https://babykochs.de/wp-content/uploads/2021/01/First-Light-Lion1.jpg',
+            'https://www.lego.com/cdn/cs/set/assets/blt1fc37afef51cfa9f/40442.jpg?fit=bounds&format=jpg&quality=80&width=1500&height=1500&dpr=1',
           description:
-            'Lion ist Teil der Serie "First Light - Miffy und Freunde" Kollektion, eine Nachtlampe, die als "kleiner Freund für ein kleines Wunder" entworfen wurde.',
-          comment: '',
-        },
-        {
-          title: 'Liewood Nachtlicht Winston Bär dove blue',
-          url: 'https://babykochs.de/liewood-nachtlicht-baer/',
-          imageSrc:
-            'https://babykochs.de/wp-content/uploads/2021/01/Liewood-Nachtlicht-Winston-bear-dove-blue.jpg',
-          description:
-            'Mit dem Licht dieses süßen Bären fühlen sich Eure Kleinen in der Nacht ganz sicher und haben’s schön gemütlich.',
-          comment: '',
-        },
-        {
-          title: 'Baby- und Kleinkindbett',
-          url: 'https://www.tchibo.de/baby-und-kleinkindbett-p400114225.html#modal-productimagegallery-modalGalleryImage-400886394',
-          imageSrc:
-            'https://www.tchibo.de/newmedia/art_img/MAIN-IMPORTED/f045f71ebabea9e4/baby-und-kleinkindbett.jpg',
-          description:
-            'Ein Bett, das mitwächst Zu einem erholsamen Schlaf und einer schönen Nacht gehört natürlich auch ein gutes Bett – das gilt auch für die Kleinsten.',
+            'Cute goldfish and fry, build-and-display BrickHeadz™ model',
           comment: '',
         },
       ],

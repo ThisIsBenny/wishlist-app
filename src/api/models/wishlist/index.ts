@@ -1,5 +1,5 @@
 import { prisma } from '../../services'
-import { Wishlist } from '@/types'
+import { Wishlist, WishlistItem } from '@/types'
 
 export default {
   getAll: async (): Promise<any> => {
@@ -32,6 +32,22 @@ export default {
         ...payload,
       },
     })
+  },
+  createItem: async (wishlistId: string, payload: WishlistItem) => {
+    const wishlist = await prisma.client.wishlist.update({
+      where: {
+        id: wishlistId,
+      },
+      data: {
+        items: {
+          create: {
+            ...payload,
+          },
+        },
+      },
+      include: { items: true },
+    })
+    return wishlist.items.pop()
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateItem: async (itemId: number, payload: any) => {
