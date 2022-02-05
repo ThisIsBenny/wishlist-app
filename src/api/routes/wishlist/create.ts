@@ -4,13 +4,6 @@ import { wishlist } from '../../models'
 import { prisma } from '../../services'
 import { uniqueKeyError } from '../../config/errors'
 
-interface GetBySlugUrlTextRequest extends FastifyRequest {
-  params: {
-    wishlistId: string
-    itemId: number
-  }
-}
-
 export const createList = <RouteOptions>{
   method: 'POST',
   url: '/',
@@ -46,7 +39,7 @@ export const createList = <RouteOptions>{
     request.log.error(error)
     reply.send(new Error('Unexptected Error'))
   },
-  handler: async (request: GetBySlugUrlTextRequest, reply: FastifyReply) => {
+  handler: async (request: FastifyRequest, reply: FastifyReply) => {
     request.log.debug(request.body)
     const item = await wishlist.create(request.body as Wishlist)
     reply.code(201).send(item)
