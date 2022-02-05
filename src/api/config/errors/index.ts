@@ -11,5 +11,5 @@ class httpError extends Error {
 }
 
 export const uniqueKeyError = (msg: string, code = '4001') => {
-  return new httpError(msg, 400, code)
+  return new httpError(msg, 422, code)
 }
