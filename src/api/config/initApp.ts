@@ -16,7 +16,10 @@ export default async (opts: FastifyContextConfig = {}) => {
   })
 
   await app.register(cors, {
-    origin: true,
+    origin:
+      process.env.NODE_ENV === 'development'
+        ? /https?:\/\/localhost(:\d+)?/
+        : false,
   })
 
   await app.register(compress)
