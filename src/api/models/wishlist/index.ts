@@ -2,15 +2,12 @@ import { prisma } from '../../services'
 import { Wishlist, WishlistItem } from '@/types'
 
 export default {
-  getAll: async (): Promise<any> => {
-    return await prisma.client.wishlist.findMany({
+  getAll: async (): Promise<Wishlist[]> => {
+    return (await prisma.client.wishlist.findMany({
       include: { items: false },
-    })
+    })) as Wishlist[]
   },
-  getBySlugUrlText: async (
-    value: string,
-    includeItems = false
-  ): Promise<any> => {
+  getBySlugUrlText: async (value: string, includeItems = false) => {
     return await prisma.client.wishlist.findUnique({
       where: {
         slugUrlText: value,

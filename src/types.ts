@@ -14,7 +14,7 @@ export interface Wishlist {
   description: string
   imageSrc: string
   slugUrlText: string
-  items: WishlistItem[]
+  items?: WishlistItem[]
 }
 export interface TileProp {
   title: string
