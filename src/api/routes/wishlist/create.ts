@@ -49,6 +49,6 @@ export const createList = <RouteOptions>{
   handler: async (request: GetBySlugUrlTextRequest, reply: FastifyReply) => {
     request.log.debug(request.body)
     const item = await wishlist.create(request.body as Wishlist)
-    return item
+    reply.code(201).send(item)
   },
 }
