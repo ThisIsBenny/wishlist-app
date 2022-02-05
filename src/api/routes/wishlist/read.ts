@@ -68,10 +68,7 @@ export const getBySlugUrl = <RouteOptions>{
     if (list) {
       return list
     } else {
-      return reply.code(404).send({
-        error: 'notFound',
-        http: 404,
-      })
+      return reply.callNotFound()
     }
   },
 }

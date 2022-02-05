@@ -10,6 +10,10 @@ class httpError extends Error {
   }
 }
 
+export const notFoundError = () => {
+  return new httpError('Not Found', 404, '404')
+}
+
 export const uniqueKeyError = (msg: string, code = '4001') => {
   return new httpError(msg, 422, code)
 }
