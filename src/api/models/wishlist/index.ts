@@ -23,6 +23,16 @@ export default {
       data: payload,
     })
   },
+  update: async (id: string, payload: Wishlist) => {
+    return await prisma.client.wishlist.update({
+      where: {
+        id: id,
+      },
+      data: {
+        ...payload,
+      },
+    })
+  },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateItem: async (itemId: number, payload: any) => {
     return await prisma.client.item.update({

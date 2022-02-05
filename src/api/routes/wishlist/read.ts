@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply, RouteOptions } from 'fastify'
 import { wishlist } from '../../models'
 
-export const getAll = <any>{
+export const getAll = <RouteOptions>{
   method: 'GET',
   url: '/',
   schema: {

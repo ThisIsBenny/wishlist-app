@@ -31,3 +31,15 @@ GET {{BASE_URL}}/wishlist
 ###
 # @name getFirstWishlist
 GET {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.slugUrlText}}
+
+###
+# @name updateFirstWishlist
+PUT {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}
+Content-Type: application/json
+
+{
+  "title": "Junior",
+  "imageSrc": "https://unsplash.com/photos/JZ51o_-UOY8/download?force=true&w=200",
+  "description": "Juniors Wishlist",
+  "slugUrlText": "junior"
+}

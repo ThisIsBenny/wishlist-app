@@ -1,11 +1,67 @@
+import { uniqueKeyError } from '../../config/errors'
+import { prisma } from '../../services'
+import { Wishlist } from '@/types'
 import { FastifyRequest, FastifyReply, RouteOptions } from 'fastify'
 import { wishlist } from '../../models'
 
-interface GetBySlugUrlTextRequest extends FastifyRequest {
+interface updateRequest extends FastifyRequest {
+  params: {
+    wishlistId: string
+  }
+}
+interface updateItemRequest extends FastifyRequest {
   params: {
     wishlistId: string
     itemId: number
   }
+}
+
+export const updateList = <RouteOptions>{
+  method: 'PUT',
+  url: '/:wishlistId',
+  schema: {
+    body: {
+      type: 'object',
+      additionalProperties: false,
+      required: ['title', 'imageSrc', 'slugUrlText'],
+      properties: {
+        title: { type: 'string' },
+        imageSrc: { type: 'string' },
+        description: { type: 'string' },
+        slugUrlText: { type: 'string' },
+      },
+    },
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          id: { type: 'string' },
+          title: { type: 'string' },
+          imageSrc: { type: 'string' },
+          description: { type: 'string' },
+          slugUrlText: { type: 'string' },
+        },
+      },
+    },
+  },
+  errorHandler: (error, request, reply) => {
+    if (error instanceof prisma.errorType && error.code === 'P2002') {
+      return reply.send(uniqueKeyError('Slugtext has to be unique'))
+    }
+    if (error instanceof prisma.errorType && error.code === 'P2025') {
+      return reply.callNotFound()
+    }
+    request.log.error(error)
+    reply.send(new Error('Unexptected Error'))
+  },
+  handler: async (request: updateRequest, reply: FastifyReply) => {
+    request.log.debug(request.body)
+    const item = await wishlist.update(
+      request.params.wishlistId,
+      request.body as Wishlist
+    )
+    reply.code(201).send(item)
+  },
 }
 
 export const updateItem = <RouteOptions>{
@@ -40,7 +96,7 @@ export const updateItem = <RouteOptions>{
       },
     },
   },
-  handler: async (request: GetBySlugUrlTextRequest, reply: FastifyReply) => {
+  handler: async (request: updateItemRequest, reply: FastifyReply) => {
     request.log.debug(request.body)
     const item = await wishlist.updateItem(
       Number(request.params.itemId),
