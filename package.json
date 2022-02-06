@@ -1,5 +1,5 @@
 {
-  "version": "0.1.2",
+  "version": "1.0.0",
   "scripts": {
     "dev": "concurrently --kill-others \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "vite",
