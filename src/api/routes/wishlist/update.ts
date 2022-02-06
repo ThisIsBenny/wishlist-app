@@ -64,8 +64,6 @@ export const updateItem = <RouteOptions>{
   },
   handler: async (request: updateItemRequest, reply: FastifyReply) => {
     request.log.debug(request.body)
-    reply.send(
-      await wishlist.updateItem(Number(request.params.itemId), request.body)
-    )
+    reply.send(await wishlist.updateItem(request.params.itemId, request.body))
   },
 }

@@ -30,6 +30,13 @@ export default {
       },
     })
   },
+  delete: async (id: string) => {
+    return await prisma.client.wishlist.delete({
+      where: {
+        id: id,
+      },
+    })
+  },
   createItem: async (wishlistId: string, payload: WishlistItem) => {
     const wishlist = await prisma.client.wishlist.update({
       where: {
@@ -54,6 +61,13 @@ export default {
       },
       data: {
         ...payload,
+      },
+    })
+  },
+  deleteItem: async (itemId: number) => {
+    return await prisma.client.item.delete({
+      where: {
+        id: itemId,
       },
     })
   },
