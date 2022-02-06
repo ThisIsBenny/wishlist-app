@@ -1,8 +1,6 @@
 import { Wishlist, WishlistItem } from '@/types'
 import { FastifyRequest, FastifyReply, RouteOptions } from 'fastify'
 import { wishlist } from '../../models'
-import { prisma } from '../../services'
-import { uniqueKeyError } from '../../config/errors'
 import {
   wishlistItemRequestSchema,
   wishlistItemResponseSchema,
@@ -25,13 +23,6 @@ export const createList = <RouteOptions>{
       201: wishlistResponseSchema,
     },
   },
-  errorHandler: (error, request, reply) => {
-    if (error instanceof prisma.errorType && error.code === 'P2002') {
-      return reply.send(uniqueKeyError('Slugtext has to be unique'))
-    }
-    request.log.error(error)
-    reply.send(new Error('Unexptected Error'))
-  },
   handler: async (request: FastifyRequest, reply: FastifyReply) => {
     request.log.debug(request.body)
     const item = await wishlist.create(request.body as Wishlist)
@@ -44,16 +35,15 @@ export const createItem = <RouteOptions>{
   url: '/:wishlistId/item',
   schema: {
     body: wishlistItemRequestSchema,
+    params: {
+      type: 'object',
+      properties: {
+        wishlistId: { type: 'string' },
+      },
+    },
     response: {
       201: wishlistItemResponseSchema,
     },
-  },
-  errorHandler: (error, request, reply) => {
-    if (error instanceof prisma.errorType && error.code === 'P2025') {
-      return reply.callNotFound()
-    }
-    request.log.error(error)
-    reply.send(new Error('Unexptected Error'))
   },
   handler: async (request: createItemRequest, reply: FastifyReply) => {
     request.log.debug(request.body)
