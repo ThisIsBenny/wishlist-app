@@ -16,7 +16,7 @@ const { list, fetch, updateItem } = useWishlistStore()
 await fetch(route.params.slug as string)
 
 const notBoughtItems = computed(() => {
-  return list.value?.items.filter(
+  return list.value?.items?.filter(
     (item: WishlistItemType) => item.bought === false
   )
 })

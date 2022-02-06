@@ -9,12 +9,12 @@ export interface WishlistItem {
   wishlistId: boolean
 }
 export interface Wishlist {
-  id: string
+  id?: string
   title: string
   description: string
   imageSrc: string
   slugUrlText: string
-  items: WishlistItem[]
+  items?: WishlistItem[]
 }
 export interface TileProp {
   title: string
