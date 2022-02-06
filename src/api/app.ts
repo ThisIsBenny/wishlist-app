@@ -7,9 +7,8 @@ const build = async (opts = {}) => {
   const app = await initApp(opts)
 
   routes.register(app)
-
   app.register(staticFiles, {
-    root: path.join(__dirname, 'static'),
+    root: path.join(__dirname, '..', 'static'),
   })
   app.setNotFoundHandler((req, res) => {
     res.sendFile('index.html')
