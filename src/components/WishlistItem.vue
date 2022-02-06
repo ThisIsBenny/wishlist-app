@@ -9,7 +9,6 @@ defineProps<{
   image: string
   url?: string
   description: string
-  comment?: string
 }>()
 const { t } = useI18n()
 </script>

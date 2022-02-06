@@ -7,7 +7,6 @@ export const wishlistItemRequestSchema = {
     url: { type: 'string' },
     imageSrc: { type: 'string' },
     description: { type: 'string' },
-    comment: { type: 'string' },
     bought: { type: 'boolean' },
   },
 }
@@ -20,7 +19,6 @@ export const wishlistItemResponseSchema = {
     url: { type: 'string' },
     imageSrc: { type: 'string' },
     description: { type: 'string', maxLength: 300 },
-    comment: { type: 'string' },
     bought: { type: 'boolean' },
     wishlistId: { type: 'string' },
   },

@@ -25,7 +25,6 @@ model Item {
   url         String    @default("")
   imageSrc    String    @default("")
   description String
-  comment     String    @default("")
   bought      Boolean   @default(false)
   wishlist    Wishlist  @relation(fields: [wishlistId], references: [id])
   wishlistId  String

@@ -58,7 +58,6 @@ const bought = async (item: WishlistItemType): Promise<void> => {
         :url="item.url"
         :image="item.imageSrc"
         :description="item.description"
-        :comment="item.comment"
         @bought="bought(item)"
       />
     </div>

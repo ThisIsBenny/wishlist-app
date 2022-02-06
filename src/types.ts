@@ -4,7 +4,6 @@ export interface WishlistItem {
   url: string
   imageSrc: string
   description: string
-  comment: string
   bought: boolean
   wishlistId: boolean
 }
