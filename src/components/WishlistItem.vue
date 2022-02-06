@@ -34,7 +34,17 @@ const { t } = useI18n()
     <div class="flex flex-col p-2 justify-between">
       <div>
         <h1 class="text-lg mb-1 font-bold">{{ title }}</h1>
-        <p class="text-sm">{{ description }}</p>
+        <p class="text-sm sm:line-clamp-3">
+          {{ description }}
+        </p>
+      </div>
+      <div class="flex flex-row items-baseline space-x-2">
+        <BaseButton
+          class="mt-4 sm:mt-2 text-xs"
+          :icon="IconCart"
+          @click="$emit('bought')"
+          >{{ t('components.wishlist-item.bought-button.text') }}</BaseButton
+        >
         <a
           v-if="url"
           :href="url"
@@ -48,12 +58,6 @@ const { t } = useI18n()
           }}</span>
         </a>
       </div>
-      <BaseButton
-        class="mt-4 sm:mt-2 text-xs"
-        :icon="IconCart"
-        @click="$emit('bought')"
-        >{{ t('components.wishlist-item.bought-button.text') }}</BaseButton
-      >
     </div>
   </div>
 </template>

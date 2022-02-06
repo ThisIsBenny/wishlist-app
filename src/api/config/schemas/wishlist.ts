@@ -19,7 +19,7 @@ export const wishlistItemResponseSchema = {
     title: { type: 'string' },
     url: { type: 'string' },
     imageSrc: { type: 'string' },
-    description: { type: 'string' },
+    description: { type: 'string', maxLength: 300 },
     comment: { type: 'string' },
     bought: { type: 'boolean' },
     wishlistId: { type: 'string' },
