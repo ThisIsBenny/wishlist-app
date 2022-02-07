@@ -1,6 +1,6 @@
 # wishlist
 
-The wishlist app is a simple webapp for publishing wishlists. It allows to share wishlists for different people or occasions with friends and family. If something was bought from the wishlist, it can be removed from the list to prevent duplicate purchases.
+The wishlist app is a simple webapp for publishing wishlists. It allows to share wishlists for different people or occasions with friends and family. If something from the wishlist was bought, it can be removed from the list to prevent duplicate purchases.
 
 The app can be easily self-hosted via Docker (see docker-compose example below).
 
