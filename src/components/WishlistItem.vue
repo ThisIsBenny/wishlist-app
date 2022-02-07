@@ -15,7 +15,7 @@ const { t } = useI18n()
 
 <template>
   <div
-    class="h-fit sm:h-40 flex flex-col sm:flex-row space-x-0 sm:space-x-2 rounded-md border-stone-200 border-2 overflow-hidden"
+    class="h-fit sm:h-40 flex flex-col sm:flex-row space-x-0 sm:space-x-2 rounded-md border-stone-200 dark:border-stone-700 border-2 overflow-hidden"
   >
     <img
       v-if="image"
@@ -49,7 +49,7 @@ const { t } = useI18n()
           :href="url"
           target="_blank"
           rel="noopener"
-          class="text-sm mt-1 text-stone-500 flex flex-row items-center w-fit"
+          class="text-sm mt-1 text-stone-500 dark:text-white/60 flex flex-row items-center w-fit"
         >
           <IconLink class="mr-1 w-4 h-4" />
           <span>{{

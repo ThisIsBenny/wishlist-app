@@ -6,7 +6,7 @@ import { useRoute } from 'vue-router'
 import { useWishlistStore, useModal } from '@/composables'
 import Tile from '@/components/Tile.vue'
 import WishlistItem from '@/components/WishlistItem.vue'
-import IconNoGift from '../components/icons/IconNoGift.vue'
+import { IconNoGift } from '../components/icons'
 
 const route = useRoute()
 const modal = useModal()
@@ -67,7 +67,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
     </div>
     <div v-else class="h-1/2 w-full flex justify-center">
       <div
-        class="flex flex-wrap flex-col sm:flex-row items-center sm:space-x-2 justify-center text-center sm:text-left text-xl text-gray-600/75"
+        class="flex flex-wrap flex-col sm:flex-row items-center sm:space-x-2 justify-center text-center sm:text-left text-xl text-gray-600/75 dark:text-white/70"
       >
         <IconNoGift class="h-10 w-10" />
         <span>{{ t('pages.detail-view.main.empty-list.text') }}</span>

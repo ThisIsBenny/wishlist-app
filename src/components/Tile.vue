@@ -10,7 +10,7 @@ defineProps<{
     <img :src="imageSrc" class="object-cover w-full h-full" :alt="title" />
     <div
       v-if="title"
-      class="text-background absolute top-0 inset-x-0 h-40 flex justify-center items-center text-md text-white text-center font-bold"
+      class="text-background absolute top-0 inset-x-0 h-40 flex justify-center items-center text-md text-white dark:text-white/75 text-center font-bold"
     >
       {{ title }}
     </div>
