@@ -9,7 +9,7 @@
   },
   "errors": {
     "not-found": {
-      "text": "Oops, it looks like the page you're looking for doesn't exist."
+      "text": "Oops, the requested page does not exist."
     },
     "generic": {
       "text": "An error has occurred..."
