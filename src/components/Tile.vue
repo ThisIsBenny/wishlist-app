@@ -10,9 +10,14 @@ defineProps<{
     <img :src="imageSrc" class="object-cover w-full h-full" :alt="title" />
     <div
       v-if="title"
-      class="absolute w-full py-2.5 bottom-0 inset-x-0 bg-white opacity-60 text-sm font-bold text-center leading-4"
+      class="text-background absolute top-0 inset-x-0 h-40 flex justify-center items-center text-md text-white text-center font-bold"
     >
       {{ title }}
     </div>
   </div>
 </template>
+<style scoped>
+.text-background {
+  background: linear-gradient(0deg, #00000088 30%, #ffffff44 100%);
+}
+</style>
