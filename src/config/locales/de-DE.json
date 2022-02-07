@@ -17,6 +17,11 @@
   },
   "pages": {
     "detail-view": {
+      "main": {
+        "empty-list": {
+          "text": "Diese Wunschliste ist leer."
+        }
+      },
       "confirmation-modal": {
         "title": {
           "text": "Möchten Sie den Gegenstand von der Liste nehmen?"

@@ -6,6 +6,7 @@ import { useRoute } from 'vue-router'
 import { useWishlistStore, useModal } from '@/composables'
 import Tile from '@/components/Tile.vue'
 import WishlistItem from '@/components/WishlistItem.vue'
+import IconNoGift from '../components/icons/IconNoGift.vue'
 
 const route = useRoute()
 const modal = useModal()
@@ -36,7 +37,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
 </script>
 
 <template>
-  <div v-if="list !== null">
+  <div v-if="list !== null" class="h-full">
     <div
       class="flex flex-col md:flex-row space-x-0 md:space-x-6 space-y-2 md:space-y-0 items-center"
     >
@@ -50,7 +51,10 @@ const bought = async (item: WishlistItemType): Promise<void> => {
         </p>
       </div>
     </div>
-    <div class="flex flex-col space-y-14 md:space-y-8 my-10">
+    <div
+      v-if="notBoughtItems && notBoughtItems.length > 0"
+      class="flex flex-col space-y-14 md:space-y-8 my-10"
+    >
       <WishlistItem
         v-for="(item, index) in notBoughtItems"
         :key="index"
@@ -60,6 +64,14 @@ const bought = async (item: WishlistItemType): Promise<void> => {
         :description="item.description"
         @bought="bought(item)"
       />
+    </div>
+    <div v-else class="h-1/2 w-full flex justify-center">
+      <div
+        class="flex flex-wrap flex-col sm:flex-row items-center sm:space-x-2 justify-center text-center sm:text-left text-xl text-gray-600/75"
+      >
+        <IconNoGift class="h-10 w-10" />
+        <span>{{ t('pages.detail-view.main.empty-list.text') }}</span>
+      </div>
     </div>
   </div>
 </template>

@@ -17,6 +17,11 @@
   },
   "pages": {
     "detail-view": {
+      "main": {
+        "empty-list": {
+          "text": "This wishlist is empty."
+        }
+      },
       "confirmation-modal": {
         "title": {
           "text": "Do you want to remove the item from the list?"

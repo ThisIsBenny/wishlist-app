@@ -1,33 +1,31 @@
 <template>
-  <div class="app max-w-[900px] mx-auto p-10">
-    <main>
-      <router-view v-slot="{ Component }">
-        <template v-if="Component">
-          <div
-            v-if="error"
-            class="flex flex-row space-x-2 items-center content-center justify-center m-20 text-red-500"
-          >
-            <IconError class="w-4 h-4" />
-            <span>{{ t('errors.generic.text') }}</span>
-          </div>
-          <suspense v-else>
-            <template #default>
-              <component :is="Component"></component>
-            </template>
-            <template #fallback>
-              <div
-                class="flex flex-row space-x-2 items-center content-center justify-center m-20"
-              >
-                <IconSpinner class="w-4 h-4" />
-                <span> {{ t('common.loading.text') }} </span>
-              </div>
-            </template>
-          </suspense>
-        </template>
-      </router-view>
-    </main>
-    <modal-overlay />
-  </div>
+  <main class="app h-screen max-w-[900px] mx-auto p-10">
+    <router-view v-slot="{ Component }">
+      <template v-if="Component">
+        <div
+          v-if="error"
+          class="flex flex-row space-x-2 items-center content-center justify-center m-20 text-red-500"
+        >
+          <IconError class="w-4 h-4" />
+          <span>{{ t('errors.generic.text') }}</span>
+        </div>
+        <suspense v-else>
+          <template #default>
+            <component :is="Component"></component>
+          </template>
+          <template #fallback>
+            <div
+              class="flex flex-row space-x-2 items-center content-center justify-center m-20"
+            >
+              <IconSpinner class="w-4 h-4" />
+              <span> {{ t('common.loading.text') }} </span>
+            </div>
+          </template>
+        </suspense>
+      </template>
+    </router-view>
+  </main>
+  <modal-overlay />
 </template>
 <script setup lang="ts">
 import { onErrorCaptured, ref } from 'vue'
