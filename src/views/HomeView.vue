@@ -19,7 +19,7 @@ await fetch()
       <Tile
         :title="item.title"
         :image-src="item.imageSrc"
-        class="m-2 hover:ring-2 ring-slate-500"
+        class="m-4 hover:ring-2 ring-slate-500"
       />
     </router-link>
   </div>
