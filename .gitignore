@@ -30,4 +30,3 @@ dist/
 coverage
 .env
 data
-public/*.jpeg
