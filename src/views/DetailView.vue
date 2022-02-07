@@ -53,7 +53,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
     </div>
     <div
       v-if="notBoughtItems && notBoughtItems.length > 0"
-      class="flex flex-col space-y-14 md:space-y-8 my-10"
+      class="flex flex-col space-y-14 md:space-y-8 py-10"
     >
       <WishlistItem
         v-for="(item, index) in notBoughtItems"
