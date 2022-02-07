@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="h-screen bg-white dark:bg-stone-900 text-black dark:text-white/75 p-4"
-  >
+  <div class="h-full p-4">
     <Header />
     <main class="h-full max-w-[900px] mx-auto">
       <router-view v-slot="{ Component }">
