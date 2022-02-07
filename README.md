@@ -69,3 +69,7 @@ npm run lint
 ```sh
 npm run typecheck
 ```
+
+## Other stuff
+
+[☕️ Buy me a coffee](https://www.buymeacoffee.com/hierlDev)
