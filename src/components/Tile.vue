@@ -6,11 +6,11 @@ defineProps<{
 </script>
 
 <template>
-  <div class="relative w-40 h-40 rounded-full overflow-hidden">
-    <img :src="imageSrc" class="object-cover w-full h-full" :alt="title" />
+  <div class="relative h-40 w-40 overflow-hidden rounded-full">
+    <img :src="imageSrc" class="h-full w-full object-cover" :alt="title" />
     <div
       v-if="title"
-      class="text-background absolute top-0 inset-x-0 h-40 flex justify-center items-center text-md text-white dark:text-white/75 text-center font-bold"
+      class="text-background text-md absolute inset-x-0 top-0 flex h-40 items-center justify-center text-center font-bold text-white dark:text-white/75"
     >
       {{ title }}
     </div>

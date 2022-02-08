@@ -39,11 +39,11 @@ const bought = async (item: WishlistItemType): Promise<void> => {
 <template>
   <div v-if="list !== null" class="h-full">
     <div
-      class="flex flex-col md:flex-row space-x-0 md:space-x-6 space-y-2 md:space-y-0 items-center"
+      class="flex flex-col items-center space-x-0 space-y-2 md:flex-row md:space-x-6 md:space-y-0"
     >
       <Tile :image-src="list.imageSrc" class="shrink-0"></Tile>
       <div>
-        <h1 class="text-2xl font-bold text-center md:text-left mb-2">
+        <h1 class="mb-2 text-center text-2xl font-bold md:text-left">
           {{ list.title }}
         </h1>
         <p v-if="list.description" class="text-lg">
@@ -53,7 +53,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
     </div>
     <div
       v-if="notBoughtItems && notBoughtItems.length > 0"
-      class="flex flex-col space-y-14 md:space-y-8 py-10"
+      class="flex flex-col space-y-14 py-10 md:space-y-8"
     >
       <WishlistItem
         v-for="(item, index) in notBoughtItems"
@@ -65,9 +65,9 @@ const bought = async (item: WishlistItemType): Promise<void> => {
         @bought="bought(item)"
       />
     </div>
-    <div v-else class="h-1/2 w-full flex justify-center">
+    <div v-else class="flex h-1/2 w-full justify-center">
       <div
-        class="flex flex-wrap flex-col sm:flex-row items-center sm:space-x-2 justify-center text-center sm:text-left text-xl text-gray-600/75 dark:text-white/70"
+        class="flex flex-col flex-wrap items-center justify-center text-center text-xl text-gray-600/75 dark:text-white/70 sm:flex-row sm:space-x-2 sm:text-left"
       >
         <IconNoGift class="h-10 w-10" />
         <span>{{ t('pages.detail-view.main.empty-list.text') }}</span>

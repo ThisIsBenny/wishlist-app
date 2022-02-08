@@ -1,6 +1,6 @@
 <template>
   <header
-    class="flex flex-row justify-end items-center opacity-60 mb-2 space-x-2"
+    class="mb-2 flex flex-row items-center justify-end space-x-2 opacity-60"
   >
     <div @click="toggleMode">
       <IconLightDark class="h-6 w-6 cursor-pointer" />

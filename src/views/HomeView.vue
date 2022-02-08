@@ -9,7 +9,7 @@ await fetch()
 </script>
 
 <template>
-  <h1 class="text-3xl text-semibold text-center">
+  <h1 class="text-semibold text-center text-3xl">
     {{ t('common.app-title.text') }}
   </h1>
   <div v-if="lists" class="flex flex-row flex-wrap justify-around p-10">
