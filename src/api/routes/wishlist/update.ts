@@ -73,3 +73,25 @@ export const updateItem = <RouteOptions>{
     reply.send(await wishlist.updateItem(request.params.itemId, request.body))
   },
 }
+
+export const itemBought = <RouteOptions>{
+  method: 'POST',
+  url: '/:wishlistId/item/:itemId/bought',
+  schema: {
+    params: {
+      type: 'object',
+      properties: {
+        wishlistId: { type: 'string' },
+        itemId: { type: 'number' },
+      },
+    },
+    response: {
+      200: wishlistItemResponseSchema,
+    },
+  },
+  handler: async (request: updateItemRequest, reply: FastifyReply) => {
+    reply.send(
+      await wishlist.updateItem(request.params.itemId, { bought: true })
+    )
+  },
+}

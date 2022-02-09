@@ -13,7 +13,7 @@ const modal = useModal()
 
 const { t } = useI18n()
 
-const { list, fetch, updateItem } = useWishlistStore()
+const { list, fetch, itemBought } = useWishlistStore()
 await fetch(route.params.slug as string)
 
 const notBoughtItems = computed(() => {
@@ -31,7 +31,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
   )
   if (confirmed) {
     item.bought = true
-    updateItem(item)
+    itemBought(item)
   }
 }
 </script>

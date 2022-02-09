@@ -17,14 +17,14 @@ const fetch = async (slugText: string): Promise<void> => {
   }
 }
 
-const updateItem = async (item: WishlistItem): Promise<void> => {
-  await client.put(`/wishlist/${item.wishlistId}/item/${item.id}`, item)
+const itemBought = async (item: WishlistItem): Promise<void> => {
+  await client.post(`/wishlist/${item.wishlistId}/item/${item.id}/bought`, item)
 }
 
 export const useWishlistStore = () => {
   return {
     list,
     fetch,
-    updateItem,
+    itemBought,
   }
 }
