@@ -4,12 +4,12 @@ import { AxiosError } from 'axios'
 import { ref } from 'vue'
 const { client } = useAxios()
 
-const list = ref<Wishlist | null>(null)
+const state = ref<Wishlist | null>(null)
 
 const fetch = async (slugText: string): Promise<void> => {
   try {
     const { data } = await client.get(`/wishlist/${slugText}`)
-    list.value = data
+    state.value = data
   } catch (e: any) {
     if (e.isAxiosError && !(<AxiosError>e.ignore)) {
       throw e
@@ -18,12 +18,13 @@ const fetch = async (slugText: string): Promise<void> => {
 }
 
 const itemBought = async (item: WishlistItem): Promise<void> => {
-  await client.post(`/wishlist/${item.wishlistId}/item/${item.id}/bought`, item)
+  await client.post(`/wishlist/${item.wishlistId}/item/${item.id}/bought`)
+  item.bought = true
 }
 
 export const useWishlistStore = () => {
   return {
-    list,
+    state,
     fetch,
     itemBought,
   }

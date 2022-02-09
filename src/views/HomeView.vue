@@ -4,7 +4,7 @@ import Tile from '@/components/Tile.vue'
 import { useWishlistsStore } from '@/composables'
 
 const { t } = useI18n()
-const { lists, fetch } = useWishlistsStore()
+const { state: wishlists, fetch } = useWishlistsStore()
 await fetch()
 </script>
 
@@ -12,9 +12,9 @@ await fetch()
   <h1 class="text-semibold text-center text-3xl">
     {{ t('common.app-title.text') }}
   </h1>
-  <div v-if="lists" class="flex flex-row flex-wrap justify-around p-10">
+  <div v-if="wishlists" class="flex flex-row flex-wrap justify-around p-10">
     <router-link
-      v-for="(item, index) in lists"
+      v-for="(item, index) in wishlists"
       :key="index"
       :to="'/' + item.slugUrlText"
     >

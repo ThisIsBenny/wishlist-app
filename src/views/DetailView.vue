@@ -13,11 +13,11 @@ const modal = useModal()
 
 const { t } = useI18n()
 
-const { list, fetch, itemBought } = useWishlistStore()
+const { state, fetch, itemBought } = useWishlistStore()
 await fetch(route.params.slug as string)
 
 const notBoughtItems = computed(() => {
-  return list.value?.items?.filter(
+  return state.value?.items?.filter(
     (item: WishlistItemType) => item.bought === false
   )
 })
@@ -30,24 +30,23 @@ const bought = async (item: WishlistItemType): Promise<void> => {
     t('pages.detail-view.confirmation-modal.body.text')
   )
   if (confirmed) {
-    item.bought = true
     itemBought(item)
   }
 }
 </script>
 
 <template>
-  <div v-if="list !== null" class="h-full">
+  <div v-if="state !== null" class="h-full">
     <div
       class="flex flex-col items-center space-x-0 space-y-2 md:flex-row md:space-x-6 md:space-y-0"
     >
-      <Tile :image-src="list.imageSrc" class="shrink-0"></Tile>
+      <Tile :image-src="state.imageSrc" class="shrink-0"></Tile>
       <div>
         <h1 class="mb-2 text-center text-2xl font-bold md:text-left">
-          {{ list.title }}
+          {{ state.title }}
         </h1>
-        <p v-if="list.description" class="text-lg">
-          {{ list.description }}
+        <p v-if="state.description" class="text-lg">
+          {{ state.description }}
         </p>
       </div>
     </div>
