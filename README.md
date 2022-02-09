@@ -28,6 +28,8 @@ version: '3.7'
 services:
   wishlist:
     image: thisisbenny/wishlist-app:latest
+    environment:
+      - API_KEY=TOP_SECRET
     ports:
       - '5000:5000'
     volumes:
