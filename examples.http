@@ -1,11 +1,12 @@
 @BASE_URL=http://localhost:5000/api
+@API_KEY=TOP_SECRET
 
 
 ###
 # @name createWishlistFirst
 POST {{BASE_URL}}/wishlist
 Content-Type: application/json
-Authorization: API-Key TOP_SECRET
+Authorization: API-Key {{API_KEY}}
 
 {
   "title": "Junior",
@@ -17,6 +18,7 @@ Authorization: API-Key TOP_SECRET
 # @name createWishlistSecond
 POST {{BASE_URL}}/wishlist
 Content-Type: application/json
+Authorization: API-Key {{API_KEY}}
 
 {
   "title": "Wedding",
@@ -37,6 +39,7 @@ GET {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.slugUrlText}}
 # @name updateFirstWishlist
 PUT {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}
 Content-Type: application/json
+Authorization: API-Key {{API_KEY}}
 
 {
   "title": "Junior",
@@ -49,6 +52,7 @@ Content-Type: application/json
 # @name addItemToFirstWishlist
 POST {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}/item
 Content-Type: application/json
+Authorization: API-Key {{API_KEY}}
 
 {
   "title": "Goldfish 40442 | BrickHeadz",
@@ -61,6 +65,7 @@ Content-Type: application/json
 # @name updateItemOnFirstWishlist
 PUT {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}/item/1
 Content-Type: application/json
+Authorization: API-Key {{API_KEY}}
 
 {
   "title": "Goldfish | BrickHeadz",
@@ -72,3 +77,4 @@ Content-Type: application/json
 ###
 # @name deleteItemToFirstWishlist
 DELETE {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}/item/2
+Authorization: API-Key {{API_KEY}}
