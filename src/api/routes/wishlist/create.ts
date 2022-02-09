@@ -17,6 +17,9 @@ interface createItemRequest extends FastifyRequest {
 export const createList = <RouteOptions>{
   method: 'POST',
   url: '/',
+  config: {
+    protected: true,
+  },
   schema: {
     body: wishlistRequestSchema,
     response: {
@@ -33,6 +36,9 @@ export const createList = <RouteOptions>{
 export const createItem = <RouteOptions>{
   method: 'POST',
   url: '/:wishlistId/item',
+  config: {
+    protected: true,
+  },
   schema: {
     body: wishlistItemRequestSchema,
     params: {

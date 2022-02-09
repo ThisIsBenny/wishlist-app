@@ -17,6 +17,9 @@ interface deleteItemRequest extends FastifyRequest {
 export const deleteList = <RouteOptions>{
   method: 'DELETE',
   url: '/:wishlistId',
+  config: {
+    protected: true,
+  },
   schema: {
     params: {
       type: 'object',
@@ -34,6 +37,9 @@ export const deleteList = <RouteOptions>{
 export const deleteItem = <RouteOptions>{
   method: 'DELETE',
   url: '/:wishlistId/item/:itemId',
+  config: {
+    protected: true,
+  },
   schema: {
     params: {
       type: 'object',

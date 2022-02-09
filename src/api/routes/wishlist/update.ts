@@ -24,6 +24,9 @@ interface updateItemRequest extends FastifyRequest {
 export const updateList = <RouteOptions>{
   method: 'PUT',
   url: '/:wishlistId',
+  config: {
+    protected: true,
+  },
   schema: {
     body: wishlistRequestSchema,
     params: {
@@ -49,6 +52,9 @@ export const updateList = <RouteOptions>{
 export const updateItem = <RouteOptions>{
   method: 'PUT',
   url: '/:wishlistId/item/:itemId',
+  config: {
+    protected: true,
+  },
   schema: {
     body: wishlistItemRequestSchema,
     params: {

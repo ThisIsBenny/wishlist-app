@@ -5,6 +5,7 @@
 # @name createWishlistFirst
 POST {{BASE_URL}}/wishlist
 Content-Type: application/json
+Authorization: API-Key TOP_SECRET
 
 {
   "title": "Junior",

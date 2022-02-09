@@ -21,6 +21,8 @@ export const defaultErrorHandler = (
     )
   } else if (errorIs(error, 'P2025')) {
     reply.callNotFound()
+  } else if (error instanceof httpError) {
+    reply.send(error)
   } else {
     request.log.error(error)
     const e = new httpError('unexpected error', 500, '500')
@@ -47,10 +49,13 @@ class httpError extends Error {
   }
 }
 
-const notFoundError = () => {
+export const notFoundError = () => {
   return new httpError('Not Found', 404, '404')
 }
 
-const uniqueKeyError = (msg: string, code = '4001') => {
+export const uniqueKeyError = (msg: string, code = '4001') => {
   return new httpError(msg, 422, code)
+}
+export const notAuthorized = (msg: string, code = '401') => {
+  return new httpError(msg, 401, code)
 }
