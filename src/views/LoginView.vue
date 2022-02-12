@@ -48,7 +48,7 @@ const onSubmit = (values: any): void => {
           class="h-12 w-full"
           mode="primary"
           :disabled="!meta.dirty || !meta.valid"
-          >Submit</BaseButton
+          >{{ t('pages.login-view.main.form.submit.text') }}</BaseButton
         >
       </Form>
     </div>

@@ -25,6 +25,9 @@
           "api-key": {
             "placeholder": "API-Key",
             "error-requried": "API-Key wird benötigt"
+          },
+          "submit": {
+            "text": "Anmelden"
           }
         }
       }
