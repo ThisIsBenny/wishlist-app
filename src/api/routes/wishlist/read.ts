@@ -13,8 +13,9 @@ export const getAll = <RouteOptions>{
       },
     },
   },
-  handler: async () => {
-    return await wishlist.getAll()
+  handler: async (request) => {
+    const where = request.isAuthenticated ? {} : { public: true }
+    return await wishlist.getAll(where)
   },
 }
 

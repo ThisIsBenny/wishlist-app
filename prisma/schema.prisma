@@ -12,6 +12,7 @@ datasource db {
 
 model Wishlist {
   id            String    @id @default(uuid())
+  public        Boolean   @default(true)
   title         String
   imageSrc      String
   slugUrlText   String    @unique

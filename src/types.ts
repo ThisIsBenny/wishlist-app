@@ -9,6 +9,7 @@ export interface WishlistItem {
 }
 export interface Wishlist {
   id?: string
+  public: boolean
   title: string
   description: string
   imageSrc: string

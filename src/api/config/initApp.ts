@@ -5,6 +5,15 @@ import cors from 'fastify-cors'
 import { fastify as defaultConfig } from './'
 import auth from './auth'
 
+declare module 'fastify' {
+  interface FastifyRequest {
+    isAuthenticated: boolean
+  }
+  interface FastifyContextConfig {
+    protected?: boolean
+  }
+}
+
 export default async (opts: FastifyContextConfig = {}) => {
   const app = Fastify({
     ...defaultConfig,

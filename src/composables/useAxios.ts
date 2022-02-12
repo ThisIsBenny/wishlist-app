@@ -33,7 +33,7 @@ export const requestInterceptor = client.interceptors.request.use(
     }
     isLoading.value = true
     error.value = null
-    config.headers.Authorization = token.value ? `Bearer ${token.value}` : ''
+    config.headers.Authorization = token.value ? `API-Key ${token.value}` : ''
 
     return config
   },

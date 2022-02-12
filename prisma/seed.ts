@@ -31,6 +31,7 @@ const wishlistData: Prisma.WishlistCreateInput[] = [
   },
   {
     title: 'Wedding',
+    public: false,
     imageSrc:
       'https://unsplash.com/photos/8vaQKYnawHw/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjQ0MDQ4MTIy&force=true&w=200',
     description: 'We are getting married',
