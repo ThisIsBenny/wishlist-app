@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import IconLink from './icons/IconLink.vue'
-import IconImagePlaceholder from './icons/IconImagePlaceholder.vue'
+import ImagePreview from './ImagePreview.vue'
 import BaseButton from './BaseButton.vue'
 import IconCart from './icons/IconCart.vue'
 defineProps<{
@@ -17,18 +17,11 @@ const { t } = useI18n()
   <div
     class="flex h-fit flex-col space-x-0 overflow-hidden rounded-md border-2 border-stone-200 dark:border-stone-700 sm:h-40 sm:flex-row sm:space-x-2"
   >
-    <img
-      v-if="image"
+    <ImagePreview
+      class="max-h-44 flex-shrink-0 flex-grow-0 object-cover sm:aspect-[3/2]"
       :src="image"
       :alt="title"
-      class="max-h-44 flex-shrink-0 flex-grow-0 object-cover sm:aspect-[3/2]"
     />
-    <div
-      v-else
-      class="flex max-h-44 flex-shrink-0 flex-grow-0 items-center justify-center bg-stone-100 sm:aspect-[3/2]"
-    >
-      <IconImagePlaceholder class="h-36 w-36 opacity-20" />
-    </div>
 
     <div class="flex flex-col justify-between p-2">
       <div>

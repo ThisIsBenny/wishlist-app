@@ -19,6 +19,13 @@ const wishlistData: Prisma.WishlistCreateInput[] = [
           description:
             'Cute goldfish and fry, build-and-display BrickHeadz™ model',
         },
+        {
+          title: 'Goldfish 40442 | BrickHeadz',
+          url: 'https://www.lego.com/en-de/product/goldfish-40442',
+          imageSrc: '',
+          description:
+            'Cute goldfish and fry, build-and-display BrickHeadz™ model',
+        },
       ],
     },
   },

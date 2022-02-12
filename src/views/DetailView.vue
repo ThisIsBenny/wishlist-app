@@ -4,7 +4,7 @@ import { WishlistItem as WishlistItemType } from '@/types'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useWishlistStore, useModal } from '@/composables'
-import Tile from '@/components/Tile.vue'
+import ImageTile from '@/components/ImageTile.vue'
 import WishlistItem from '@/components/WishlistItem.vue'
 import { IconNoGift } from '../components/icons'
 
@@ -40,7 +40,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
     <div
       class="flex flex-col items-center space-x-0 space-y-2 md:flex-row md:space-x-6 md:space-y-0"
     >
-      <Tile :image-src="state.imageSrc" class="shrink-0"></Tile>
+      <ImageTile :image-src="state.imageSrc" class="shrink-0"></ImageTile>
       <div>
         <h1 class="mb-2 text-center text-2xl font-bold md:text-left">
           {{ state.title }}

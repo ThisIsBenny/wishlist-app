@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import Tile from '@/components/Tile.vue'
+import ImageTile from '@/components/ImageTile.vue'
 import { useWishlistsStore } from '@/composables'
 
 const { t } = useI18n()
@@ -18,7 +18,7 @@ await fetch()
       :key="index"
       :to="'/' + item.slugUrlText"
     >
-      <Tile :title="item.title" :image-src="item.imageSrc" class="m-4" />
+      <ImageTile :title="item.title" :image-src="item.imageSrc" class="m-4" />
     </router-link>
   </div>
 </template>
