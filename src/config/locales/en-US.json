@@ -32,6 +32,13 @@
         }
       }
     },
+    "home-view": {
+      "main": {
+        "empty-list": {
+          "text": "No wishlists available."
+        }
+      }
+    },
     "detail-view": {
       "main": {
         "empty-list": {
