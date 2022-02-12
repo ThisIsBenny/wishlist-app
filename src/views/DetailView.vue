@@ -38,14 +38,14 @@ const bought = async (item: WishlistItemType): Promise<void> => {
 <template>
   <div v-if="state !== null" class="h-full">
     <div
-      class="flex flex-col items-center space-x-0 space-y-2 md:flex-row md:space-x-6 md:space-y-0"
+      class="relative flex flex-col items-center space-x-0 space-y-2 md:flex-row md:space-x-6 md:space-y-0"
     >
       <ImageTile :image-src="state.imageSrc" class="shrink-0"></ImageTile>
       <div>
         <h1 class="mb-2 text-center text-2xl font-bold md:text-left">
           {{ state.title }}
         </h1>
-        <p v-if="state.description" class="text-lg">
+        <p class="text-lg">
           {{ state.description }}
         </p>
       </div>
@@ -68,7 +68,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
       <div
         class="flex flex-col flex-wrap items-center justify-center text-center text-xl text-gray-600/75 dark:text-white/70 sm:flex-row sm:space-x-2 sm:text-left"
       >
-        <IconNoGift class="h-10 w-10" />
+        <IconNoGift class="h-10 w-10 fill-gray-600/75 dark:fill-white/70" />
 
         <span>{{ t('pages.detail-view.main.empty-list.text') }}</span>
       </div>

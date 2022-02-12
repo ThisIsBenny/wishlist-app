@@ -44,7 +44,7 @@ const { t } = useI18n()
           rel="noopener"
           class="mt-1 flex w-fit flex-row items-center text-sm text-stone-500 dark:text-white/60"
         >
-          <IconLink class="mr-1 h-4 w-4" />
+          <IconLink class="mr-1 h-4 w-4 fill-stone-500 dark:fill-white/60" />
           <span>{{
             t('components.wishlist-item.external-product-page-link.text')
           }}</span>

@@ -69,6 +69,11 @@
       "bought-button": {
         "text": "Gekauft"
       }
+    },
+    "header": {
+      "edit-mode": {
+        "text": "Bearbeitungsmodus"
+      }
     }
   }
 }

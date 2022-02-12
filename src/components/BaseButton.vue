@@ -20,7 +20,15 @@ defineProps({
         mode === 'secondary',
     }"
   >
-    <component v-if="icon" :is="icon" class="mr-1 h-4 w-4" />
+    <component
+      v-if="icon"
+      :is="icon"
+      class="mr-1 h-4 w-4"
+      :class="{
+        'fill-white': mode === 'primary',
+        'fill-stone-500 dark:fill-white/70 ': mode === 'secondary',
+      }"
+    />
     <span>
       <slot />
     </span>

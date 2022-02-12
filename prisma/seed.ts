@@ -7,7 +7,8 @@ const wishlistData: Prisma.WishlistCreateInput[] = [
     title: 'Junior',
     imageSrc:
       'https://unsplash.com/photos/JZ51o_-UOY8/download?force=true&w=200',
-    description: '',
+    description:
+      'Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot',
     slugUrlText: 'junior',
     items: {
       create: [
