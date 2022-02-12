@@ -16,6 +16,19 @@
     }
   },
   "pages": {
+    "login-view": {
+      "main": {
+        "title": {
+          "text": "Login"
+        },
+        "form": {
+          "api-key": {
+            "placeholder": "API-Key",
+            "error-requried": "API-Key is required"
+          }
+        }
+      }
+    },
     "detail-view": {
       "main": {
         "empty-list": {

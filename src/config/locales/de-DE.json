@@ -16,6 +16,19 @@
     }
   },
   "pages": {
+    "login-view": {
+      "main": {
+        "title": {
+          "text": "Anmelden"
+        },
+        "form": {
+          "api-key": {
+            "placeholder": "API-Key",
+            "error-requried": "API-Key wird benötigt"
+          }
+        }
+      }
+    },
     "detail-view": {
       "main": {
         "empty-list": {

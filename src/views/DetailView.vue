@@ -69,6 +69,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
         class="flex flex-col flex-wrap items-center justify-center text-center text-xl text-gray-600/75 dark:text-white/70 sm:flex-row sm:space-x-2 sm:text-left"
       >
         <IconNoGift class="h-10 w-10" />
+
         <span>{{ t('pages.detail-view.main.empty-list.text') }}</span>
       </div>
     </div>
