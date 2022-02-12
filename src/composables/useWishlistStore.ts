@@ -1,6 +1,5 @@
-import useAxios from '@/composables/useAxios'
+import useAxios, { CustomAxiosError } from '@/composables/useAxios'
 import { Wishlist, WishlistItem } from '@/types'
-import { AxiosError } from 'axios'
 import { ref } from 'vue'
 const { client } = useAxios()
 
@@ -11,7 +10,7 @@ const fetch = async (slugText: string): Promise<void> => {
     const { data } = await client.get(`/wishlist/${slugText}`)
     state.value = data
   } catch (e: any) {
-    if (e.isAxiosError && !(<AxiosError>e.ignore)) {
+    if (e.isAxiosError && !(<CustomAxiosError>e.ignore)) {
       throw e
     }
   }

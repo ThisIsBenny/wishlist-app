@@ -9,6 +9,10 @@ import { ref } from 'vue'
 import router from '../router'
 import useAuth from './useAuth'
 
+export interface CustomAxiosError extends AxiosError {
+  ignore: boolean
+}
+
 const { token } = useAuth()
 const isLoading = ref(false)
 const error = ref<any | null>(null)
@@ -33,7 +37,7 @@ export const requestInterceptor = client.interceptors.request.use(
 
     return config
   },
-  (err: AxiosError): Promise<AxiosError> => {
+  (err: CustomAxiosError): Promise<CustomAxiosError> => {
     isLoading.value = false
     error.value = err
     return Promise.reject(err)
@@ -45,7 +49,7 @@ export const responseInterceptor = client.interceptors.response.use(
     isLoading.value = false
     return response
   },
-  (err: AxiosError): Promise<AxiosError> => {
+  (err: CustomAxiosError): Promise<CustomAxiosError> => {
     isLoading.value = false
     if (err.response?.status === 404) {
       router.push({ name: 'notFound' })
