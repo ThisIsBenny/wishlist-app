@@ -7,7 +7,7 @@ import axios, {
 import { apiConfig } from '@/config'
 import { ref } from 'vue'
 import router from '../router'
-import useAuth from './useAuth'
+import { useAuth } from './useAuth'
 
 export interface CustomAxiosError extends AxiosError {
   ignore: boolean

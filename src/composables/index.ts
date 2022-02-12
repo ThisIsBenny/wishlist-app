@@ -1,3 +1,5 @@
 export * from './useWishlistsStore'
 export * from './useWishlistStore'
 export * from './useModal'
+export * from './useAxios'
+export * from './useAuth'

@@ -3,7 +3,7 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { Form } from 'vee-validate'
 import { object, string } from 'yup'
-import useAuth from '@/composables/useAuth'
+import { useAuth } from '@/composables'
 import BaseButton from '@/components/BaseButton.vue'
 import TextInput from '@/components/TextInput.vue'
 

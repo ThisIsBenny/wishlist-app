@@ -5,13 +5,18 @@
     <div @click="() => toggleDark()">
       <IconLightDark class="h-6 w-6 cursor-pointer" />
     </div>
-    <!-- <div><IconMenu class="h-8 w-8 cursor-pointer"></IconMenu></div> -->
+    <div v-if="isAuthenticated" @click="() => setToken('')">
+      <IconLogout class="h-6 w-6 cursor-pointer"></IconLogout>
+    </div>
   </header>
 </template>
 
 <script setup lang="ts">
 import { useDark, useToggle } from '@vueuse/core'
-import { IconLightDark, IconMenu } from '@/components/icons'
+import { IconLightDark, IconLogout } from '@/components/icons'
+import { useAuth } from '@/composables/'
+
+const { isAuthenticated, setToken } = useAuth()
 
 const toggleDark = useToggle(useDark())
 </script>
