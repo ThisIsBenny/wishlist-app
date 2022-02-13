@@ -65,7 +65,7 @@ import BaseButton from '@/components/BaseButton.vue'
 import InputText from '@/components/InputText.vue'
 import InputCheckbox from '@/components/InputCheckbox.vue'
 import InputTextArea from '@/components/InputTextArea.vue'
-import { useEditMode, useWishlistStore } from '@/composables'
+import { useEditMode } from '@/composables'
 import { Wishlist } from '@/types'
 import { PropType } from 'vue'
 const { isActive: editModeIsActive } = useEditMode()
@@ -76,9 +76,9 @@ defineProps({
     requried: true,
   },
 })
+const emit = defineEmits(['update'])
 
 const { t } = useI18n()
-const { update } = useWishlistStore()
 
 const schema = object({
   title: string().required(
@@ -99,8 +99,7 @@ const schema = object({
     .url(t('components.wishlist-header.main.form.image-src.error-url')),
 })
 
-const onSubmit = async (values: any): Promise<void> => {
-  console.log(values)
-  await update(values)
+const onSubmit = (values: any): void => {
+  emit('update', values)
 }
 </script>

@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { WishlistItem as WishlistItemType } from '@/types'
+import { Wishlist, WishlistItem as WishlistItemType } from '@/types'
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useWishlistStore, useModal } from '@/composables'
 import WishlistItem from '@/components/WishlistItem.vue'
 import WishlistHeader from '@/components/WishlistHeader.vue'
 import { IconNoGift } from '../components/icons'
 
 const route = useRoute()
+const router = useRouter()
 const modal = useModal()
 
 const { t } = useI18n()
 
-const { state, fetch, itemBought } = useWishlistStore()
+const { state, fetch, itemBought, update: updateWishlist } = useWishlistStore()
 await fetch(route.params.slug as string)
 
 const notBoughtItems = computed(() => {
@@ -33,11 +34,16 @@ const bought = async (item: WishlistItemType): Promise<void> => {
     itemBought(item)
   }
 }
+
+const handleUpdateWishlist = async (values: Wishlist) => {
+  await updateWishlist(values)
+  router.push(`/${state.value?.slugUrlText}`)
+}
 </script>
 
 <template>
   <div v-if="state !== null" class="h-full">
-    <WishlistHeader v-model="state" />
+    <WishlistHeader v-model="state" @update="handleUpdateWishlist" />
     <div
       v-if="notBoughtItems && notBoughtItems.length > 0"
       class="flex flex-col space-y-14 py-10 md:space-y-8"
