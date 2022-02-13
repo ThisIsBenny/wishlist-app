@@ -3,7 +3,10 @@
     <label class="mb-1 block w-full" :for="name">{{ label }}</label>
     <div @click="handleChange(checked)">
       <IconToggleOn v-if="!checked" class="h-12 w-12 fill-emerald-700" />
-      <IconToggleOff v-else class="h-12 w-12 cursor-pointer fill-stone-500" />
+      <IconToggleOff
+        v-else
+        class="h-12 w-12 cursor-pointer fill-stone-500 dark:fill-current"
+      />
     </div>
   </div>
 </template>

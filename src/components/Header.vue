@@ -8,17 +8,17 @@
       @click="() => toggle()"
     >
       <IconToggleOn v-if="editMode" class="h-6 w-6 fill-emerald-700" />
-      <IconToggleOff v-else class="h-6 w-6 cursor-pointer" />
+      <IconToggleOff v-else class="h-6 w-6 cursor-pointer fill-current" />
       <span>{{ t('components.header.edit-mode.text') }}</span>
     </div>
     <div @click="() => toggleDark()">
-      <IconLightDark class="h-6 w-6 cursor-pointer" />
+      <IconLightDark class="h-6 w-6 cursor-pointer fill-current" />
     </div>
     <div v-if="isAuthenticated" @click="() => setToken('')">
-      <IconLogout class="h-6 w-6 cursor-pointer"></IconLogout>
+      <IconLogout class="h-6 w-6 cursor-pointer fill-current"></IconLogout>
     </div>
     <router-link to="/login" v-else>
-      <IconLogin class="h-6 w-6 cursor-pointer"></IconLogin>
+      <IconLogin class="h-6 w-6 cursor-pointer fill-current"></IconLogin>
     </router-link>
   </header>
 </template>
