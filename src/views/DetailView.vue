@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n'
 import { Wishlist, WishlistItem as WishlistItemType } from '@/types'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useWishlistStore, useModal } from '@/composables'
+import { useWishlistStore, useModal, useEditMode } from '@/composables'
 import WishlistItem from '@/components/WishlistItem.vue'
 import WishlistHeader from '@/components/WishlistHeader.vue'
 import { IconNoGift } from '../components/icons'
@@ -11,14 +11,25 @@ import { IconNoGift } from '../components/icons'
 const route = useRoute()
 const router = useRouter()
 const modal = useModal()
-
+const { isActive: editModeIsActive } = useEditMode()
 const { t } = useI18n()
 
-const { state, fetch, itemBought, update: updateWishlist } = useWishlistStore()
+const {
+  state,
+  fetch,
+  isReady,
+  itemBought,
+  update: updateWishlist,
+} = useWishlistStore()
 await fetch(route.params.slug as string)
 
-const notBoughtItems = computed(() => {
-  return state.value?.items?.filter(
+const filteredItems = computed(() => {
+  if (!state.value || !state.value.items) {
+    return []
+  } else if (editModeIsActive.value) {
+    return state.value.items
+  }
+  return state.value.items.filter(
     (item: WishlistItemType) => item.bought === false
   )
 })
@@ -42,14 +53,14 @@ const handleUpdateWishlist = async (values: Wishlist) => {
 </script>
 
 <template>
-  <div v-if="state !== null" class="h-full">
+  <div v-if="isReady" class="h-full">
     <WishlistHeader v-model="state" @update="handleUpdateWishlist" />
     <div
-      v-if="notBoughtItems && notBoughtItems.length > 0"
+      v-if="filteredItems.length > 0"
       class="flex flex-col space-y-14 py-10 md:space-y-8"
     >
       <WishlistItem
-        v-for="(item, index) in notBoughtItems"
+        v-for="(item, index) in filteredItems"
         :key="index"
         :title="item.title"
         :url="item.url"

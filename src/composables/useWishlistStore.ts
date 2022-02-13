@@ -3,12 +3,15 @@ import { Wishlist, WishlistItem } from '@/types'
 import { ref } from 'vue'
 const { client } = useAxios()
 
-const state = ref<Wishlist | null>(null)
+//@ts-expect-error ...
+const state = ref<Wishlist>({})
+const isReady = ref(false)
 
 const fetch = async (slugText: string): Promise<void> => {
   try {
     const { data } = await client.get(`/wishlist/${slugText}`)
     state.value = data
+    isReady.value = true
   } catch (e: any) {
     if (e.isAxiosError && !(<CustomAxiosError>e.ignore)) {
       throw e
@@ -43,6 +46,7 @@ const itemBought = async (item: WishlistItem): Promise<void> => {
 export const useWishlistStore = () => {
   return {
     state,
+    isReady,
     fetch,
     update,
     itemBought,
