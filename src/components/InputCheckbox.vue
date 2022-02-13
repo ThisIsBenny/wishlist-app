@@ -1,20 +1,16 @@
 <template>
   <div class="relative mb-8">
     <label class="mb-1 block w-full" :for="name">{{ label }}</label>
-    <input
-      class="border-2 border-solid border-stone-300 bg-transparent px-2 outline-none dark:border-stone-700"
-      :name="name"
-      :id="name"
-      type="checkbox"
-      :checked="checked"
-      @change="handleChange((checked = !checked))"
-      v-bind="$attrs"
-    />
+    <div @click="handleChange(checked)">
+      <IconToggleOn v-if="!checked" class="h-12 w-12 fill-emerald-700" />
+      <IconToggleOff v-else class="h-12 w-12 cursor-pointer fill-stone-500" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useField } from 'vee-validate'
+import { IconToggleOn, IconToggleOff } from '@/components/icons'
 
 const props = defineProps({
   value: {

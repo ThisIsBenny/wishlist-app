@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { Form } from 'vee-validate'
 import { object, string } from 'yup'
 import { useAuth } from '@/composables'
+import { IconLogin } from '@/components/icons'
 import BaseButton from '@/components/BaseButton.vue'
 import InputText from '@/components/InputText.vue'
 
@@ -47,6 +48,7 @@ const onSubmit = (values: any): void => {
         <BaseButton
           class="h-12 w-full"
           mode="primary"
+          :icon="IconLogin"
           :disabled="!meta.dirty || !meta.valid"
           >{{ t('pages.login-view.main.form.submit.text') }}</BaseButton
         >
