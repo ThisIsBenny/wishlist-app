@@ -1,8 +1,8 @@
 <template>
   <div class="relative mb-8">
     <label class="mb-1 block w-full" :for="name">{{ label }}</label>
-    <div @click="handleChange(checked)">
-      <IconToggleOn v-if="!checked" class="h-12 w-12 fill-emerald-700" />
+    <div @click="handleChange(!checked)">
+      <IconToggleOn v-if="checked" class="h-12 w-12 fill-emerald-700" />
       <IconToggleOff
         v-else
         class="h-12 w-12 cursor-pointer fill-stone-500 dark:fill-current"
@@ -18,6 +18,7 @@ import { IconToggleOn, IconToggleOff } from '@/components/icons'
 const props = defineProps({
   value: {
     type: Boolean,
+    default: false,
   },
   name: {
     type: String,
@@ -30,7 +31,8 @@ const props = defineProps({
 })
 const { checked, handleChange } = useField(props.name, undefined, {
   type: 'checkbox',
-  checkedValue: props.value,
   initialValue: props.value,
+  checkedValue: true,
+  uncheckedValue: false,
 })
 </script>
