@@ -8,7 +8,7 @@
             v-if="error"
             class="m-20 flex flex-row content-center items-center justify-center space-x-2 text-red-500"
           >
-            <IconError class="h-4 w-4" />
+            <IconError class="h-4 w-4 fill-red-500" />
             <span>{{ t('errors.generic.text') }}</span>
           </div>
           <suspense v-else>
