@@ -70,6 +70,33 @@
         "text": "Bought"
       }
     },
+    "wishlist-header": {
+      "main": {
+        "form": {
+          "title": {
+            "label": "Title"
+          },
+          "public": {
+            "label": "Show on startpage?"
+          },
+          "description": {
+            "label": "Description",
+            "error-max": "The max. length is 300 chars."
+          },
+          "slug-text": {
+            "label": "URL Slug-Text"
+          },
+          "image-src": {
+            "label": "Image-URL",
+            "error-requried": "Image-URL is required",
+            "error-url": "Image-URL has to be a valid url"
+          },
+          "submit": {
+            "text": "Save"
+          }
+        }
+      }
+    },
     "header": {
       "edit-mode": {
         "text": "Edit-Mode"

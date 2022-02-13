@@ -37,7 +37,7 @@ import { useAuth, useEditMode } from '@/composables/'
 
 const { t } = useI18n()
 const { isAuthenticated, setToken } = useAuth()
-const { editMode, toggle } = useEditMode()
+const { state: editMode, toggle } = useEditMode()
 
 const toggleDark = useToggle(useDark())
 </script>

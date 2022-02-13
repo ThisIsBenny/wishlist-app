@@ -70,6 +70,35 @@
         "text": "Gekauft"
       }
     },
+    "wishlist-header": {
+      "main": {
+        "form": {
+          "title": {
+            "label": "Titel",
+            "error-requried": "Titel wird benötigt"
+          },
+          "public": {
+            "label": "Auf der Startseite anzeigen?"
+          },
+          "description": {
+            "label": "Beschreibung",
+            "error-max": "Die maximale Länge beträgt 300 Zeichen"
+          },
+          "slug-text": {
+            "label": "URL Slug-Text",
+            "error-requried": "URL Slug-Text wird benötigt"
+          },
+          "image-src": {
+            "label": "Bild-URL",
+            "error-requried": "Bild-URL wird benötigt",
+            "error-url": "Bild-URL muss eine gültige URL sein"
+          },
+          "submit": {
+            "text": "Speichern"
+          }
+        }
+      }
+    },
     "header": {
       "edit-mode": {
         "text": "Bearbeitungsmodus"

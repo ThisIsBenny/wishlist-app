@@ -4,8 +4,8 @@ import { WishlistItem as WishlistItemType } from '@/types'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useWishlistStore, useModal } from '@/composables'
-import ImageTile from '@/components/ImageTile.vue'
 import WishlistItem from '@/components/WishlistItem.vue'
+import WishlistHeader from '@/components/WishlistHeader.vue'
 import { IconNoGift } from '../components/icons'
 
 const route = useRoute()
@@ -37,19 +37,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
 
 <template>
   <div v-if="state !== null" class="h-full">
-    <div
-      class="relative flex flex-col items-center space-x-0 space-y-2 md:flex-row md:space-x-6 md:space-y-0"
-    >
-      <ImageTile :image-src="state.imageSrc" class="shrink-0"></ImageTile>
-      <div>
-        <h1 class="mb-2 text-center text-2xl font-bold md:text-left">
-          {{ state.title }}
-        </h1>
-        <p class="text-lg">
-          {{ state.description }}
-        </p>
-      </div>
-    </div>
+    <WishlistHeader v-model="state" />
     <div
       v-if="notBoughtItems && notBoughtItems.length > 0"
       class="flex flex-col space-y-14 py-10 md:space-y-8"

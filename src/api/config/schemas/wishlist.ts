@@ -30,6 +30,7 @@ export const wishlistRequestSchema = {
   required: ['title', 'imageSrc', 'slugUrlText'],
   properties: {
     title: { type: 'string' },
+    public: { type: 'boolean' },
     imageSrc: { type: 'string' },
     description: { type: 'string' },
     slugUrlText: { type: 'string' },
@@ -40,6 +41,7 @@ export const wishlistResponseSchema = {
   properties: {
     id: { type: 'string' },
     title: { type: 'string' },
+    public: { type: 'boolean' },
     imageSrc: { type: 'string' },
     description: { type: 'string' },
     slugUrlText: { type: 'string' },

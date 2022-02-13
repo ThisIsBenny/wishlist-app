@@ -5,7 +5,7 @@ import { Form } from 'vee-validate'
 import { object, string } from 'yup'
 import { useAuth } from '@/composables'
 import BaseButton from '@/components/BaseButton.vue'
-import TextInput from '@/components/TextInput.vue'
+import InputText from '@/components/InputText.vue'
 
 const router = useRouter()
 const { setToken } = useAuth()
@@ -38,7 +38,7 @@ const onSubmit = (values: any): void => {
         v-slot="{ meta }"
         class="w-full flex-col space-y-3"
       >
-        <TextInput
+        <InputText
           name="api-key"
           type="text"
           :label="t('pages.login-view.main.form.api-key.placeholder')"
