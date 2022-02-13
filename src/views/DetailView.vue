@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useToast } from 'vue-toastification'
 import { Wishlist, WishlistItem as WishlistItemType } from '@/types'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -13,6 +14,7 @@ const router = useRouter()
 const modal = useModal()
 const { isActive: editModeIsActive } = useEditMode()
 const { t } = useI18n()
+const toast = useToast()
 
 const {
   state,
@@ -47,8 +49,13 @@ const bought = async (item: WishlistItemType): Promise<void> => {
 }
 
 const handleUpdateWishlist = async (values: Wishlist) => {
-  await updateWishlist(values)
-  router.push(`/${state.value?.slugUrlText}`)
+  try {
+    await updateWishlist(values)
+    toast.success(t('common.wishlist.saved.text'))
+    router.push(`/${state.value?.slugUrlText}`)
+  } catch (error) {
+    toast.error(t('common.wishlist.saving-failed.text'))
+  }
 }
 </script>
 

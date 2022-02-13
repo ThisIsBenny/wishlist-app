@@ -5,6 +5,14 @@
     },
     "loading": {
       "text": "Loading..."
+    },
+    "wishlist": {
+      "saved": {
+        "text": "Wishlist saved"
+      },
+      "saving-failed": {
+        "text": "Saving wishlist failed"
+      }
     }
   },
   "errors": {

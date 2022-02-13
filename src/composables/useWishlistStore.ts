@@ -1,6 +1,6 @@
+import { ref } from 'vue'
 import useAxios, { CustomAxiosError } from '@/composables/useAxios'
 import { Wishlist, WishlistItem } from '@/types'
-import { ref } from 'vue'
 const { client } = useAxios()
 
 //@ts-expect-error ...

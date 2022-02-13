@@ -5,6 +5,14 @@
     },
     "loading": {
       "text": "Lade..."
+    },
+    "wishlist": {
+      "saved": {
+        "text": "Wunschliste gespeichert"
+      },
+      "saving-failed": {
+        "text": "Wunschliste konnte nicht gespeichert werden"
+      }
     }
   },
   "errors": {
