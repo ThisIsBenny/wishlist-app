@@ -49,9 +49,13 @@
         :value="modelValue.slugUrlText"
         :label="t('components.wishlist-header.main.form.slug-text.label')"
       />
-      <BaseButton class="h-12 w-full" mode="primary" :disabled="!meta.valid">{{
-        t('components.wishlist-header.main.form.submit.text')
-      }}</BaseButton>
+      <BaseButton
+        class="h-12 w-full"
+        mode="primary"
+        :disabled="!meta.valid"
+        :icon="IconSave"
+        >{{ t('components.wishlist-header.main.form.submit.text') }}</BaseButton
+      >
     </Form>
   </div>
 </template>
@@ -65,6 +69,7 @@ import BaseButton from '@/components/BaseButton.vue'
 import InputText from '@/components/InputText.vue'
 import InputCheckbox from '@/components/InputCheckbox.vue'
 import InputTextArea from '@/components/InputTextArea.vue'
+import { IconSave } from '@/components/icons'
 import { useEditMode } from '@/composables'
 import { Wishlist } from '@/types'
 import { PropType } from 'vue'
