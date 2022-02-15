@@ -5,7 +5,7 @@ import { Form } from 'vee-validate'
 import { object, string } from 'yup'
 import { useAuth } from '@/composables'
 import { IconLogin } from '@/components/icons'
-import BaseButton from '@/components/BaseButton.vue'
+import { ButtonBase } from '@/components'
 import InputText from '@/components/InputText.vue'
 
 const router = useRouter()
@@ -45,12 +45,12 @@ const onSubmit = (values: any): void => {
           :label="t('pages.login-view.main.form.api-key.placeholder')"
           autocomplete="off"
         />
-        <BaseButton
+        <ButtonBase
           class="h-12 w-full"
           mode="primary"
           :icon="IconLogin"
           :disabled="!meta.dirty || !meta.valid"
-          >{{ t('pages.login-view.main.form.submit.text') }}</BaseButton
+          >{{ t('pages.login-view.main.form.submit.text') }}</ButtonBase
         >
       </Form>
     </div>

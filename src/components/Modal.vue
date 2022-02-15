@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import BaseButton from './BaseButton.vue'
+import { ButtonBase } from './'
 import { useModal } from '@/composables'
 
 const modal = useModal()
@@ -38,17 +38,17 @@ const modal = useModal()
           </div>
         </div>
         <div class="flex flex-row px-4 py-3 sm:px-6">
-          <BaseButton
+          <ButtonBase
             class="w-full"
             @click="modal.confirm"
             data-test="modal-confirm-button"
-            >{{ modal.confirmText }}</BaseButton
+            >{{ modal.confirmText }}</ButtonBase
           >
-          <BaseButton
+          <ButtonBase
             class="ml-2 w-full"
             @click="modal.cancel"
             data-test="modal-cancel-button"
-            >{{ modal.cancelText }}</BaseButton
+            >{{ modal.cancelText }}</ButtonBase
           >
         </div>
       </div>

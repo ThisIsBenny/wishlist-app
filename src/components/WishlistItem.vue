@@ -2,7 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import IconLink from './icons/IconLink.vue'
 import ImagePreview from './ImagePreview.vue'
-import BaseButton from './BaseButton.vue'
+import { ButtonBase } from './'
 import IconCart from './icons/IconCart.vue'
 defineProps<{
   title: string
@@ -31,11 +31,11 @@ const { t } = useI18n()
         </p>
       </div>
       <div class="flex flex-row items-baseline space-x-2">
-        <BaseButton
+        <ButtonBase
           class="mt-4 text-xs sm:mt-2"
           :icon="IconCart"
           @click="$emit('bought')"
-          >{{ t('components.wishlist-item.bought-button.text') }}</BaseButton
+          >{{ t('components.wishlist-item.bought-button.text') }}</ButtonBase
         >
         <a
           v-if="url"

@@ -49,12 +49,12 @@
         :value="modelValue.slugUrlText"
         :label="t('components.wishlist-header.main.form.slug-text.label')"
       />
-      <BaseButton
+      <ButtonBase
         class="h-12 w-full"
         mode="primary"
         :disabled="!meta.valid"
         :icon="IconSave"
-        >{{ t('components.wishlist-header.main.form.submit.text') }}</BaseButton
+        >{{ t('components.wishlist-header.main.form.submit.text') }}</ButtonBase
       >
     </Form>
   </div>
@@ -69,7 +69,7 @@ import { Form } from 'vee-validate'
 import { object, string, boolean } from 'yup'
 import { useToast } from 'vue-toastification'
 import {
-  BaseButton,
+  ButtonBase,
   ImageTile,
   InputText,
   InputCheckbox,

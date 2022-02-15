@@ -1,4 +1,4 @@
-export { default as BaseButton } from './BaseButton.vue'
+export { default as ButtonBase } from './ButtonBase.vue'
 export { default as Header } from './Header.vue'
 export { default as ImagePreview } from './ImagePreview.vue'
 export { default as ImageTile } from './ImageTile.vue'
