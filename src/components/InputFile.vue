@@ -77,15 +77,29 @@ const props = defineProps({
   },
 })
 
-const { value, errorMessage } = useField(props.name, undefined, {})
+const { value, errorMessage, setErrors } = useField(props.name, undefined, {})
 
-const convertBase64 = (file: File): Promise<string> => {
+const convertBase64 = (file: File): Promise<string | null> => {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader()
     fileReader.readAsDataURL(file)
 
+    let image = new Image()
     fileReader.onload = () => {
-      resolve(fileReader.result as string)
+      image.src = fileReader.result as string
+      image.onload = function () {
+        var height = image.height
+        var width = image.width
+        if (height > 200 || width > 200) {
+          setErrors([
+            t(
+              'components.wishlist-header.main.form.image-file.error-image-size'
+            ),
+          ])
+          return resolve('')
+        }
+        resolve(fileReader.result as string)
+      }
     }
 
     fileReader.onerror = (error) => {
@@ -94,13 +108,19 @@ const convertBase64 = (file: File): Promise<string> => {
   })
 }
 
+const handleFile = async (file: File) => {
+  const base64String = await convertBase64(file)
+  if (base64String) value.value = base64String
+}
+
 const handleChange = async (event: any) => {
   const file = (event.target as FileEventTarget).files[0]
-  value.value = await convertBase64(file)
+  handleFile(file)
 }
 const handleDrop = async (event: any) => {
+  showDropzone.value = false
   let droppedFiles = event.dataTransfer.files
   if (!droppedFiles) return
-  value.value = await convertBase64(droppedFiles[0])
+  handleFile(droppedFiles[0])
 }
 </script>

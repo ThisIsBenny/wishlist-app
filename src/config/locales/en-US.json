@@ -102,7 +102,8 @@
             "label": "Image-File",
             "text-dropzone-link": "click here",
             "text-dropzone": "drag and drop any image here or {0} to open dialog.",
-            "error-requried": "Image-File is required"
+            "error-requried": "Image-File is required",
+            "error-image-size": "Height and Width must not exceed 200px."
           },
           "submit": {
             "text": "Save"

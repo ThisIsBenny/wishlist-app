@@ -104,7 +104,8 @@
             "label": "Bild-Datei",
             "text-dropzone-link": "hier",
             "text-dropzone": "Ziehen Sie ein beliebiges Bild hierher oder klicken Sie {0}, um den Dialog zu öffnen.",
-            "error-requried": "Bild-Datei wird benötigt"
+            "error-requried": "Bild-Datei wird benötigt",
+            "error-image-size": "Höhe und Breite dürfen 200px nicht überschreiten."
           },
           "submit": {
             "text": "Speichern"
