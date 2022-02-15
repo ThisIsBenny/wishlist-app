@@ -1,7 +1,9 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import useAxios, { CustomAxiosError } from '@/composables/useAxios'
 import { Wishlist, WishlistItem } from '@/types'
+import { useEditMode } from './useEditMode'
 const { client } = useAxios()
+const { isActive: editModeIsActive } = useEditMode()
 
 //@ts-expect-error ...
 const state = ref<Wishlist>({})
@@ -43,6 +45,15 @@ const itemBought = async (item: WishlistItem): Promise<void> => {
   item.bought = true
 }
 
+const filteredItems = computed(() => {
+  if (!state.value || !state.value.items) {
+    return []
+  } else if (editModeIsActive.value) {
+    return state.value.items
+  }
+  return state.value.items.filter((item: WishlistItem) => item.bought === false)
+})
+
 export const useWishlistStore = () => {
   return {
     state,
@@ -50,5 +61,6 @@ export const useWishlistStore = () => {
     fetch,
     update,
     itemBought,
+    filteredItems,
   }
 }

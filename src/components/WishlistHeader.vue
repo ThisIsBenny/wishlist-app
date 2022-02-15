@@ -61,19 +61,22 @@
 </template>
 
 <script setup lang="ts">
-import { Form } from 'vee-validate'
-import { object, string, boolean } from 'yup'
-import { useI18n } from 'vue-i18n'
-import ImageTile from '@/components/ImageTile.vue'
-import BaseButton from '@/components/BaseButton.vue'
-import InputText from '@/components/InputText.vue'
-import InputCheckbox from '@/components/InputCheckbox.vue'
-import InputTextArea from '@/components/InputTextArea.vue'
-import { IconSave } from '@/components/icons'
-import { useEditMode } from '@/composables'
 import { Wishlist } from '@/types'
 import { PropType } from 'vue'
-const { isActive: editModeIsActive } = useEditMode()
+import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { Form } from 'vee-validate'
+import { object, string, boolean } from 'yup'
+import { useToast } from 'vue-toastification'
+import {
+  BaseButton,
+  ImageTile,
+  InputText,
+  InputCheckbox,
+  InputTextArea,
+} from '@/components'
+import { IconSave } from '@/components/icons'
+import { useEditMode, useWishlistStore } from '@/composables'
 
 defineProps({
   modelValue: {
@@ -81,7 +84,12 @@ defineProps({
     requried: true,
   },
 })
-const emit = defineEmits(['update'])
+
+const router = useRouter()
+const toast = useToast()
+
+const { isActive: editModeIsActive } = useEditMode()
+const { update } = useWishlistStore()
 
 const { t } = useI18n()
 
@@ -104,7 +112,13 @@ const schema = object({
     .url(t('components.wishlist-header.main.form.image-src.error-url')),
 })
 
-const onSubmit = (values: any): void => {
-  emit('update', values)
+const onSubmit = async (values: any): Promise<void> => {
+  try {
+    await update(values)
+    toast.success(t('common.wishlist.saved.text'))
+    router.push(`/${values.slugUrlText}`)
+  } catch (error) {
+    toast.error(t('common.wishlist.saving-failed.text'))
+  }
 }
 </script>

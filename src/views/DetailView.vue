@@ -1,40 +1,18 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { useToast } from 'vue-toastification'
-import { Wishlist, WishlistItem as WishlistItemType } from '@/types'
-import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useWishlistStore, useModal, useEditMode } from '@/composables'
+import { WishlistItem as WishlistItemType } from '@/types'
+import { useRoute } from 'vue-router'
+import { useWishlistStore, useModal } from '@/composables'
 import WishlistItem from '@/components/WishlistItem.vue'
 import WishlistHeader from '@/components/WishlistHeader.vue'
 import { IconNoGift } from '../components/icons'
 
 const route = useRoute()
-const router = useRouter()
 const modal = useModal()
-const { isActive: editModeIsActive } = useEditMode()
 const { t } = useI18n()
-const toast = useToast()
 
-const {
-  state,
-  fetch,
-  isReady,
-  itemBought,
-  update: updateWishlist,
-} = useWishlistStore()
+const { state, fetch, isReady, itemBought, filteredItems } = useWishlistStore()
 await fetch(route.params.slug as string)
-
-const filteredItems = computed(() => {
-  if (!state.value || !state.value.items) {
-    return []
-  } else if (editModeIsActive.value) {
-    return state.value.items
-  }
-  return state.value.items.filter(
-    (item: WishlistItemType) => item.bought === false
-  )
-})
 
 const bought = async (item: WishlistItemType): Promise<void> => {
   const confirmed = await modal.show(
@@ -47,21 +25,11 @@ const bought = async (item: WishlistItemType): Promise<void> => {
     itemBought(item)
   }
 }
-
-const handleUpdateWishlist = async (values: Wishlist) => {
-  try {
-    await updateWishlist(values)
-    toast.success(t('common.wishlist.saved.text'))
-    router.push(`/${state.value?.slugUrlText}`)
-  } catch (error) {
-    toast.error(t('common.wishlist.saving-failed.text'))
-  }
-}
 </script>
 
 <template>
   <div v-if="isReady" class="h-full">
-    <WishlistHeader v-model="state" @update="handleUpdateWishlist" />
+    <WishlistHeader v-model="state" />
     <div
       v-if="filteredItems.length > 0"
       class="flex flex-col space-y-14 py-10 md:space-y-8"
