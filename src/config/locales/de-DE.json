@@ -98,8 +98,13 @@
           },
           "image-src": {
             "label": "Bild-URL",
-            "error-requried": "Bild-URL wird benötigt",
-            "error-url": "Bild-URL muss eine gültige URL sein"
+            "error-requried": "Bild-URL wird benötigt"
+          },
+          "image-file": {
+            "label": "Bild-Datei",
+            "text-dropzone-link": "hier",
+            "text-dropzone": "Ziehen Sie ein beliebiges Bild hierher oder klicken Sie {0}, um den Dialog zu öffnen.",
+            "error-requried": "Bild-Datei wird benötigt"
           },
           "submit": {
             "text": "Speichern"

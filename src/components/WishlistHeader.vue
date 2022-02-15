@@ -43,6 +43,10 @@
         :value="modelValue.imageSrc"
         :label="t('components.wishlist-header.main.form.image-src.label')"
       />
+      <InputFile
+        name="imageFile"
+        :label="t('components.wishlist-header.main.form.image-file.label')"
+      />
       <InputText
         name="slugUrlText"
         type="text"
@@ -72,6 +76,7 @@ import {
   ButtonBase,
   ImageTile,
   InputText,
+  InputFile,
   InputCheckbox,
   InputTextArea,
 } from '@/components'
@@ -93,27 +98,39 @@ const { update } = useWishlistStore()
 
 const { t } = useI18n()
 
-const schema = object({
-  title: string().required(
-    t('components.wishlist-header.main.form.title.error-requried')
-  ),
-  public: boolean(),
-  description: string().max(
-    300,
-    t('components.wishlist-header.main.form.description.error-max')
-  ),
-  slugUrlText: string().required(
-    t('components.wishlist-header.main.form.slug-text.error-requried')
-  ),
-  imageSrc: string()
-    .required(
-      t('components.wishlist-header.main.form.image-src.error-requried')
-    )
-    .url(t('components.wishlist-header.main.form.image-src.error-url')),
-})
+const schema = object().shape(
+  {
+    title: string().required(
+      t('components.wishlist-header.main.form.title.error-requried')
+    ),
+    public: boolean(),
+    description: string().max(
+      300,
+      t('components.wishlist-header.main.form.description.error-max')
+    ),
+    slugUrlText: string().required(
+      t('components.wishlist-header.main.form.slug-text.error-requried')
+    ),
+    imageSrc: string().when('imageFile', {
+      is: (imageFile: string) => !imageFile || imageFile.length === 0,
+      then: string().required(
+        t('components.wishlist-header.main.form.image-src.error-requried')
+      ),
+    }),
+    imageFile: string().when('imageSrc', {
+      is: (imageSrc: string) => !imageSrc || imageSrc.length === 0,
+      then: string().required(
+        t('components.wishlist-header.main.form.image-file.error-requried')
+      ),
+    }),
+  },
+  //@ts-expect-error ...
+  ['imageSrc', 'imageFile']
+)
 
 const onSubmit = async (values: any): Promise<void> => {
   try {
+    values.imageSrc = values.imageFile || values.imageSrc
     await update(values)
     toast.success(t('common.wishlist.saved.text'))
     router.push(`/${values.slugUrlText}`)

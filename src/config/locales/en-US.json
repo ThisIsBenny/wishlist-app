@@ -96,8 +96,13 @@
           },
           "image-src": {
             "label": "Image-URL",
-            "error-requried": "Image-URL is required",
-            "error-url": "Image-URL has to be a valid url"
+            "error-requried": "Image-URL is required"
+          },
+          "image-file": {
+            "label": "Image-File",
+            "text-dropzone-link": "click here",
+            "text-dropzone": "drag and drop any image here or {0} to open dialog.",
+            "error-requried": "Image-File is required"
           },
           "submit": {
             "text": "Save"
