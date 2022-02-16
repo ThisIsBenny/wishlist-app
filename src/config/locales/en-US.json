@@ -6,13 +6,11 @@
     "loading": {
       "text": "Loading..."
     },
-    "wishlist": {
-      "saved": {
-        "text": "Wishlist saved"
-      },
-      "saving-failed": {
-        "text": "Saving wishlist failed"
-      }
+    "saved": {
+      "text": "Wishlist saved"
+    },
+    "saving-failed": {
+      "text": "Saving wishlist failed"
     }
   },
   "errors": {
@@ -81,6 +79,10 @@
     }
   },
   "components": {
+    "file": {
+      "text-dropzone-link": "click here",
+      "text-dropzone": "drag and drop any image here or {0} to open dialog."
+    },
     "wishlist-item": {
       "external-product-page-link": {
         "text": "Open product page"
@@ -92,37 +94,57 @@
         "text": "Delete"
       }
     },
-    "wishlist-header": {
-      "main": {
-        "form": {
-          "title": {
-            "label": "Title"
-          },
-          "public": {
-            "label": "Show on startpage?"
-          },
-          "description": {
-            "label": "Description",
-            "error-max": "The max. length is 300 chars."
-          },
-          "slug-text": {
-            "label": "URL Slug-Text"
-          },
-          "image-src": {
-            "label": "Image-URL",
-            "error-requried": "Image-URL is required"
-          },
-          "image-file": {
-            "label": "Image-File",
-            "text-dropzone-link": "click here",
-            "text-dropzone": "drag and drop any image here or {0} to open dialog.",
-            "error-requried": "Image-File is required",
-            "error-image-size": "Height and Width must not exceed 200px."
-          },
-          "submit": {
-            "text": "Save"
-          }
-        }
+    "form-wishlist": {
+      "title": {
+        "label": "Title",
+        "error-requried": "Titel is required."
+      },
+      "public": {
+        "label": "Show on startpage?"
+      },
+      "description": {
+        "label": "Description",
+        "error-max": "The max. length is 300 chars."
+      },
+      "slug-text": {
+        "label": "URL Slug-Text"
+      },
+      "image-src": {
+        "label": "Image-URL",
+        "error-requried": "Image-URL is required."
+      },
+      "image-file": {
+        "label": "Image-File",
+        "error-requried": "Image-File is required.",
+        "error-image-size": "Height and Width must not exceed 200px."
+      },
+      "submit": {
+        "text": "Save"
+      }
+    },
+    "form-wishlist-item": {
+      "title": {
+        "label": "Title",
+        "error-requried": "Title is required."
+      },
+      "description": {
+        "label": "Description",
+        "error-requried": "Description is required.",
+        "error-max": "The max. length is 300 chars."
+      },
+      "url": {
+        "label": "Produkt-URL",
+        "error-url": "Invalid URL"
+      },
+      "image-src": {
+        "label": "Bild-URL",
+        "error-url": "Invalid URL"
+      },
+      "bought": {
+        "label": "Bought?"
+      },
+      "submit": {
+        "text": "Save"
       }
     },
     "header": {

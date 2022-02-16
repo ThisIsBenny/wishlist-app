@@ -16,19 +16,15 @@
       </div>
       <div>
         <i18n-t
-          keypath="components.wishlist-header.main.form.image-file.text-dropzone"
+          keypath="components.file.text-dropzone"
           tag="p"
-          for="components.wishlist-header.main.form.image-file.text-dropzone-link"
+          for="components.file.text-dropzone-link"
         >
           <button
             class="cursor-pointer text-cyan-600"
             @click.prevent="fileInput.click()"
           >
-            {{
-              t(
-                'components.wishlist-header.main.form.image-file.text-dropzone-link'
-              )
-            }}
+            {{ t('components.file.text-dropzone-link') }}
           </button>
         </i18n-t>
         <input

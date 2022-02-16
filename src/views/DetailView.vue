@@ -24,6 +24,7 @@ const {
   fetch,
   isReady,
   update,
+  updateItem,
   itemBought,
   itemDelete,
   filteredItems,
@@ -33,10 +34,22 @@ await fetch(route.params.slug as string)
 const handleUpdateWishlist = async (wishlist: Wishlist): Promise<void> => {
   try {
     await update(wishlist)
-    toast.success(t('common.wishlist.saved.text'))
+    toast.success(t('common.saved.text'))
     router.push(`/${wishlist.slugUrlText}`)
   } catch (error) {
-    toast.error(t('common.wishlist.saving-failed.text'))
+    toast.error(t('common.saving-failed.text'))
+  }
+}
+
+const handleUpdateItem = async (
+  currentValues: WishlistItemType,
+  newValues: WishlistItemType
+): Promise<void> => {
+  try {
+    await updateItem(currentValues, newValues)
+    toast.success(t('common.saved.text'))
+  } catch (error) {
+    toast.error(t('common.saving-failed.text'))
   }
 }
 
@@ -93,6 +106,7 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
         <FormWishlistItem
           v-else
           :item="item"
+          @update="(updateValues) => handleUpdateItem(item, updateValues)"
           @delete="handleDeleteItem(item)"
         />
       </div>

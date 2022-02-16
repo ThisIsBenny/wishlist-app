@@ -9,42 +9,42 @@
       name="title"
       type="text"
       :value="wishlist.title"
-      :label="t('components.wishlist-header.main.form.title.label')"
+      :label="t('components.form-wishlist.title.label')"
     />
     <InputCheckbox
       name="public"
       :value="wishlist.public"
-      :label="t('components.wishlist-header.main.form.public.label')"
+      :label="t('components.form-wishlist.public.label')"
     />
     <InputTextArea
       name="description"
       type="text"
       :value="wishlist.description"
       height-class="h-20"
-      :label="t('components.wishlist-header.main.form.description.label')"
+      :label="t('components.form-wishlist.description.label')"
     />
     <InputText
       name="imageSrc"
       type="text"
       :value="wishlist.imageSrc"
-      :label="t('components.wishlist-header.main.form.image-src.label')"
+      :label="t('components.form-wishlist.image-src.label')"
     />
     <InputFile
       name="imageFile"
-      :label="t('components.wishlist-header.main.form.image-file.label')"
+      :label="t('components.form-wishlist.image-file.label')"
     />
     <InputText
       name="slugUrlText"
       type="text"
       :value="wishlist.slugUrlText"
-      :label="t('components.wishlist-header.main.form.slug-text.label')"
+      :label="t('components.form-wishlist.slug-text.label')"
     />
     <ButtonBase
       class="h-12 w-full"
       mode="primary"
       :disabled="!meta.valid"
       :icon="IconSave"
-      >{{ t('components.wishlist-header.main.form.submit.text') }}</ButtonBase
+      >{{ t('components.form-wishlist.submit.text') }}</ButtonBase
     >
   </Form>
 </template>
@@ -74,26 +74,26 @@ const { t } = useI18n()
 const schema = object().shape(
   {
     title: string().required(
-      t('components.wishlist-header.main.form.title.error-requried')
+      t('components.form-wishlist.title.error-requried')
     ),
     public: boolean(),
     description: string().max(
       300,
-      t('components.wishlist-header.main.form.description.error-max')
+      t('components.form-wishlist.description.error-max')
     ),
     slugUrlText: string().required(
-      t('components.wishlist-header.main.form.slug-text.error-requried')
+      t('components.form-wishlist.slug-text.error-requried')
     ),
     imageSrc: string().when('imageFile', {
       is: (imageFile: string) => !imageFile || imageFile.length === 0,
       then: string().required(
-        t('components.wishlist-header.main.form.image-src.error-requried')
+        t('components.form-wishlist.image-src.error-requried')
       ),
     }),
     imageFile: string().when('imageSrc', {
       is: (imageSrc: string) => !imageSrc || imageSrc.length === 0,
       then: string().required(
-        t('components.wishlist-header.main.form.image-file.error-requried')
+        t('components.form-wishlist.image-file.error-requried')
       ),
     }),
   },
