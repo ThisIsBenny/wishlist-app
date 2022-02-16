@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { WishlistItem as WishlistItemType } from '@/types'
-import { useRoute } from 'vue-router'
+import { Wishlist, WishlistItem as WishlistItemType } from '@/types'
+import { useRoute, useRouter } from 'vue-router'
 import { useWishlistStore, useModal, useEditMode } from '@/composables'
 import {
   FormWishlist,
@@ -10,17 +10,37 @@ import {
   FormWishlistItem,
 } from '@/components'
 import { IconNoGift } from '../components/icons'
+import { useToast } from 'vue-toastification'
 
 const route = useRoute()
+const router = useRouter()
 const modal = useModal()
 const { t } = useI18n()
+const toast = useToast()
 const { isActive: editModeIsActive } = useEditMode()
 
-const { state, fetch, isReady, itemBought, itemDelete, filteredItems } =
-  useWishlistStore()
+const {
+  state,
+  fetch,
+  isReady,
+  update,
+  itemBought,
+  itemDelete,
+  filteredItems,
+} = useWishlistStore()
 await fetch(route.params.slug as string)
 
-const bought = async (item: WishlistItemType): Promise<void> => {
+const handleUpdateWishlist = async (wishlist: Wishlist): Promise<void> => {
+  try {
+    await update(wishlist)
+    toast.success(t('common.wishlist.saved.text'))
+    router.push(`/${wishlist.slugUrlText}`)
+  } catch (error) {
+    toast.error(t('common.wishlist.saving-failed.text'))
+  }
+}
+
+const handleBought = async (item: WishlistItemType): Promise<void> => {
   const confirmed = await modal.show(
     t('pages.detail-view.modal-bought-item.title.text'),
     t('pages.detail-view.modal-bought-item.confirm-button.text'),
@@ -31,7 +51,7 @@ const bought = async (item: WishlistItemType): Promise<void> => {
     itemBought(item)
   }
 }
-const deleteItem = async (item: WishlistItemType): Promise<void> => {
+const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
   const confirmed = await modal.show(
     t('pages.detail-view.modal-delete-item.title.text'),
     t('pages.detail-view.modal-delete-item.confirm-button.text'),
@@ -58,7 +78,7 @@ const deleteItem = async (item: WishlistItemType): Promise<void> => {
           {{ state.description }}
         </p>
       </div>
-      <FormWishlist v-else :wishlist="state" />
+      <FormWishlist v-else :wishlist="state" @update="handleUpdateWishlist" />
     </div>
     <div
       v-if="filteredItems.length > 0"
@@ -68,9 +88,13 @@ const deleteItem = async (item: WishlistItemType): Promise<void> => {
         <WishlistItem
           v-if="!editModeIsActive"
           :item="item"
-          @bought="bought(item)"
+          @bought="handleBought(item)"
         />
-        <FormWishlistItem v-else :item="item" @delete="deleteItem(item)" />
+        <FormWishlistItem
+          v-else
+          :item="item"
+          @delete="handleDeleteItem(item)"
+        />
       </div>
     </div>
     <div v-else class="flex h-1/2 w-full justify-center">

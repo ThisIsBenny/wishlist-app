@@ -51,12 +51,9 @@
 
 <script setup lang="ts">
 import { Wishlist } from '@/types'
-import { PropType } from 'vue'
-import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { Form } from 'vee-validate'
 import { object, string, boolean } from 'yup'
-import { useToast } from 'vue-toastification'
 import {
   ButtonBase,
   InputText,
@@ -65,19 +62,12 @@ import {
   InputTextArea,
 } from '@/components'
 import { IconSave } from '@/components/icons'
-import { useWishlistStore } from '@/composables'
 
-defineProps({
-  wishlist: {
-    type: Object as PropType<Wishlist>,
-    requried: true,
-  },
-})
+defineProps<{
+  wishlist: Wishlist
+}>()
 
-const router = useRouter()
-const toast = useToast()
-
-const { update } = useWishlistStore()
+const emits = defineEmits(['update'])
 
 const { t } = useI18n()
 
@@ -112,13 +102,7 @@ const schema = object().shape(
 )
 
 const onSubmit = async (values: any): Promise<void> => {
-  try {
-    values.imageSrc = values.imageFile || values.imageSrc
-    await update(values)
-    toast.success(t('common.wishlist.saved.text'))
-    router.push(`/${values.slugUrlText}`)
-  } catch (error) {
-    toast.error(t('common.wishlist.saving-failed.text'))
-  }
+  values.imageSrc = values.imageFile || values.imageSrc
+  emits('update', values)
 }
 </script>
