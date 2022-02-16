@@ -4,11 +4,9 @@ import IconLink from './icons/IconLink.vue'
 import ImagePreview from './ImagePreview.vue'
 import { ButtonBase } from './'
 import IconCart from './icons/IconCart.vue'
+import { WishlistItem } from '@/types'
 defineProps<{
-  title: string
-  image: string
-  url?: string
-  description: string
+  item: WishlistItem
 }>()
 const { t } = useI18n()
 </script>
@@ -19,15 +17,15 @@ const { t } = useI18n()
   >
     <ImagePreview
       class="max-h-44 flex-shrink-0 flex-grow-0 object-cover sm:aspect-[3/2]"
-      :src="image"
-      :alt="title"
+      :src="item.imageSrc"
+      :alt="item.title"
     />
 
     <div class="flex flex-col justify-between p-2">
       <div>
-        <h1 class="mb-1 text-lg font-bold">{{ title }}</h1>
+        <h1 class="mb-1 text-lg font-bold">{{ item.title }}</h1>
         <p class="text-sm sm:line-clamp-3">
-          {{ description }}
+          {{ item.description }}
         </p>
       </div>
       <div class="flex flex-row items-baseline space-x-2">
@@ -38,8 +36,8 @@ const { t } = useI18n()
           >{{ t('components.wishlist-item.bought-button.text') }}</ButtonBase
         >
         <a
-          v-if="url"
-          :href="url"
+          v-if="item.url"
+          :href="item.url"
           target="_blank"
           rel="noopener"
           class="mt-1 flex w-fit flex-row items-center text-sm text-stone-500 dark:text-white/60"
