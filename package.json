@@ -2,11 +2,12 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "concurrently --kill-others \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "demo": "npm run build && prisma migrate deploy && prisma migrate reset -f && node dist/api/server.js",
     "dev:frontend": "vite",
     "dev:backend": "nodemon -r dotenv/config ./src/api/server.ts",
     "build": "npm run build:frontend && npm run build:backend",
     "build:frontend": "vite build",
-    "build:backend": "npx prisma generate && tsc -p tsconfig.backend.json --outDir dist",
+    "build:backend": "prisma generate && tsc -p tsconfig.backend.json --outDir dist",
     "preview": "vite preview --port 5050",
     "test:unit": "vitest --environment jsdom",
     "test:unit:ci": "vitest --environment jsdom --run",
