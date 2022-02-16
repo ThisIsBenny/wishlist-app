@@ -28,7 +28,7 @@ const onSubmit = (values: any): void => {
 <template>
   <div class="flex h-full">
     <div
-      class="m-auto w-1/2 rounded-md border-2 border-stone-200 px-6 py-10 dark:border-stone-700"
+      class="m-auto rounded-md border-2 border-stone-200 px-6 py-10 dark:border-stone-700 sm:w-1/2"
     >
       <h1 class="text-semibold mb-8 text-center text-3xl">
         {{ t('pages.login-view.main.title.text') }}
