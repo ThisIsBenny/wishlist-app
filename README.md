@@ -40,6 +40,8 @@ services:
 
 ```sh
 npm install
+npx prisma generate
+npx prisma migrate deploy
 ```
 
 ### Compile and Hot-Reload for Development
