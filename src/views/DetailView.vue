@@ -3,7 +3,12 @@ import { useI18n } from 'vue-i18n'
 import { WishlistItem as WishlistItemType } from '@/types'
 import { useRoute } from 'vue-router'
 import { useWishlistStore, useModal, useEditMode } from '@/composables'
-import { FormWishlist, ImageTile, WishlistItem } from '@/components'
+import {
+  FormWishlist,
+  ImageTile,
+  WishlistItem,
+  FormWishlistItem,
+} from '@/components'
 import { IconNoGift } from '../components/icons'
 
 const route = useRoute()
@@ -11,18 +16,29 @@ const modal = useModal()
 const { t } = useI18n()
 const { isActive: editModeIsActive } = useEditMode()
 
-const { state, fetch, isReady, itemBought, filteredItems } = useWishlistStore()
+const { state, fetch, isReady, itemBought, itemDelete, filteredItems } =
+  useWishlistStore()
 await fetch(route.params.slug as string)
 
 const bought = async (item: WishlistItemType): Promise<void> => {
   const confirmed = await modal.show(
-    t('pages.detail-view.confirmation-modal.title.text'),
-    t('pages.detail-view.confirmation-modal.confirm-button.text'),
-    t('pages.detail-view.confirmation-modal.cancel-button.text'),
-    t('pages.detail-view.confirmation-modal.body.text')
+    t('pages.detail-view.modal-bought-item.title.text'),
+    t('pages.detail-view.modal-bought-item.confirm-button.text'),
+    t('pages.detail-view.modal-bought-item.cancel-button.text'),
+    t('pages.detail-view.modal-bought-item.body.text')
   )
   if (confirmed) {
     itemBought(item)
+  }
+}
+const deleteItem = async (item: WishlistItemType): Promise<void> => {
+  const confirmed = await modal.show(
+    t('pages.detail-view.modal-delete-item.title.text'),
+    t('pages.detail-view.modal-delete-item.confirm-button.text'),
+    t('pages.detail-view.modal-delete-item.cancel-button.text')
+  )
+  if (confirmed) {
+    itemDelete(item)
   }
 }
 </script>
@@ -50,13 +66,11 @@ const bought = async (item: WishlistItemType): Promise<void> => {
     >
       <div v-for="(item, index) in filteredItems" :key="index">
         <WishlistItem
+          v-if="!editModeIsActive"
           :item="item"
-          :title="item.title"
-          :url="item.url"
-          :image="item.imageSrc"
-          :description="item.description"
           @bought="bought(item)"
         />
+        <FormWishlistItem v-else :item="item" @delete="deleteItem(item)" />
       </div>
     </div>
     <div v-else class="flex h-1/2 w-full justify-center">

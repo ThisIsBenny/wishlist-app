@@ -53,12 +53,23 @@
           "text": "Diese Wunschliste ist leer."
         }
       },
-      "confirmation-modal": {
+      "modal-bought-item": {
         "title": {
           "text": "Möchten Sie den Gegenstand von der Liste nehmen?"
         },
         "body": {
           "text": "Durch das das runternehmen von der Liste ist dieser Gegenstand nicht mehr andere sichtbar."
+        },
+        "confirm-button": {
+          "text": "Ja"
+        },
+        "cancel-button": {
+          "text": "Nein"
+        }
+      },
+      "modal-delete-item": {
+        "title": {
+          "text": "Möchten Sie den Gegenstand von der Liste löschen?"
         },
         "confirm-button": {
           "text": "Ja"
@@ -76,6 +87,9 @@
       },
       "bought-button": {
         "text": "Gekauft"
+      },
+      "delete-button": {
+        "text": "Löschen"
       }
     },
     "wishlist-header": {

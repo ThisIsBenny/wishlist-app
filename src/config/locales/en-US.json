@@ -53,12 +53,23 @@
           "text": "This wishlist is empty."
         }
       },
-      "confirmation-modal": {
+      "modal-bought-item": {
         "title": {
           "text": "Do you want to remove the item from the list?"
         },
         "body": {
           "text": "By taking it down from the list, this item is no longer visible to others."
+        },
+        "confirm-button": {
+          "text": "Yes"
+        },
+        "cancel-button": {
+          "text": "No"
+        }
+      },
+      "modal-delete-item": {
+        "title": {
+          "text": "Do you want to delete the item from the list?"
         },
         "confirm-button": {
           "text": "Yes"
@@ -76,6 +87,9 @@
       },
       "bought-button": {
         "text": "Bought"
+      },
+      "delete-button": {
+        "text": "Delete"
       }
     },
     "wishlist-header": {

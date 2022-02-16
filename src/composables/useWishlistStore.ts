@@ -45,6 +45,11 @@ const itemBought = async (item: WishlistItem): Promise<void> => {
   item.bought = true
 }
 
+const itemDelete = async (item: WishlistItem): Promise<void> => {
+  await client.delete(`/wishlist/${item.wishlistId}/item/${item.id}`)
+  state.value?.items?.splice(state.value.items.indexOf(item), 1)
+}
+
 const filteredItems = computed(() => {
   if (!state.value || !state.value.items) {
     return []
@@ -61,6 +66,7 @@ export const useWishlistStore = () => {
     fetch,
     update,
     itemBought,
+    itemDelete,
     filteredItems,
   }
 }
