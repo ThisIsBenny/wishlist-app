@@ -97,7 +97,7 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
       v-if="filteredItems.length > 0"
       class="flex flex-col space-y-14 py-10 md:space-y-8"
     >
-      <div v-for="(item, index) in filteredItems" :key="index">
+      <div v-for="item in filteredItems" :key="item.id">
         <WishlistItem
           v-if="!editModeIsActive"
           :item="item"
