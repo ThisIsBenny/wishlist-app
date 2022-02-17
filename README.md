@@ -6,6 +6,8 @@ The wishlist app is a simple webapp for publishing wishlists. It allows to share
 
 The app can be easily self-hosted via Docker (see docker-compose example below).
 
+## Screenshots
+
 ![Overview Image](.github/assets/overview.jpg)
 ![Detail Image](.github/assets/details.jpg)
 
