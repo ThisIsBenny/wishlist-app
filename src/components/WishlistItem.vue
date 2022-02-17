@@ -16,7 +16,7 @@ const { t } = useI18n()
     class="flex h-fit flex-col space-x-0 overflow-hidden rounded-md border-2 border-stone-200 dark:border-stone-700 sm:h-40 sm:flex-row sm:space-x-2"
   >
     <ImagePreview
-      class="max-h-44 flex-shrink-0 flex-grow-0 object-cover sm:aspect-[3/2]"
+      class="max-h-44 flex-shrink-0 flex-grow-0 object-cover sm:w-1/4"
       :src="item.imageSrc"
       :alt="item.title"
     />
