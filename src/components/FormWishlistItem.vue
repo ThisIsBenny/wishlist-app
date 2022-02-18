@@ -8,12 +8,16 @@
       :alt="item.title"
     />
     <div class="flex w-full flex-col justify-between space-y-2 p-2">
-      <h1 v-if="mode === 'create'" class="text-xl">
-        {{ t('components.form-wishlist-item.headline-new-item.text') }}
-      </h1>
-      <h1 v-else class="text-xl">
-        {{ t('components.form-wishlist-item.headline-change-item.text') }}
-      </h1>
+      <div class="mb-4 flex flex-row items-center space-x-2 text-xl">
+        <IconPlus v-if="mode === 'create'" class="h-6 w-6" />
+        <IconPencil v-else class="h-5 w-5" />
+        <h1 v-if="mode === 'create'">
+          {{ t('components.form-wishlist-item.headline-new-item.text') }}
+        </h1>
+        <h1 v-else>
+          {{ t('components.form-wishlist-item.headline-change-item.text') }}
+        </h1>
+      </div>
       <form @submit="onSubmit" class="w-full flex-col">
         <InputText
           name="title"
@@ -76,7 +80,7 @@ import {
   InputCheckbox,
   InputTextArea,
 } from '@/components'
-import { IconSave, IconDelete } from '@/components/icons'
+import { IconSave, IconDelete, IconPlus, IconPencil } from '@/components/icons'
 import { WishlistItem } from '@/types'
 import { PropType } from 'vue'
 
