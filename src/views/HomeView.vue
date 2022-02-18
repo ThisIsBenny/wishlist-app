@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import ImageTile from '@/components/ImageTile.vue'
 import { useWishlistsStore } from '@/composables'
 
 const { t } = useI18n()

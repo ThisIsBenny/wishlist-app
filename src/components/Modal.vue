@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ButtonBase } from './'
 import { useModal } from '@/composables'
 
 const modal = useModal()

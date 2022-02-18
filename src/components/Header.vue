@@ -26,13 +26,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { useDark, useToggle } from '@vueuse/core'
-import {
-  IconLightDark,
-  IconLogout,
-  IconLogin,
-  IconToggleOn,
-  IconToggleOff,
-} from '@/components/icons'
 import { useAuth, useEditMode } from '@/composables/'
 
 const { t } = useI18n()

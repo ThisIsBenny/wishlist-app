@@ -45,7 +45,6 @@
 
 <script setup lang="ts">
 import { useField } from 'vee-validate'
-import { ImagePreview } from './'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 type FileEventTarget = EventTarget & { files: FileList }

@@ -4,9 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { Form } from 'vee-validate'
 import { object, string } from 'yup'
 import { useAuth } from '@/composables'
-import { IconLogin } from '@/components/icons'
-import { ButtonBase } from '@/components'
-import InputText from '@/components/InputText.vue'
+import IconLogin from '@/components/icons/IconLogin.vue'
 
 const router = useRouter()
 const { setToken } = useAuth()

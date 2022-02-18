@@ -53,15 +53,8 @@
 import { Wishlist } from '@/types'
 import { useI18n } from 'vue-i18n'
 import { Form } from 'vee-validate'
+import IconSave from '@/components/icons/IconSave.vue'
 import { object, string, boolean } from 'yup'
-import {
-  ButtonBase,
-  InputText,
-  InputFile,
-  InputCheckbox,
-  InputTextArea,
-} from '@/components'
-import { IconSave } from '@/components/icons'
 
 defineProps<{
   wishlist: Wishlist

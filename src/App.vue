@@ -32,8 +32,6 @@
 </template>
 <script setup lang="ts">
 import { onErrorCaptured, ref } from 'vue'
-import Header from '@/components/Header.vue'
-import { IconSpinner, IconError } from '@/components/icons'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 

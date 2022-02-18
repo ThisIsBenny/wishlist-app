@@ -4,13 +4,6 @@ import { Wishlist, WishlistItem as WishlistItemType } from '@/types'
 import { useRoute, useRouter } from 'vue-router'
 import { useTitle } from '@vueuse/core'
 import { useWishlistStore, useModal, useEditMode } from '@/composables'
-import {
-  FormWishlist,
-  ImageTile,
-  WishlistItem,
-  FormWishlistItem,
-} from '@/components'
-import { IconNoGift } from '../components/icons'
 import { useToast } from 'vue-toastification'
 import { computed } from 'vue'
 

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import IconImagePlaceholder from './icons/IconImagePlaceholder.vue'
-
 defineProps({
   src: {
     type: String,

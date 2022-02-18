@@ -1,8 +1,5 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
-import IconLink from './icons/IconLink.vue'
-import ImagePreview from './ImagePreview.vue'
-import { ButtonBase } from './'
 import IconCart from './icons/IconCart.vue'
 import { WishlistItem } from '@/types'
 defineProps<{

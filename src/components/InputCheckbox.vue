@@ -13,7 +13,6 @@
 
 <script setup lang="ts">
 import { useField } from 'vee-validate'
-import { IconToggleOn, IconToggleOff } from '@/components/icons'
 
 const props = defineProps({
   value: {

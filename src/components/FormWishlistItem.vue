@@ -72,21 +72,10 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n'
 import { useForm } from 'vee-validate'
-import ImagePreview from './ImagePreview.vue'
 import { object, string, boolean } from 'yup'
-import {
-  ButtonBase,
-  InputText,
-  InputCheckbox,
-  InputTextArea,
-} from '@/components'
-import {
-  IconSave,
-  IconDelete,
-  IconCreation,
-  IconPencil,
-} from '@/components/icons'
 import { WishlistItem } from '@/types'
+import IconSave from '@/components/icons/IconSave.vue'
+import IconDelete from '@/components/icons/IconDelete.vue'
 import { PropType } from 'vue'
 
 const props = defineProps({
