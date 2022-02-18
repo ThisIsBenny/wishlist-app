@@ -11,7 +11,7 @@
       :value="wishlist.title"
       :label="t('components.form-wishlist.title.label')"
     />
-    <InputCheckbox
+    <InputToggle
       name="public"
       :value="wishlist.public"
       :label="t('components.form-wishlist.public.label')"

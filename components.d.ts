@@ -26,13 +26,13 @@ declare module 'vue' {
     IconToggleOn: typeof import('./src/components/icons/IconToggleOn.vue')['default']
     ImagePreview: typeof import('./src/components/ImagePreview.vue')['default']
     ImageTile: typeof import('./src/components/ImageTile.vue')['default']
-    InputCheckbox: typeof import('./src/components/InputCheckbox.vue')['default']
     InputFile: typeof import('./src/components/InputFile.vue')['default']
     InputText: typeof import('./src/components/InputText.vue')['default']
     InputTextArea: typeof import('./src/components/InputTextArea.vue')['default']
+    InputToggle: typeof import('./src/components/InputToggle.vue')['default']
     Modal: typeof import('./src/components/Modal.vue')['default']
     WishlistItem: typeof import('./src/components/WishlistItem.vue')['default']
   }
 }
 
-export {}
+export { }

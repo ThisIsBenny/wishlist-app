@@ -44,7 +44,7 @@
           :value="item.imageSrc"
           :label="t('components.form-wishlist-item.image-src.label')"
         />
-        <InputCheckbox
+        <InputToggle
           v-if="mode === 'update'"
           name="bought"
           :value="item.bought"
