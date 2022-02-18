@@ -3,6 +3,9 @@
     "app-title": {
       "text": "Wishlists"
     },
+    "title": {
+      "text": "Wishlist: {title}"
+    },
     "loading": {
       "text": "Loading..."
     },

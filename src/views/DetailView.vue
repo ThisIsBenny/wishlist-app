@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import { Wishlist, WishlistItem as WishlistItemType } from '@/types'
 import { useRoute, useRouter } from 'vue-router'
+import { useTitle } from '@vueuse/core'
 import { useWishlistStore, useModal, useEditMode } from '@/composables'
 import {
   FormWishlist,
@@ -11,6 +12,7 @@ import {
 } from '@/components'
 import { IconNoGift } from '../components/icons'
 import { useToast } from 'vue-toastification'
+import { computed } from 'vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -18,7 +20,6 @@ const modal = useModal()
 const { t } = useI18n()
 const toast = useToast()
 const { isActive: editModeIsActive } = useEditMode()
-
 const {
   state,
   fetch,
@@ -30,7 +31,14 @@ const {
   itemDelete,
   filteredItems,
 } = useWishlistStore()
-await fetch(route.params.slug as string)
+
+const title = computed(() => {
+  return state.value.title
+    ? t('common.title.text', { title: state.value.title })
+    : t('common.loading.text')
+})
+
+useTitle(title)
 
 const handleUpdateWishlist = async (wishlist: Wishlist): Promise<void> => {
   try {
@@ -84,6 +92,8 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
     itemDelete(item)
   }
 }
+
+await fetch(route.params.slug as string)
 </script>
 
 <template>
