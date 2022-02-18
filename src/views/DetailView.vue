@@ -24,6 +24,7 @@ const {
   fetch,
   isReady,
   update,
+  createItem,
   updateItem,
   itemBought,
   itemDelete,
@@ -36,6 +37,15 @@ const handleUpdateWishlist = async (wishlist: Wishlist): Promise<void> => {
     await update(wishlist)
     toast.success(t('common.saved.text'))
     router.push(`/${wishlist.slugUrlText}`)
+  } catch (error) {
+    toast.error(t('common.saving-failed.text'))
+  }
+}
+
+const handleCreateItem = async (values: WishlistItemType): Promise<void> => {
+  try {
+    await createItem(values)
+    toast.success(t('common.saved.text'))
   } catch (error) {
     toast.error(t('common.saving-failed.text'))
   }
@@ -97,6 +107,11 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
       v-if="filteredItems.length > 0"
       class="flex flex-col space-y-14 py-10 md:space-y-8"
     >
+      <FormWishlistItem
+        v-if="editModeIsActive"
+        mode="create"
+        @create="handleCreateItem"
+      />
       <div v-for="item in filteredItems" :key="item.id">
         <WishlistItem
           v-if="!editModeIsActive"
@@ -106,6 +121,7 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
         <FormWishlistItem
           v-else
           :item="item"
+          mode="update"
           @update="(updateValues) => handleUpdateItem(item, updateValues)"
           @delete="handleDeleteItem(item)"
         />

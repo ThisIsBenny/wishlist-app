@@ -40,6 +40,21 @@ const update = async (updatedData: Wishlist): Promise<void> => {
   }
 }
 
+const createItem = async (values: WishlistItem): Promise<void> => {
+  const id = state.value?.id
+  const payload = {
+    ...values,
+  }
+  try {
+    const { data } = await client.post(`/wishlist/${id}/item`, payload)
+    state.value?.items?.push(data)
+  } catch (e: any) {
+    if (e.isAxiosError && !(<CustomAxiosError>e.ignore)) {
+      throw e
+    }
+  }
+}
+
 const updateItem = async (
   currentValues: WishlistItem,
   newValues: WishlistItem
@@ -91,6 +106,7 @@ export const useWishlistStore = () => {
     isReady,
     fetch,
     update,
+    createItem,
     updateItem,
     itemBought,
     itemDelete,

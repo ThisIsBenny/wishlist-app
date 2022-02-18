@@ -126,6 +126,12 @@
       }
     },
     "form-wishlist-item": {
+      "headline-new-item": {
+        "text": "Neuen Eintrag hinzufügen"
+      },
+      "headline-change-item": {
+        "text": "Eintrag bearbeiten"
+      },
       "title": {
         "label": "Titel",
         "error-requried": "Titel wird benötigt."

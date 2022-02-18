@@ -123,6 +123,12 @@
       }
     },
     "form-wishlist-item": {
+      "headline-new-item": {
+        "text": "Add new item"
+      },
+      "headline-change-item": {
+        "text": "Change item"
+      },
       "title": {
         "label": "Title",
         "error-requried": "Title is required."
