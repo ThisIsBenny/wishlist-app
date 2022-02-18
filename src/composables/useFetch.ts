@@ -18,7 +18,4 @@ export const useFetch = createFetch({
       return { options }
     },
   },
-  fetchOptions: {
-    mode: 'cors',
-  },
 })
