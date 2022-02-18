@@ -9,7 +9,7 @@
     />
     <div class="flex w-full flex-col justify-between space-y-2 p-2">
       <div class="mb-4 flex flex-row items-center space-x-2 text-xl">
-        <IconPlus v-if="mode === 'create'" class="h-6 w-6" />
+        <IconCreation v-if="mode === 'create'" class="h-6 w-6" />
         <IconPencil v-else class="h-5 w-5" />
         <h1 v-if="mode === 'create'">
           {{ t('components.form-wishlist-item.headline-new-item.text') }}
@@ -80,7 +80,12 @@ import {
   InputCheckbox,
   InputTextArea,
 } from '@/components'
-import { IconSave, IconDelete, IconPlus, IconPencil } from '@/components/icons'
+import {
+  IconSave,
+  IconDelete,
+  IconCreation,
+  IconPencil,
+} from '@/components/icons'
 import { WishlistItem } from '@/types'
 import { PropType } from 'vue'
 
