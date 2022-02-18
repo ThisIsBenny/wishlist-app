@@ -38,6 +38,7 @@ const { t } = useI18n()
 const error = ref()
 
 onErrorCaptured((e: unknown) => {
+  console.error(e)
   error.value = e
   return false
 })
