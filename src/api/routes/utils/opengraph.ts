@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply, RouteOptions } from 'fastify'
-import ogs from 'open-graph-scraper'
+import ogs, { OpenGraphImage } from 'open-graph-scraper'
 
 interface fetchOpenGraphRequest extends FastifyRequest {
   query: {
@@ -36,8 +36,9 @@ export const fetchOpenGraph = <RouteOptions>{
     request.log.debug(result)
     if (result.success) {
       const image =
-        //@ts-expect-error: url not defined
-        result.ogImage && result.ogImage.url ? result.ogImage.url : ''
+        result.ogImage && (result.ogImage as OpenGraphImage).url
+          ? (result.ogImage as OpenGraphImage).url
+          : ''
       reply.send({
         title: result.ogTitle || '',
         description: result.ogDescription || '',

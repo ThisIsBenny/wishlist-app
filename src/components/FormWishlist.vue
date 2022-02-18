@@ -1,10 +1,5 @@
 <template>
-  <Form
-    @submit="onSubmit"
-    :validation-schema="schema"
-    v-slot="{ meta }"
-    class="w-full flex-col"
-  >
+  <form @submit="onSubmit" class="w-full flex-col">
     <InputText
       name="title"
       type="text"
@@ -46,13 +41,13 @@
       :icon="IconSave"
       >{{ t('components.form-wishlist.submit.text') }}</ButtonBase
     >
-  </Form>
+  </form>
 </template>
 
 <script setup lang="ts">
 import { Wishlist } from '@/types'
 import { useI18n } from 'vue-i18n'
-import { Form } from 'vee-validate'
+import { useForm } from 'vee-validate'
 import IconSave from '@/components/icons/IconSave.vue'
 import { object, string, boolean } from 'yup'
 
@@ -94,8 +89,13 @@ const schema = object().shape(
   ['imageSrc', 'imageFile']
 )
 
-const onSubmit = async (values: any): Promise<void> => {
+const { handleSubmit, meta } = useForm({
+  //@ts-expect-error ...
+  validationSchema: schema,
+})
+
+const onSubmit = handleSubmit((values) => {
   values.imageSrc = values.imageFile || values.imageSrc
   emits('update', values)
-}
+})
 </script>

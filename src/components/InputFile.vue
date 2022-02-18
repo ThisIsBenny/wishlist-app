@@ -108,13 +108,13 @@ const handleFile = async (file: File) => {
   if (base64String) value.value = base64String
 }
 
-const handleChange = async (event: any) => {
+const handleChange = async (event: Event) => {
   const file = (event.target as FileEventTarget).files[0]
   handleFile(file)
 }
-const handleDrop = async (event: any) => {
+const handleDrop = async (event: DragEvent) => {
   showDropzone.value = false
-  let droppedFiles = event.dataTransfer.files
+  let droppedFiles = event.dataTransfer?.files
   if (!droppedFiles) return
   handleFile(droppedFiles[0])
 }

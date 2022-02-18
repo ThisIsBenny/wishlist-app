@@ -15,7 +15,7 @@ export interface CustomAxiosError extends AxiosError {
 
 const { token } = useAuth()
 const isLoading = ref(false)
-const error = ref<any | null>(null)
+const error = ref<CustomAxiosError | null>(null)
 
 const config: AxiosRequestConfig = {
   baseURL: apiConfig.baseURL,

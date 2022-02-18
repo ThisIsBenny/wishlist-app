@@ -26,7 +26,7 @@ const {
 } = useWishlistStore()
 
 const title = computed(() => {
-  return state.value.title
+  return state.value?.title
     ? t('common.title.text', { title: state.value.title })
     : t('common.loading.text')
 })

@@ -5,8 +5,7 @@ import { useEditMode } from './useEditMode'
 const { client } = useAxios()
 const { isActive: editModeIsActive } = useEditMode()
 
-//@ts-expect-error ...
-const state = ref<Wishlist>({})
+const state = ref<Wishlist>()
 const isReady = ref(false)
 
 const fetch = async (slugText: string): Promise<void> => {
@@ -14,7 +13,7 @@ const fetch = async (slugText: string): Promise<void> => {
     const { data } = await client.get(`/wishlist/${slugText}`)
     state.value = data
     isReady.value = true
-  } catch (e: any) {
+  } catch (e: CustomAxiosError | any) {
     if (e.isAxiosError && !(<CustomAxiosError>e.ignore)) {
       throw e
     }
@@ -33,7 +32,7 @@ const update = async (updatedData: Wishlist): Promise<void> => {
       ...state.value,
       ...data,
     }
-  } catch (e: any) {
+  } catch (e: CustomAxiosError | any) {
     if (e.isAxiosError && !(<CustomAxiosError>e.ignore)) {
       throw e
     }
@@ -48,7 +47,7 @@ const createItem = async (values: WishlistItem): Promise<void> => {
   try {
     const { data } = await client.post(`/wishlist/${id}/item`, payload)
     state.value?.items?.push(data)
-  } catch (e: any) {
+  } catch (e: CustomAxiosError | any) {
     if (e.isAxiosError && !(<CustomAxiosError>e.ignore)) {
       throw e
     }
@@ -74,7 +73,7 @@ const updateItem = async (
       1,
       data
     )
-  } catch (e: any) {
+  } catch (e: CustomAxiosError | any) {
     if (e.isAxiosError && !(<CustomAxiosError>e.ignore)) {
       throw e
     }

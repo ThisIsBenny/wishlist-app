@@ -1,8 +1,12 @@
 import { prisma } from '../../services'
 import { Wishlist, WishlistItem } from '@/types'
 
+interface WishlistWhereInput {
+  public?: boolean
+}
+
 export default {
-  getAll: async (where?: any): Promise<Wishlist[]> => {
+  getAll: async (where?: WishlistWhereInput): Promise<Wishlist[]> => {
     return (await prisma.client.wishlist.findMany({
       where,
       include: { items: false },

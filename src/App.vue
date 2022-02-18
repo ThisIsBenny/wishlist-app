@@ -35,9 +35,9 @@ import { onErrorCaptured, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
-const error = ref(null)
+const error = ref()
 
-onErrorCaptured((e: any) => {
+onErrorCaptured((e: unknown) => {
   error.value = e
   return false
 })

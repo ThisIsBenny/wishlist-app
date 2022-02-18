@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { Form } from 'vee-validate'
+import { useForm } from 'vee-validate'
 import { object, string } from 'yup'
 import { useAuth } from '@/composables'
 import IconLogin from '@/components/icons/IconLogin.vue'
@@ -17,10 +17,14 @@ const schema = object({
   ),
 })
 
-const onSubmit = (values: any): void => {
-  setToken(values['api-key'])
+const { handleSubmit, meta } = useForm({
+  validationSchema: schema,
+})
+
+const onSubmit = handleSubmit((values) => {
+  setToken(values['api-key'] as string)
   router.push('/')
-}
+})
 </script>
 
 <template>
@@ -31,12 +35,7 @@ const onSubmit = (values: any): void => {
       <h1 class="text-semibold mb-8 text-center text-3xl">
         {{ t('pages.login-view.main.title.text') }}
       </h1>
-      <Form
-        @submit="onSubmit"
-        :validation-schema="schema"
-        v-slot="{ meta }"
-        class="w-full flex-col space-y-3"
-      >
+      <form @submit="onSubmit" class="w-full flex-col space-y-3">
         <InputText
           name="api-key"
           type="text"
@@ -50,7 +49,7 @@ const onSubmit = (values: any): void => {
           :disabled="!meta.dirty || !meta.valid"
           >{{ t('pages.login-view.main.form.submit.text') }}</ButtonBase
         >
-      </Form>
+      </form>
     </div>
   </div>
 </template>
