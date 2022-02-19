@@ -38,7 +38,7 @@ fetch()
       <ImageTile :title="item.title" :image-src="item.imageSrc" class="m-4" />
     </router-link>
     <router-link v-if="editModeIsActive" to="/create-wishlist">
-      <CreateWishlistTile />
+      <CreateWishlistTile class="m-4" />
     </router-link>
   </div>
 </template>
