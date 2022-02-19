@@ -41,7 +41,7 @@ const updateWishlist = async (updatedData: Wishlist): Promise<void> => {
 }
 
 const deleteWishlist = async (): Promise<void> => {
-  const { error } = await useFetch(`/wishlist/${state.value.id}`).delete()
+  const { error } = await useFetch(`/wishlist/${state!.value!.id}`).delete()
   if (error.value) {
     throw error.value
   }
