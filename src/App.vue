@@ -11,7 +11,19 @@
             <IconError class="h-4 w-4 fill-red-500" />
             <span>{{ t('errors.generic.text') }}</span>
           </div>
-          <component v-else :is="Component"></component>
+          <suspense v-else>
+            <template #default>
+              <component :is="Component"></component>
+            </template>
+            <template #fallback>
+              <div
+                class="m-20 flex flex-row content-center items-center justify-center space-x-2"
+              >
+                <IconSpinner class="h-4 w-4" />
+                <span> {{ t('common.loading.text') }} </span>
+              </div>
+            </template>
+          </suspense>
         </template>
       </router-view>
     </main>
@@ -19,7 +31,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { useTitle } from '@vueuse/core'
 import { onErrorCaptured, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
@@ -29,8 +40,6 @@ const error = ref()
 onErrorCaptured((e: unknown) => {
   console.error(e)
   error.value = e
-
-  useTitle(t('errors.generic.text'))
   return false
 })
 </script>

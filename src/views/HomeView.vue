@@ -5,7 +5,7 @@ import { useWishlistsStore, useEditMode } from '@/composables'
 const { t } = useI18n()
 const { isActive: editModeIsActive } = useEditMode()
 const { state, isFinished, fetch } = useWishlistsStore()
-fetch()
+await fetch()
 </script>
 
 <template>
