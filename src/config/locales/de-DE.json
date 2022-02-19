@@ -108,7 +108,7 @@
   },
   "components": {
     "create-wishlist-title": {
-      "text": "Erstelle Wunschliste"
+      "text": "Wunschliste erstellen"
     },
     "file": {
       "text-dropzone-link": "hier",
