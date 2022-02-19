@@ -1,24 +1,11 @@
-import { computed, ref } from 'vue'
-import useAxios, { CustomAxiosError } from '@/composables/useAxios'
+import { computed, ref, unref } from 'vue'
 import { Wishlist, WishlistItem } from '@/types'
 import { useEditMode } from './useEditMode'
-const { client } = useAxios()
 const { isActive: editModeIsActive } = useEditMode()
+import { useFetch } from './useFetch'
+import { syncRef } from '@vueuse/core'
 
 const state = ref<Wishlist>()
-const isReady = ref(false)
-
-const fetch = async (slugText: string): Promise<void> => {
-  try {
-    const { data } = await client.get(`/wishlist/${slugText}`)
-    state.value = data
-    isReady.value = true
-  } catch (e: CustomAxiosError | any) {
-    if (e.isAxiosError && !(<CustomAxiosError>e.ignore)) {
-      throw e
-    }
-  }
-}
 
 const update = async (updatedData: Wishlist): Promise<void> => {
   const id = state.value?.id
@@ -26,16 +13,10 @@ const update = async (updatedData: Wishlist): Promise<void> => {
     ...state.value,
     ...updatedData,
   }
-  try {
-    const { data } = await client.put(`/wishlist/${id}`, payload)
-    state.value = {
-      ...state.value,
-      ...data,
-    }
-  } catch (e: CustomAxiosError | any) {
-    if (e.isAxiosError && !(<CustomAxiosError>e.ignore)) {
-      throw e
-    }
+  const { data } = await useFetch(`/wishlist/${id}`).put(payload).json()
+  state.value = {
+    ...state.value,
+    ...(<Wishlist>data.value),
   }
 }
 
@@ -44,14 +25,8 @@ const createItem = async (values: WishlistItem): Promise<void> => {
   const payload = {
     ...values,
   }
-  try {
-    const { data } = await client.post(`/wishlist/${id}/item`, payload)
-    state.value?.items?.push(data)
-  } catch (e: CustomAxiosError | any) {
-    if (e.isAxiosError && !(<CustomAxiosError>e.ignore)) {
-      throw e
-    }
-  }
+  const { data } = await useFetch(`/wishlist/${id}/item`).post(payload).json()
+  state.value?.items?.push(unref(data))
 }
 
 const updateItem = async (
@@ -63,30 +38,24 @@ const updateItem = async (
     ...currentValues,
     ...newValues,
   }
-  try {
-    const { data } = await client.put(
-      `/wishlist/${id}/item/${currentValues.id}`,
-      payload
-    )
-    state.value?.items?.splice(
-      state.value.items.indexOf(currentValues),
-      1,
-      data
-    )
-  } catch (e: CustomAxiosError | any) {
-    if (e.isAxiosError && !(<CustomAxiosError>e.ignore)) {
-      throw e
-    }
-  }
+
+  const { data } = await useFetch(`/wishlist/${id}/item/${currentValues.id}`)
+    .put(payload)
+    .json()
+  state.value?.items?.splice(
+    state.value.items.indexOf(currentValues),
+    1,
+    unref(data)
+  )
 }
 
 const itemBought = async (item: WishlistItem): Promise<void> => {
-  await client.post(`/wishlist/${item.wishlistId}/item/${item.id}/bought`)
+  await useFetch(`/wishlist/${item.wishlistId}/item/${item.id}/bought`).post()
   item.bought = true
 }
 
 const itemDelete = async (item: WishlistItem): Promise<void> => {
-  await client.delete(`/wishlist/${item.wishlistId}/item/${item.id}`)
+  await useFetch(`/wishlist/${item.wishlistId}/item/${item.id}`).delete()
   state.value?.items?.splice(state.value.items.indexOf(item), 1)
 }
 
@@ -99,11 +68,13 @@ const filteredItems = computed(() => {
   return state.value.items.filter((item: WishlistItem) => item.bought === false)
 })
 
-export const useWishlistStore = () => {
+export const useWishlistStore = (slugText: string) => {
+  const { isFinished, error, data } = useFetch(`/wishlist/${slugText}`).json()
+  syncRef(data, state)
   return {
     state,
-    isReady,
-    fetch,
+    isFinished,
+    error,
     update,
     createItem,
     updateItem,

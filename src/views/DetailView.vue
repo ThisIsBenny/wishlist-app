@@ -15,15 +15,14 @@ const toast = useToast()
 const { isActive: editModeIsActive } = useEditMode()
 const {
   state,
-  fetch,
-  isReady,
+  isFinished,
   update,
   createItem,
   updateItem,
   itemBought,
   itemDelete,
   filteredItems,
-} = useWishlistStore()
+} = useWishlistStore(route.params.slug as string)
 
 const title = computed(() => {
   return state.value?.title
@@ -85,12 +84,10 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
     itemDelete(item)
   }
 }
-
-await fetch(route.params.slug as string)
 </script>
 
 <template>
-  <div v-if="isReady" class="h-full">
+  <div v-if="isFinished" class="h-full">
     <div
       class="flex flex-col items-center space-x-0 space-y-2 md:flex-row md:space-x-6 md:space-y-0"
       v-if="state !== undefined"
