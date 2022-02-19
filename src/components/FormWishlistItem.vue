@@ -22,12 +22,14 @@
         <InputText
           name="title"
           type="text"
+          required
           :value="item.title"
           :label="t('components.form-wishlist-item.title.label')"
         />
         <InputTextArea
           name="description"
           type="text"
+          required
           :value="item.description"
           height-class="h-20"
           :label="t('components.form-wishlist-item.description.label')"

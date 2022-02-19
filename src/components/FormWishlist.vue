@@ -4,6 +4,7 @@
       <InputText
         name="title"
         type="text"
+        required
         :value="wishlist?.title"
         :label="t('components.form-wishlist.title.label')"
       />
@@ -22,16 +23,19 @@
       <InputText
         name="imageSrc"
         type="text"
+        required
         :value="wishlist?.imageSrc"
         :label="t('components.form-wishlist.image-src.label')"
       />
       <InputFile
         name="imageFile"
+        required
         :label="t('components.form-wishlist.image-file.label')"
       />
       <InputText
         name="slugUrlText"
         type="text"
+        required
         :value="wishlist?.slugUrlText"
         :label="t('components.form-wishlist.slug-text.label')"
       />

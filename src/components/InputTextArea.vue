@@ -1,6 +1,8 @@
 <template>
   <div class="relative mb-8">
-    <label class="mb-1 block w-full" :for="name">{{ label }}</label>
+    <label class="mb-1 block w-full" :for="name"
+      >{{ label }}<span v-if="required" class="text-red-500">*</span></label
+    >
     <textarea
       class="w-full rounded-md border-2 border-solid border-stone-300 bg-transparent px-2 outline-none dark:border-stone-700"
       :class="[heightClass, !!errorMessage ? 'border-rose-500' : '']"
@@ -48,13 +50,16 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  required: {
+    type: Boolean,
+    default: false,
+  },
 })
-const {
-  value: inputValue,
-  errorMessage,
-  handleBlur,
-  handleChange,
-} = useField(props.name, undefined, {
-  initialValue: props.value,
-})
+const { value: inputValue, errorMessage, handleBlur, handleChange } = useField(
+  props.name,
+  undefined,
+  {
+    initialValue: props.value,
+  }
+)
 </script>

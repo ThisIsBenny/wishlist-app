@@ -1,6 +1,8 @@
 <template>
   <div class="relative mb-8">
-    <label class="mb-1 block w-full" :for="name">{{ label }}</label>
+    <label class="mb-1 block w-full" :for="name"
+      >{{ label }}<span v-if="required" class="text-red-500">*</span></label
+    >
     <div
       class="flex h-24 w-full flex-row items-center space-x-10 rounded-md border-2 border-solid border-stone-300 bg-transparent px-2 outline-none dark:border-stone-700"
       :class="{
@@ -69,6 +71,10 @@ const props = defineProps({
   label: {
     type: String,
     required: true,
+  },
+  required: {
+    type: Boolean,
+    default: false,
   },
 })
 
