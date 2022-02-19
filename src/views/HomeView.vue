@@ -3,7 +3,8 @@ import { useI18n } from 'vue-i18n'
 import { useWishlistsStore } from '@/composables'
 
 const { t } = useI18n()
-const { state, isFinished } = useWishlistsStore()
+const { state, isFinished, fetch } = useWishlistsStore()
+fetch()
 </script>
 
 <template>

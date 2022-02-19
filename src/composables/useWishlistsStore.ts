@@ -1,15 +1,21 @@
 import { Wishlist } from '@/types'
-import { syncRef } from '@vueuse/core'
 import { ref } from 'vue'
 import { useFetch } from './useFetch'
 
 const state = ref<Wishlist[]>([])
+const isFinished = ref<boolean>(false)
+const error = ref<any>()
+
+const fetch = async () => {
+  const request = await useFetch('/wishlist').json()
+  state.value = request.data.value
+  isFinished.value = request.isFinished.value
+  error.value = request.error.value
+}
 
 export const useWishlistsStore = () => {
-  const { isFinished, error, data } = useFetch('/wishlist').json()
-  syncRef(data, state)
-
   return {
+    fetch,
     state,
     error,
     isFinished,

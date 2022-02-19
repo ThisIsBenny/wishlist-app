@@ -14,6 +14,7 @@ const { t } = useI18n()
 const toast = useToast()
 const { isActive: editModeIsActive } = useEditMode()
 const {
+  fetch,
   state,
   isFinished,
   update,
@@ -22,7 +23,8 @@ const {
   itemBought,
   itemDelete,
   filteredItems,
-} = useWishlistStore(route.params.slug as string)
+} = useWishlistStore()
+fetch(route.params.slug as string)
 
 const title = computed(() => {
   return state.value?.title

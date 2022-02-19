@@ -6,6 +6,15 @@ import { useFetch } from './useFetch'
 import { syncRef } from '@vueuse/core'
 
 const state = ref<Wishlist>()
+const isFinished = ref<boolean>(false)
+const error = ref<any>()
+
+const fetch = async (slugText: string) => {
+  const request = await useFetch(`/wishlist/${slugText}`).json()
+  state.value = request.data.value
+  isFinished.value = request.isFinished.value
+  error.value = request.error.value
+}
 
 const update = async (updatedData: Wishlist): Promise<void> => {
   const id = state.value?.id
@@ -91,10 +100,9 @@ const filteredItems = computed(() => {
   return state.value.items.filter((item: WishlistItem) => item.bought === false)
 })
 
-export const useWishlistStore = (slugText: string) => {
-  const { isFinished, error, data } = useFetch(`/wishlist/${slugText}`).json()
-  syncRef(data, state)
+export const useWishlistStore = () => {
   return {
+    fetch,
     state,
     isFinished,
     error,
