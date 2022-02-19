@@ -3,7 +3,6 @@ import { Wishlist, WishlistItem } from '@/types'
 import { useEditMode } from './useEditMode'
 const { isActive: editModeIsActive } = useEditMode()
 import { useFetch } from './useFetch'
-import { syncRef } from '@vueuse/core'
 
 const state = ref<Wishlist>()
 const isFinished = ref<boolean>(false)
@@ -16,6 +15,15 @@ const fetch = async (slugText: string) => {
   error.value = request.error.value
 }
 
+const create = async (wishlist: Wishlist): Promise<void> => {
+  const { data, error } = await useFetch('/wishlist/')
+    .post(unref(wishlist))
+    .json()
+  if (error.value) {
+    throw error.value
+  }
+  state.value = <Wishlist>data.value
+}
 const update = async (updatedData: Wishlist): Promise<void> => {
   const id = state.value?.id
   const payload = {
@@ -106,6 +114,7 @@ export const useWishlistStore = () => {
     state,
     isFinished,
     error,
+    create,
     update,
     createItem,
     updateItem,

@@ -3,25 +3,25 @@
     <InputText
       name="title"
       type="text"
-      :value="wishlist.title"
+      :value="wishlist?.title"
       :label="t('components.form-wishlist.title.label')"
     />
     <InputToggle
       name="public"
-      :value="wishlist.public"
+      :value="wishlist?.public"
       :label="t('components.form-wishlist.public.label')"
     />
     <InputTextArea
       name="description"
       type="text"
-      :value="wishlist.description"
+      :value="wishlist?.description"
       height-class="h-20"
       :label="t('components.form-wishlist.description.label')"
     />
     <InputText
       name="imageSrc"
       type="text"
-      :value="wishlist.imageSrc"
+      :value="wishlist?.imageSrc"
       :label="t('components.form-wishlist.image-src.label')"
     />
     <InputFile
@@ -31,7 +31,7 @@
     <InputText
       name="slugUrlText"
       type="text"
-      :value="wishlist.slugUrlText"
+      :value="wishlist?.slugUrlText"
       :label="t('components.form-wishlist.slug-text.label')"
     />
     <ButtonBase
@@ -51,11 +51,11 @@ import { useForm } from 'vee-validate'
 import IconSave from '@/components/icons/IconSave.vue'
 import { object, string, boolean } from 'yup'
 
-defineProps<{
-  wishlist: Wishlist
+const props = defineProps<{
+  wishlist?: Wishlist
 }>()
 
-const emits = defineEmits(['update'])
+const emits = defineEmits(['create', 'update'])
 
 const { t } = useI18n()
 
@@ -96,6 +96,10 @@ const { handleSubmit, meta } = useForm({
 
 const onSubmit = handleSubmit((values) => {
   values.imageSrc = values.imageFile || values.imageSrc
-  emits('update', values)
+  if (props.wishlist?.id) {
+    emits('update', values)
+  } else {
+    emits('create', values)
+  }
 })
 </script>

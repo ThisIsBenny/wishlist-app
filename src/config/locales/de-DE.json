@@ -10,10 +10,10 @@
       "text": "Lade..."
     },
     "saved": {
-      "text": "Wunschliste gespeichert"
+      "text": "Gespeichert"
     },
     "saving-failed": {
-      "text": "Wunschliste konnte nicht gespeichert werden"
+      "text": "Speichern ist fehlgeschlagen!"
     }
   },
   "errors": {
@@ -46,6 +46,14 @@
         "empty-list": {
           "text": "Keine Wunschlisten verfügbar."
         }
+      }
+    },
+    "create-wishlist-view": {
+      "title": {
+        "text": "Wunschliste erstellen"
+      },
+      "headline": {
+        "text": "Erstelle eine Wunschliste"
       }
     },
     "detail-view": {

@@ -10,10 +10,10 @@
       "text": "Loading..."
     },
     "saved": {
-      "text": "Wishlist saved"
+      "text": "Saved"
     },
     "saving-failed": {
-      "text": "Saving wishlist failed"
+      "text": "Saving failed"
     }
   },
   "errors": {
@@ -46,6 +46,14 @@
         "empty-list": {
           "text": "No wishlists available."
         }
+      }
+    },
+    "create-wishlist-view": {
+      "title": {
+        "text": "Create a wishlist"
+      },
+      "headline": {
+        "text": "Create a wishlist"
       }
     },
     "detail-view": {
