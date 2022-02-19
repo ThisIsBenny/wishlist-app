@@ -112,10 +112,20 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
         </div>
         <FormWishlist v-else :wishlist="state" @update="handleUpdateWishlist" />
       </div>
+
       <div
-        v-if="filteredItems.length > 0"
-        class="flex flex-col space-y-14 py-10 md:space-y-8"
+        v-if="!editModeIsActive && filteredItems.length === 0"
+        class="flex h-1/2 w-full justify-center"
       >
+        <div
+          class="flex flex-col flex-wrap items-center justify-center text-center text-xl text-gray-600/75 dark:text-white/70 sm:flex-row sm:space-x-2 sm:text-left"
+        >
+          <IconNoGift class="h-10 w-10 fill-gray-600/75 dark:fill-white/70" />
+          <span>{{ t('pages.detail-view.main.empty-list.text') }}</span>
+        </div>
+      </div>
+
+      <div v-else class="flex flex-col space-y-14 py-10 md:space-y-8">
         <FormWishlistItem
           v-if="editModeIsActive"
           mode="create"
@@ -134,14 +144,6 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
             @update="(updateValues) => handleUpdateItem(item, updateValues)"
             @delete="handleDeleteItem(item)"
           />
-        </div>
-      </div>
-      <div v-else class="flex h-1/2 w-full justify-center">
-        <div
-          class="flex flex-col flex-wrap items-center justify-center text-center text-xl text-gray-600/75 dark:text-white/70 sm:flex-row sm:space-x-2 sm:text-left"
-        >
-          <IconNoGift class="h-10 w-10 fill-gray-600/75 dark:fill-white/70" />
-          <span>{{ t('pages.detail-view.main.empty-list.text') }}</span>
         </div>
       </div>
     </div>
