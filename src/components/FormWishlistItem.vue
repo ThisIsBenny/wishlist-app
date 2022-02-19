@@ -4,14 +4,14 @@
   >
     <ImagePreview
       class="max-h-44 flex-shrink-0 flex-grow-0 object-cover sm:w-1/4"
-      :src="item.imageSrc"
-      :alt="item.title"
+      :src="item?.imageSrc"
+      :alt="item?.title"
     />
     <div class="flex w-full flex-col justify-between space-y-2 p-2">
       <div class="mb-4 flex flex-row items-center space-x-2 text-xl">
-        <IconCreation v-if="mode === 'create'" class="h-6 w-6" />
+        <IconCreation v-if="!item?.id" class="h-6 w-6" />
         <IconPencil v-else class="h-5 w-5" />
-        <h1 v-if="mode === 'create'">
+        <h1 v-if="!item?.id">
           {{ t('components.form-wishlist-item.headline-new-item.text') }}
         </h1>
         <h1 v-else>
@@ -23,33 +23,33 @@
           name="title"
           type="text"
           required
-          :value="item.title"
+          :value="item?.title"
           :label="t('components.form-wishlist-item.title.label')"
         />
         <InputTextArea
           name="description"
           type="text"
           required
-          :value="item.description"
+          :value="item?.description"
           height-class="h-20"
           :label="t('components.form-wishlist-item.description.label')"
         />
         <InputText
           name="url"
           type="text"
-          :value="item.url"
+          :value="item?.url"
           :label="t('components.form-wishlist-item.url.label')"
         />
         <InputText
           name="imageSrc"
           type="text"
-          :value="item.imageSrc"
+          :value="item?.imageSrc"
           :label="t('components.form-wishlist-item.image-src.label')"
         />
         <InputToggle
-          v-if="mode === 'update'"
+          v-if="item?.id"
           name="bought"
-          :value="item.bought"
+          :value="item?.bought"
           :label="t('components.form-wishlist-item.bought.label')"
         />
         <ButtonBase
@@ -61,7 +61,7 @@
         >
       </form>
       <ButtonBase
-        v-if="mode === 'update'"
+        v-if="item?.id"
         class="h-12 w-full"
         mode="danger"
         @click.prevent="() => emits('delete')"
@@ -78,27 +78,10 @@ import { object, string, boolean } from 'yup'
 import { WishlistItem } from '@/types'
 import IconSave from '@/components/icons/IconSave.vue'
 import IconDelete from '@/components/icons/IconDelete.vue'
-import { PropType } from 'vue'
 
-const props = defineProps({
-  mode: {
-    type: String,
-    required: true,
-  },
-  item: {
-    type: Object as PropType<WishlistItem>,
-    default: () => {
-      return {
-        id: '',
-        title: '',
-        description: '',
-        url: '',
-        imageSrc: '',
-        bought: false,
-      }
-    },
-  },
-})
+const props = defineProps<{
+  item?: WishlistItem
+}>()
 const emits = defineEmits(['update', 'create', 'delete'])
 const { t } = useI18n()
 
@@ -121,7 +104,7 @@ const { handleSubmit, resetForm, meta } = useForm({
 })
 
 const onSubmit = handleSubmit((values) => {
-  if (props.mode === 'create') {
+  if (!props.item?.id) {
     emits('create', values)
     resetForm()
   } else {
