@@ -87,53 +87,60 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
 </script>
 
 <template>
-  <div v-if="isFinished" class="h-full">
+  <div class="h-full">
     <div
-      class="flex flex-col items-center space-x-0 space-y-2 md:flex-row md:space-x-6 md:space-y-0"
-      v-if="state !== undefined"
+      v-if="!isFinished"
+      class="m-20 flex flex-row content-center items-center justify-center space-x-2"
     >
-      <ImageTile :image-src="state.imageSrc" class="shrink-0"></ImageTile>
-      <div v-if="!editModeIsActive">
-        <h1 class="mb-2 text-center text-2xl font-bold md:text-left">
-          {{ state.title }}
-        </h1>
-        <p class="text-lg">
-          {{ state.description }}
-        </p>
-      </div>
-      <FormWishlist v-else :wishlist="state" @update="handleUpdateWishlist" />
+      <IconSpinner class="h-4 w-4" />
+      <span> {{ t('common.loading.text') }} </span>
     </div>
-    <div
-      v-if="filteredItems.length > 0"
-      class="flex flex-col space-y-14 py-10 md:space-y-8"
-    >
-      <FormWishlistItem
-        v-if="editModeIsActive"
-        mode="create"
-        @create="handleCreateItem"
-      />
-      <div v-for="item in filteredItems" :key="item.id">
-        <WishlistItem
-          v-if="!editModeIsActive"
-          :item="item"
-          @bought="handleBought(item)"
-        />
-        <FormWishlistItem
-          v-else
-          :item="item"
-          mode="update"
-          @update="(updateValues) => handleUpdateItem(item, updateValues)"
-          @delete="handleDeleteItem(item)"
-        />
-      </div>
-    </div>
-    <div v-else class="flex h-1/2 w-full justify-center">
+    <div v-else-if="state !== undefined">
       <div
-        class="flex flex-col flex-wrap items-center justify-center text-center text-xl text-gray-600/75 dark:text-white/70 sm:flex-row sm:space-x-2 sm:text-left"
+        class="flex flex-col items-center space-x-0 space-y-2 md:flex-row md:space-x-6 md:space-y-0"
       >
-        <IconNoGift class="h-10 w-10 fill-gray-600/75 dark:fill-white/70" />
-
-        <span>{{ t('pages.detail-view.main.empty-list.text') }}</span>
+        <ImageTile :image-src="state.imageSrc" class="shrink-0"></ImageTile>
+        <div v-if="!editModeIsActive">
+          <h1 class="mb-2 text-center text-2xl font-bold md:text-left">
+            {{ state.title }}
+          </h1>
+          <p class="text-lg">
+            {{ state.description }}
+          </p>
+        </div>
+        <FormWishlist v-else :wishlist="state" @update="handleUpdateWishlist" />
+      </div>
+      <div
+        v-if="filteredItems.length > 0"
+        class="flex flex-col space-y-14 py-10 md:space-y-8"
+      >
+        <FormWishlistItem
+          v-if="editModeIsActive"
+          mode="create"
+          @create="handleCreateItem"
+        />
+        <div v-for="item in filteredItems" :key="item.id">
+          <WishlistItem
+            v-if="!editModeIsActive"
+            :item="item"
+            @bought="handleBought(item)"
+          />
+          <FormWishlistItem
+            v-else
+            :item="item"
+            mode="update"
+            @update="(updateValues) => handleUpdateItem(item, updateValues)"
+            @delete="handleDeleteItem(item)"
+          />
+        </div>
+      </div>
+      <div v-else class="flex h-1/2 w-full justify-center">
+        <div
+          class="flex flex-col flex-wrap items-center justify-center text-center text-xl text-gray-600/75 dark:text-white/70 sm:flex-row sm:space-x-2 sm:text-left"
+        >
+          <IconNoGift class="h-10 w-10 fill-gray-600/75 dark:fill-white/70" />
+          <span>{{ t('pages.detail-view.main.empty-list.text') }}</span>
+        </div>
       </div>
     </div>
   </div>

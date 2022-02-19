@@ -13,7 +13,10 @@ const update = async (updatedData: Wishlist): Promise<void> => {
     ...state.value,
     ...updatedData,
   }
-  const { data } = await useFetch(`/wishlist/${id}`).put(payload).json()
+  const { data, error } = await useFetch(`/wishlist/${id}`).put(payload).json()
+  if (error.value) {
+    throw error.value
+  }
   state.value = {
     ...state.value,
     ...(<Wishlist>data.value),
@@ -25,7 +28,12 @@ const createItem = async (values: WishlistItem): Promise<void> => {
   const payload = {
     ...values,
   }
-  const { data } = await useFetch(`/wishlist/${id}/item`).post(payload).json()
+  const { data, error } = await useFetch(`/wishlist/${id}/item`)
+    .post(payload)
+    .json()
+  if (error.value) {
+    throw error.value
+  }
   state.value?.items?.push(unref(data))
 }
 
@@ -39,9 +47,14 @@ const updateItem = async (
     ...newValues,
   }
 
-  const { data } = await useFetch(`/wishlist/${id}/item/${currentValues.id}`)
+  const { data, error } = await useFetch(
+    `/wishlist/${id}/item/${currentValues.id}`
+  )
     .put(payload)
     .json()
+  if (error.value) {
+    throw error.value
+  }
   state.value?.items?.splice(
     state.value.items.indexOf(currentValues),
     1,
@@ -50,12 +63,22 @@ const updateItem = async (
 }
 
 const itemBought = async (item: WishlistItem): Promise<void> => {
-  await useFetch(`/wishlist/${item.wishlistId}/item/${item.id}/bought`).post()
+  const { error } = await useFetch(
+    `/wishlist/${item.wishlistId}/item/${item.id}/bought`
+  ).post()
+  if (error.value) {
+    throw error.value
+  }
   item.bought = true
 }
 
 const itemDelete = async (item: WishlistItem): Promise<void> => {
-  await useFetch(`/wishlist/${item.wishlistId}/item/${item.id}`).delete()
+  const { error } = await useFetch(
+    `/wishlist/${item.wishlistId}/item/${item.id}`
+  ).delete()
+  if (error.value) {
+    throw error.value
+  }
   state.value?.items?.splice(state.value.items.indexOf(item), 1)
 }
 
