@@ -9,7 +9,7 @@ useTitle(t('errors.not-found.text'))
   <div
     class="mt-20 flex flex-col flex-wrap items-center justify-center text-center text-xl sm:flex-row sm:space-x-2 sm:text-left"
   >
-    <IconCloudQuestion class="h-12 w-12" />
+    <IconCloudQuestion class="h-12 w-12 fill-current" />
     <h1>{{ t('errors.not-found.text') }}</h1>
   </div>
 </template>
