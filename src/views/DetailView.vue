@@ -97,7 +97,7 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
       <IconSpinner class="h-4 w-4" />
       <span> {{ t('common.loading.text') }} </span>
     </div>
-    <div v-else-if="state !== undefined">
+    <div v-else-if="state !== undefined" class="h-full">
       <div
         class="flex flex-col items-center space-x-0 space-y-2 md:flex-row md:space-x-6 md:space-y-0"
       >
