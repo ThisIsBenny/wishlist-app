@@ -1,10 +1,10 @@
 <template>
   <header
-    class="mb-4 flex flex-row items-center space-x-2 opacity-60 sm:justify-end"
+    class="mb-4 flex flex-row items-center space-x-3 opacity-60 sm:justify-end"
   >
     <div
       v-if="isAuthenticated"
-      class="mr-4 inline-flex grow cursor-pointer items-center space-x-1"
+      class="mr-4 inline-flex grow cursor-pointer items-center space-x-1 sm:grow-0"
       @click="() => toggle()"
     >
       <IconToggleOn v-if="editMode" class="h-6 w-6 fill-emerald-700" />
