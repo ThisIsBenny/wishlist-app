@@ -55,11 +55,12 @@ const props = defineProps({
     default: false,
   },
 })
-const { value: inputValue, errorMessage, handleBlur, handleChange } = useField(
-  props.name,
-  undefined,
-  {
-    initialValue: props.value,
-  }
-)
+const {
+  value: inputValue,
+  errorMessage,
+  handleBlur,
+  handleChange,
+} = useField(props.name, undefined, {
+  initialValue: props.value,
+})
 </script>

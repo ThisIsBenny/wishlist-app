@@ -136,7 +136,8 @@
       },
       "slug-text": {
         "label": "URL Slug-Text",
-        "error-requried": "URL Slug-Text wird benötigt."
+        "error-requried": "URL Slug-Text wird benötigt.",
+        "error-regex": "Unngültige URL Slug-Text."
       },
       "image-src": {
         "label": "Bild-URL",

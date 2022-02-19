@@ -135,7 +135,9 @@
         "error-max": "The max. length is 300 chars."
       },
       "slug-text": {
-        "label": "URL Slug-Text"
+        "label": "URL Slug-Text",
+        "error-requried": "URL Slug-Text is required.",
+        "error-regex": "Invalid URL Slug-Text."
       },
       "image-src": {
         "label": "Image-URL",

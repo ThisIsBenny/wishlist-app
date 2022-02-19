@@ -84,9 +84,9 @@ const schema = object().shape(
       300,
       t('components.form-wishlist.description.error-max')
     ),
-    slugUrlText: string().required(
-      t('components.form-wishlist.slug-text.error-requried')
-    ),
+    slugUrlText: string()
+      .required(t('components.form-wishlist.slug-text.error-requried'))
+      .matches(/^[\w-]+$/, t('components.form-wishlist.slug-text.error-regex')),
     imageSrc: string().when('imageFile', {
       is: (imageFile: string) => !imageFile || imageFile.length === 0,
       then: string().required(
