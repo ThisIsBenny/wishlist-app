@@ -14,6 +14,7 @@ declare module 'vue' {
     IconCreation: typeof import('./src/components/icons/IconCreation.vue')['default']
     IconDelete: typeof import('./src/components/icons/IconDelete.vue')['default']
     IconError: typeof import('./src/components/icons/IconError.vue')['default']
+    IconHome: typeof import('./src/components/icons/IconHome.vue')['default']
     IconImagePlaceholder: typeof import('./src/components/icons/IconImagePlaceholder.vue')['default']
     IconLightDark: typeof import('./src/components/icons/IconLightDark.vue')['default']
     IconLink: typeof import('./src/components/icons/IconLink.vue')['default']
@@ -38,4 +39,4 @@ declare module 'vue' {
   }
 }
 
-export { }
+export {}

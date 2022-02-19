@@ -1,16 +1,19 @@
 <template>
   <header
-    class="mb-4 flex flex-row items-center justify-end space-x-2 opacity-60"
+    class="mb-4 flex flex-row items-center space-x-2 opacity-60 sm:justify-end"
   >
     <div
       v-if="isAuthenticated"
-      class="mr-4 inline-flex cursor-pointer items-center space-x-1"
+      class="mr-4 inline-flex grow cursor-pointer items-center space-x-1"
       @click="() => toggle()"
     >
       <IconToggleOn v-if="editMode" class="h-6 w-6 fill-emerald-700" />
       <IconToggleOff v-else class="h-6 w-6 cursor-pointer fill-current" />
       <span>{{ t('components.header.edit-mode.text') }}</span>
     </div>
+    <router-link to="/">
+      <IconHome class="h-6 w-6 cursor-pointer fill-current"></IconHome>
+    </router-link>
     <div @click="() => toggleDark()">
       <IconLightDark class="h-6 w-6 cursor-pointer fill-current" />
     </div>
