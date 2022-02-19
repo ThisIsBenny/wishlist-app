@@ -64,7 +64,7 @@
         mode="danger"
         @click.prevent="() => emits('delete')"
         :icon="IconDelete"
-        >{{ t('components.wishlist-item.delete-button.text') }}</ButtonBase
+        >{{ t('components.form-wishlist-item.delete-button.text') }}</ButtonBase
       >
     </div>
   </div>

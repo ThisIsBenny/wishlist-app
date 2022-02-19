@@ -9,13 +9,13 @@ import { useToast } from 'vue-toastification'
 const router = useRouter()
 const { t } = useI18n()
 const toast = useToast()
-const { create } = useWishlistStore()
+const { createWishlist } = useWishlistStore()
 
 useTitle(t('pages.create-wishlist-view.title.text'))
 
 const handleCreateWishlist = async (wishlist: Wishlist): Promise<void> => {
   try {
-    await create(wishlist)
+    await createWishlist(wishlist)
     toast.success(t('common.saved.text'))
     router.push(`/${wishlist.slugUrlText}`)
   } catch (error) {

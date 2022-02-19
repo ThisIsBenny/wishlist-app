@@ -14,6 +14,12 @@
     },
     "saving-failed": {
       "text": "Speichern ist fehlgeschlagen!"
+    },
+    "deleted": {
+      "text": "Gelöscht"
+    },
+    "deleting-failed": {
+      "text": "Löschen ist fehlgeschlagen!"
     }
   },
   "errors": {
@@ -62,6 +68,17 @@
           "text": "Diese Wunschliste ist leer."
         }
       },
+      "modal-delete-wishlist": {
+        "title": {
+          "text": "Möchten Sie die Wunschliste löschen?"
+        },
+        "confirm-button": {
+          "text": "Ja"
+        },
+        "cancel-button": {
+          "text": "Nein"
+        }
+      },
       "modal-bought-item": {
         "title": {
           "text": "Möchten Sie den Gegenstand von der Liste nehmen?"
@@ -103,9 +120,6 @@
       },
       "bought-button": {
         "text": "Gekauft"
-      },
-      "delete-button": {
-        "text": "Löschen"
       }
     },
     "form-wishlist": {
@@ -137,6 +151,9 @@
       },
       "submit": {
         "text": "Speichern"
+      },
+      "delete-button": {
+        "text": "Löschen"
       }
     },
     "form-wishlist-item": {
@@ -168,6 +185,9 @@
       },
       "submit": {
         "text": "Speichern"
+      },
+      "delete-button": {
+        "text": "Löschen"
       }
     },
     "header": {

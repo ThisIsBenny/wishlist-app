@@ -17,7 +17,8 @@ const {
   fetch,
   state,
   isFinished,
-  update,
+  updateWishlist,
+  deleteWishlist,
   createItem,
   updateItem,
   itemBought,
@@ -36,11 +37,28 @@ useTitle(title)
 
 const handleUpdateWishlist = async (wishlist: Wishlist): Promise<void> => {
   try {
-    await update(wishlist)
+    await updateWishlist(wishlist)
     toast.success(t('common.saved.text'))
     router.push(`/${wishlist.slugUrlText}`)
   } catch (error) {
     toast.error(t('common.saving-failed.text'))
+  }
+}
+
+const handleDelete = async (): Promise<void> => {
+  const confirmed = await modal.show(
+    t('pages.detail-view.modal-delete-wishlist.title.text'),
+    t('pages.detail-view.modal-delete-wishlist.confirm-button.text'),
+    t('pages.detail-view.modal-delete-wishlist.cancel-button.text')
+  )
+  if (confirmed) {
+    try {
+      await deleteWishlist()
+      toast.success(t('common.deleted.text'))
+      router.push('/')
+    } catch (error) {
+      toast.error(t('common.deleting-failed.text'))
+    }
   }
 }
 
@@ -83,7 +101,12 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
     t('pages.detail-view.modal-delete-item.cancel-button.text')
   )
   if (confirmed) {
-    itemDelete(item)
+    try {
+      await itemDelete(item)
+      toast.success(t('common.deleted.text'))
+    } catch (error) {
+      toast.error(t('common.deleting-failed.text'))
+    }
   }
 }
 </script>
@@ -110,7 +133,12 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
             {{ state.description }}
           </p>
         </div>
-        <FormWishlist v-else :wishlist="state" @update="handleUpdateWishlist" />
+        <FormWishlist
+          v-else
+          :wishlist="state"
+          @update="handleUpdateWishlist"
+          @delete="handleDelete"
+        />
       </div>
 
       <div

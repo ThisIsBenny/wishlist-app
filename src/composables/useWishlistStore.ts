@@ -15,7 +15,7 @@ const fetch = async (slugText: string) => {
   error.value = request.error.value
 }
 
-const create = async (wishlist: Wishlist): Promise<void> => {
+const createWishlist = async (wishlist: Wishlist): Promise<void> => {
   const { data, error } = await useFetch('/wishlist/')
     .post(unref(wishlist))
     .json()
@@ -24,7 +24,7 @@ const create = async (wishlist: Wishlist): Promise<void> => {
   }
   state.value = <Wishlist>data.value
 }
-const update = async (updatedData: Wishlist): Promise<void> => {
+const updateWishlist = async (updatedData: Wishlist): Promise<void> => {
   const id = state.value?.id
   const payload = {
     ...state.value,
@@ -37,6 +37,13 @@ const update = async (updatedData: Wishlist): Promise<void> => {
   state.value = {
     ...state.value,
     ...(<Wishlist>data.value),
+  }
+}
+
+const deleteWishlist = async (): Promise<void> => {
+  const { error } = await useFetch(`/wishlist/${state.value.id}`).delete()
+  if (error.value) {
+    throw error.value
   }
 }
 
@@ -114,8 +121,9 @@ export const useWishlistStore = () => {
     state,
     isFinished,
     error,
-    create,
-    update,
+    createWishlist,
+    updateWishlist,
+    deleteWishlist,
     createItem,
     updateItem,
     itemBought,
