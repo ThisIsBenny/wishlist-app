@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full p-4">
+  <div class="m-4 h-full">
     <Header />
     <main class="mx-auto h-full max-w-[900px]">
       <router-view v-slot="{ Component }">
