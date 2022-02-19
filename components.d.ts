@@ -5,6 +5,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     ButtonBase: typeof import('./src/components/ButtonBase.vue')['default']
+    CreateWishlistTile: typeof import('./src/components/CreateWishlistTile.vue')['default']
     FormWishlist: typeof import('./src/components/FormWishlist.vue')['default']
     FormWishlistItem: typeof import('./src/components/FormWishlistItem.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
@@ -26,6 +27,8 @@ declare module 'vue' {
     IconToggleOn: typeof import('./src/components/icons/IconToggleOn.vue')['default']
     ImagePreview: typeof import('./src/components/ImagePreview.vue')['default']
     ImageTile: typeof import('./src/components/ImageTile.vue')['default']
+    'ImageTile copy': typeof import('./src/components/ImageTile copy.vue')['default']
+    ImageTilePlaceholder: typeof import('./src/components/ImageTilePlaceholder.vue')['default']
     InputFile: typeof import('./src/components/InputFile.vue')['default']
     InputText: typeof import('./src/components/InputText.vue')['default']
     InputTextArea: typeof import('./src/components/InputTextArea.vue')['default']

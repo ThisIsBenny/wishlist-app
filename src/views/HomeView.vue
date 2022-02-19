@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { useWishlistsStore } from '@/composables'
+import { useWishlistsStore, useEditMode } from '@/composables'
 
 const { t } = useI18n()
+const { isActive: editModeIsActive } = useEditMode()
 const { state, isFinished, fetch } = useWishlistsStore()
 fetch()
 </script>
@@ -19,9 +20,16 @@ fetch()
     <span> {{ t('common.loading.text') }} </span>
   </div>
   <div
-    v-else-if="state.length > 0"
-    class="flex flex-row flex-wrap justify-around p-10"
+    v-if="state.length === 0 && !editModeIsActive"
+    class="flex h-1/2 w-full justify-center"
   >
+    <div
+      class="flex flex-col flex-wrap items-center justify-center text-center text-xl text-gray-600/75 dark:text-white/70 sm:flex-row sm:space-x-2 sm:text-left"
+    >
+      <span>{{ t('pages.home-view.main.empty-list.text') }}</span>
+    </div>
+  </div>
+  <div v-else class="flex flex-row flex-wrap justify-around p-10">
     <router-link
       v-for="item in state"
       :key="item.id"
@@ -29,12 +37,8 @@ fetch()
     >
       <ImageTile :title="item.title" :image-src="item.imageSrc" class="m-4" />
     </router-link>
-  </div>
-  <div v-else class="flex h-1/2 w-full justify-center">
-    <div
-      class="flex flex-col flex-wrap items-center justify-center text-center text-xl text-gray-600/75 dark:text-white/70 sm:flex-row sm:space-x-2 sm:text-left"
-    >
-      <span>{{ t('pages.home-view.main.empty-list.text') }}</span>
-    </div>
+    <router-link v-if="editModeIsActive" to="/create-wishlist">
+      <CreateWishlistTile />
+    </router-link>
   </div>
 </template>

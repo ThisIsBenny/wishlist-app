@@ -90,6 +90,9 @@
     }
   },
   "components": {
+    "create-wishlist-title": {
+      "text": "Erstelle Wunschliste"
+    },
     "file": {
       "text-dropzone-link": "hier",
       "text-dropzone": "Ziehen Sie ein beliebiges Bild hierher oder klicken Sie {0}, um den Dialog zu öffnen."
