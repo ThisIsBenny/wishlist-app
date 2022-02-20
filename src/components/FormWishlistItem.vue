@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex h-fit flex-col space-x-0 overflow-hidden rounded-md border-2 border-stone-200 dark:border-stone-700 sm:flex-row sm:space-x-2"
+    class="flex h-fit flex-col space-x-0 space-y-6 overflow-hidden sm:flex-row sm:space-x-2 sm:space-y-0"
   >
     <ImagePreview
       class="max-h-44 flex-shrink-0 flex-grow-0 object-cover sm:w-1/4"

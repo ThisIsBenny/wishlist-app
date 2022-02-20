@@ -145,9 +145,17 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
       </div>
     </div>
 
-    <div v-else class="flex flex-col space-y-14 py-10 md:space-y-8">
-      <FormWishlistItem v-if="editModeIsActive" @create="handleCreateItem" />
-      <div v-for="item in filteredItems" :key="item.id">
+    <div
+      v-else
+      class="flex flex-col py-10"
+      :class="{ 'divide-y-2': editModeIsActive }"
+    >
+      <FormWishlistItem
+        v-if="editModeIsActive"
+        @create="handleCreateItem"
+        class="py-8 md:py-14"
+      />
+      <div v-for="item in filteredItems" :key="item.id" class="py-8 md:py-14">
         <WishlistItem
           v-if="!editModeIsActive"
           :item="item"
