@@ -14,7 +14,7 @@ The wishlist app is a simple webapp for publishing wishlists. It allows to share
 ## Features
 
 - Support of multiple wishlists
-- Items can be removed from the wishlist by anonymous users
+- Items can be removed from the wishlist by everyone (no registration needed for friends and family).
 - Grab title, description and image-url from url via open graph meta tags
 - i18n support
 
