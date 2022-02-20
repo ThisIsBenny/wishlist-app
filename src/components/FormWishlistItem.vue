@@ -9,8 +9,8 @@
     />
     <div class="flex w-full flex-col justify-between space-y-2 p-2">
       <div class="mb-4 flex flex-row items-center space-x-2 text-xl">
-        <IconCreation v-if="!item?.id" class="h-6 w-6" />
-        <IconPencil v-else class="h-5 w-5" />
+        <IconCreation v-if="!item?.id" class="h-6 w-6 fill-current" />
+        <IconPencil v-else class="h-5 w-5 fill-current" />
         <h1 v-if="!item?.id">
           {{ t('components.form-wishlist-item.headline-new-item.text') }}
         </h1>
