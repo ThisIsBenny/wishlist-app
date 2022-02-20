@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { useTitle } from '@vueuse/core'
 import { useWishlistsStore, useEditMode } from '@/composables'
 
 const { t } = useI18n()
+useTitle(t('common.app-title.text'))
 const { isActive: editModeIsActive } = useEditMode()
 const { state, isFinished, fetch } = useWishlistsStore()
 await fetch()
