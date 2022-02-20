@@ -62,6 +62,17 @@
         "text": "Erstelle eine Wunschliste"
       }
     },
+    "create-wishlist-item-view": {
+      "title": {
+        "text": "Eintrag hinzufügen"
+      },
+      "loading": {
+        "text": "Lade Daten der übermittelten URL"
+      },
+      "headline-wishlist-selection": {
+        "text": "Zu welcher Wunschliste möchten Sie etwas hinzufügen?"
+      }
+    },
     "detail-view": {
       "main": {
         "empty-list": {

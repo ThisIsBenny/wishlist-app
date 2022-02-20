@@ -24,7 +24,7 @@ export const fetchOpenGraph = <RouteOptions>{
         properties: {
           title: { type: 'string' },
           description: { type: 'string' },
-          image: { type: 'string' },
+          imageSrc: { type: 'string' },
         },
       },
     },
@@ -42,7 +42,7 @@ export const fetchOpenGraph = <RouteOptions>{
       reply.send({
         title: result.ogTitle || '',
         description: result.ogDescription || '',
-        image,
+        imageSrc: image,
       })
     }
   },

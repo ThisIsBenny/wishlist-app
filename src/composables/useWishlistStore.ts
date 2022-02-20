@@ -47,8 +47,11 @@ const deleteWishlist = async (): Promise<void> => {
   }
 }
 
-const createItem = async (values: WishlistItem): Promise<void> => {
-  const id = state.value?.id
+const createItem = async (
+  values: WishlistItem,
+  wishlistId?: string
+): Promise<void> => {
+  const id = wishlistId || state.value?.id
   const payload = {
     ...values,
   }

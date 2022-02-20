@@ -1,11 +1,11 @@
 export interface WishlistItem {
-  id: number
+  id?: number
   title: string
   url: string
   imageSrc: string
   description: string
   bought: boolean
-  wishlistId: boolean
+  wishlistId?: boolean
 }
 export interface Wishlist {
   id?: string

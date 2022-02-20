@@ -54,6 +54,17 @@
         }
       }
     },
+    "create-wishlist-item-view": {
+      "title": {
+        "text": "Add item"
+      },
+      "loading": {
+        "text": "Loading data from provided URL"
+      },
+      "headline-wishlist-selection": {
+        "text": "To which wish list would you like to add the new item?"
+      }
+    },
     "create-wishlist-view": {
       "title": {
         "text": "Create a wishlist"
