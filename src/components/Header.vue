@@ -11,9 +11,6 @@
       <IconToggleOff v-else class="h-6 w-6 cursor-pointer fill-current" />
       <span>{{ t('components.header.edit-mode.text') }}</span>
     </div>
-    <router-link to="/">
-      <IconHome class="h-6 w-6 cursor-pointer fill-current"></IconHome>
-    </router-link>
     <div @click="() => toggleDark()">
       <IconLightDark class="h-6 w-6 cursor-pointer fill-current" />
     </div>
