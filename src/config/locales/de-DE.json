@@ -3,26 +3,110 @@
     "app-title": {
       "text": "Wunschlisten"
     },
+    "title": {
+      "text": "Wunschliste: {title}"
+    },
     "loading": {
       "text": "Lade..."
+    },
+    "saved": {
+      "text": "Gespeichert"
+    },
+    "saving-failed": {
+      "text": "Speichern ist fehlgeschlagen!"
+    },
+    "deleted": {
+      "text": "Gelöscht"
+    },
+    "deleting-failed": {
+      "text": "Löschen ist fehlgeschlagen!"
     }
   },
   "errors": {
     "not-found": {
-      "text": "Ups, es sieht so aus, als ob die Seite, die du suchst, nicht existiert."
+      "text": "Ups, die aufgerufene Seite existiert nicht."
     },
     "generic": {
       "text": "Es ist ein Fehler aufgetreten..."
     }
   },
   "pages": {
+    "login-view": {
+      "main": {
+        "title": {
+          "text": "Anmelden"
+        },
+        "form": {
+          "api-key": {
+            "placeholder": "API-Key",
+            "error-requried": "API-Key wird benötigt"
+          },
+          "submit": {
+            "text": "Anmelden"
+          }
+        }
+      }
+    },
+    "home-view": {
+      "main": {
+        "empty-list": {
+          "text": "Keine Wunschlisten verfügbar."
+        }
+      }
+    },
+    "create-wishlist-view": {
+      "title": {
+        "text": "Wunschliste erstellen"
+      },
+      "headline": {
+        "text": "Erstelle eine Wunschliste"
+      }
+    },
+    "create-wishlist-item-view": {
+      "title": {
+        "text": "Eintrag hinzufügen"
+      },
+      "loading": {
+        "text": "Lade Daten der übermittelten URL"
+      },
+      "headline-wishlist-selection": {
+        "text": "Zu welcher Wunschliste möchten Sie etwas hinzufügen?"
+      }
+    },
     "detail-view": {
-      "confirmation-modal": {
+      "main": {
+        "empty-list": {
+          "text": "Diese Wunschliste ist leer."
+        }
+      },
+      "modal-delete-wishlist": {
+        "title": {
+          "text": "Möchten Sie die Wunschliste löschen?"
+        },
+        "confirm-button": {
+          "text": "Ja"
+        },
+        "cancel-button": {
+          "text": "Nein"
+        }
+      },
+      "modal-bought-item": {
         "title": {
           "text": "Möchten Sie den Gegenstand von der Liste nehmen?"
         },
         "body": {
-          "text": "Durch das das runternehmen von der Liste ist dieser Gegenstand nicht mehr andere sichtbar."
+          "text": "Durch das runternehmen von der Liste ist dieser Gegenstand nicht mehr für andere sichtbar."
+        },
+        "confirm-button": {
+          "text": "Ja"
+        },
+        "cancel-button": {
+          "text": "Nein"
+        }
+      },
+      "modal-delete-item": {
+        "title": {
+          "text": "Möchten Sie den Gegenstand von der Liste löschen?"
         },
         "confirm-button": {
           "text": "Ja"
@@ -34,12 +118,93 @@
     }
   },
   "components": {
+    "create-wishlist-title": {
+      "text": "Wunschliste erstellen"
+    },
+    "file": {
+      "text-dropzone-link": "hier",
+      "text-dropzone": "Ziehen Sie ein beliebiges Bild hierher oder klicken Sie {0}, um den Dialog zu öffnen."
+    },
     "wishlist-item": {
       "external-product-page-link": {
         "text": "Produktseite öffnen"
       },
       "bought-button": {
         "text": "Gekauft"
+      }
+    },
+    "form-wishlist": {
+      "title": {
+        "label": "Titel",
+        "error-requried": "Titel wird benötigt."
+      },
+      "public": {
+        "label": "Auf der Startseite anzeigen?"
+      },
+      "description": {
+        "label": "Beschreibung",
+        "error-max": "Die maximale Länge beträgt 300 Zeichen."
+      },
+      "slug-text": {
+        "label": "URL Slug-Text",
+        "error-requried": "URL Slug-Text wird benötigt.",
+        "error-regex": "Unngültige URL Slug-Text."
+      },
+      "image-src": {
+        "label": "Bild-URL",
+        "error-requried": "Bild-URL wird benötigt."
+      },
+      "image-file": {
+        "label": "Bild-Datei",
+        "text-dropzone-link": "hier",
+        "text-dropzone": "Ziehen Sie ein beliebiges Bild hierher oder klicken Sie {0}, um den Dialog zu öffnen.",
+        "error-requried": "Bild-Datei wird benötigt.",
+        "error-image-size": "Höhe und Breite dürfen 200px nicht überschreiten."
+      },
+      "submit": {
+        "text": "Speichern"
+      },
+      "delete-button": {
+        "text": "Löschen"
+      }
+    },
+    "form-wishlist-item": {
+      "headline-new-item": {
+        "text": "Neuen Eintrag hinzufügen"
+      },
+      "headline-change-item": {
+        "text": "Eintrag bearbeiten"
+      },
+      "title": {
+        "label": "Titel",
+        "error-requried": "Titel wird benötigt."
+      },
+      "description": {
+        "label": "Beschreibung",
+        "error-requried": "Beschreibung wird benötigt.",
+        "error-max": "Die maximale Länge beträgt 300 Zeichen."
+      },
+      "url": {
+        "label": "Produkt-URL",
+        "error-url": "Keine gültige URL."
+      },
+      "image-src": {
+        "label": "Bild-URL",
+        "error-url": "Keine gültige URL."
+      },
+      "bought": {
+        "label": "Gekauft?"
+      },
+      "submit": {
+        "text": "Speichern"
+      },
+      "delete-button": {
+        "text": "Löschen"
+      }
+    },
+    "header": {
+      "edit-mode": {
+        "text": "Bearbeitungsmodus"
       }
     }
   }

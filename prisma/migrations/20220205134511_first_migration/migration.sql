@@ -4,17 +4,17 @@ CREATE TABLE "Wishlist" (
     "title" TEXT NOT NULL,
     "imageSrc" TEXT NOT NULL,
     "slugUrlText" TEXT NOT NULL,
-    "description" TEXT
+    "description" TEXT NOT NULL DEFAULT ''
 );
 
 -- CreateTable
 CREATE TABLE "Item" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "title" TEXT NOT NULL,
-    "url" TEXT,
-    "imageSrc" TEXT,
+    "url" TEXT NOT NULL DEFAULT '',
+    "imageSrc" TEXT NOT NULL DEFAULT '',
     "description" TEXT NOT NULL,
-    "comment" TEXT,
+    "comment" TEXT NOT NULL DEFAULT '',
     "bought" BOOLEAN NOT NULL DEFAULT false,
     "wishlistId" TEXT NOT NULL,
     CONSTRAINT "Item_wishlistId_fkey" FOREIGN KEY ("wishlistId") REFERENCES "Wishlist" ("id") ON DELETE RESTRICT ON UPDATE CASCADE

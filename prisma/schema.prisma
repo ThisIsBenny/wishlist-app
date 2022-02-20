@@ -12,21 +12,21 @@ datasource db {
 
 model Wishlist {
   id            String    @id @default(uuid())
+  public        Boolean   @default(true)
   title         String
   imageSrc      String
   slugUrlText   String    @unique
-  description   String?
+  description   String    @default("")
   items         Item[]
 }
 
 model Item {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   title       String
-  url         String?
-  imageSrc    String?
+  url         String    @default("")
+  imageSrc    String    @default("")
   description String
-  comment     String?
   bought      Boolean   @default(false)
-  wishlist    Wishlist @relation(fields: [wishlistId], references: [id])
+  wishlist    Wishlist  @relation(fields: [wishlistId], references: [id])
   wishlistId  String
 }

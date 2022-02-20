@@ -2,7 +2,14 @@
 
 The wishlist app is a simple webapp for publishing wishlists. It allows to share wishlists for different people or occasions with friends and family. If something from the wishlist was bought, it can be removed from the list to prevent duplicate purchases.
 
+[![Open in CodeSandbox](https://img.shields.io/badge/Open%20in-CodeSandbox-blue?style=flat-square&logo=codesandbox)](https://codesandbox.io/s/wishlist-app-h0htfc)
+
 The app can be easily self-hosted via Docker (see docker-compose example below).
+
+## Screenshots
+
+![Overview Image](.github/assets/overview.jpg)
+![Detail Image](.github/assets/details.jpg)
 
 ## Features
 
@@ -25,6 +32,8 @@ version: '3.7'
 services:
   wishlist:
     image: thisisbenny/wishlist-app:latest
+    environment:
+      - API_KEY=TOP_SECRET
     ports:
       - '5000:5000'
     volumes:
@@ -35,6 +44,8 @@ services:
 
 ```sh
 npm install
+npx prisma generate
+npx prisma migrate deploy
 ```
 
 ### Compile and Hot-Reload for Development
@@ -66,3 +77,7 @@ npm run lint
 ```sh
 npm run typecheck
 ```
+
+## Other stuff
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png)](https://www.buymeacoffee.com/hierlDev)

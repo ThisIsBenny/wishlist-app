@@ -1,5 +1,0 @@
-export { default as IconError } from './IconError.vue'
-export { default as IconCart } from './IconCart.vue'
-export { default as IconImagePlaceholder } from './IconImagePlaceholder.vue'
-export { default as IconLink } from './IconLink.vue'
-export { default as IconSpinner } from './IconSpinner.vue'

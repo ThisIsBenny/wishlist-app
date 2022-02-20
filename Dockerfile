@@ -32,4 +32,4 @@ COPY --from=builder /app/dist /app
 
 EXPOSE 5000
 
-ENTRYPOINT npx prisma migrate deploy && node server.js
+ENTRYPOINT npx prisma migrate deploy && node api/server.js

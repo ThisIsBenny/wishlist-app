@@ -1,0 +1,80 @@
+@BASE_URL=http://localhost:5000/api
+@API_KEY=TOP_SECRET
+
+
+###
+# @name createWishlistFirst
+POST {{BASE_URL}}/wishlist
+Content-Type: application/json
+Authorization: API-Key {{API_KEY}}
+
+{
+  "title": "Junior",
+  "imageSrc": "https://unsplash.com/photos/JZ51o_-UOY8/download?force=true&w=200",
+  "slugUrlText": "junior"
+}
+
+###
+# @name createWishlistSecond
+POST {{BASE_URL}}/wishlist
+Content-Type: application/json
+Authorization: API-Key {{API_KEY}}
+
+{
+  "title": "Wedding",
+  "imageSrc": "https://unsplash.com/photos/8vaQKYnawHw/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjQ0MDQ4MTIy&force=true&w=200",
+  "description": "We are getting married",
+  "slugUrlText": "wedding"
+}
+
+###
+# @name getWishlists
+GET {{BASE_URL}}/wishlist
+
+###
+# @name getFirstWishlist
+GET {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.slugUrlText}}
+
+###
+# @name updateFirstWishlist
+PUT {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}
+Content-Type: application/json
+Authorization: API-Key {{API_KEY}}
+
+{
+  "title": "Junior",
+  "imageSrc": "https://unsplash.com/photos/JZ51o_-UOY8/download?force=true&w=200",
+  "description": "Juniors Wishlist",
+  "slugUrlText": "junior"
+}
+
+###
+# @name addItemToFirstWishlist
+POST {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}/item
+Content-Type: application/json
+Authorization: API-Key {{API_KEY}}
+
+{
+  "title": "Goldfish 40442 | BrickHeadz",
+  "url": "https://www.lego.com/en-de/product/goldfish-40442",
+  "imageSrc": "https://www.lego.com/cdn/cs/set/assets/blt1fc37afef51cfa9f/40442.jpg?fit=bounds&format=jpg&quality=80&width=1500&height=1500&dpr=1",
+  "description": "Cute goldfish and fry, build-and-display BrickHeadz™ model"
+}
+
+###
+# @name updateItemOnFirstWishlist
+PUT {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}/item/1
+Content-Type: application/json
+Authorization: API-Key {{API_KEY}}
+
+{
+  "title": "Goldfish | BrickHeadz",
+  "url": "https://www.lego.com/en-de/product/goldfish-40442",
+  "imageSrc": "https://www.lego.com/cdn/cs/set/assets/blt1fc37afef51cfa9f/40442.jpg?fit=bounds&format=jpg&quality=80&width=1500&height=1500&dpr=1",
+  "description": "Cute goldfish and fry, build-and-display BrickHeadz™ model"
+}
+
+###
+# @name deleteItemToFirstWishlist
+DELETE {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}/item/2
+Authorization: API-Key {{API_KEY}}

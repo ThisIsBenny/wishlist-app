@@ -1,19 +1,23 @@
-import useAxios from '@/composables/useAxios'
 import { Wishlist } from '@/types'
 import { ref } from 'vue'
-const { client } = useAxios()
-const prefix = '/wishlist'
+import { useFetch } from './useFetch'
 
-const refState = ref<Wishlist[]>([])
+const state = ref<Wishlist[]>([])
+const isFinished = ref<boolean>(false)
+const error = ref<any>()
 
-export const fetch = async (): Promise<void> => {
-  const { data } = await client.get(prefix)
-  refState.value = data
+const fetch = async () => {
+  const request = await useFetch('/wishlist').json()
+  state.value = request.data.value
+  isFinished.value = request.isFinished.value
+  error.value = request.error.value
 }
 
 export const useWishlistsStore = () => {
   return {
-    lists: refState,
     fetch,
+    state,
+    error,
+    isFinished,
   }
 }

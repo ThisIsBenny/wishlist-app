@@ -1,9 +1,21 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from 'axios'
 import { apiConfig } from '@/config'
 import { ref } from 'vue'
+import router from '../router'
+import { useAuth } from './useAuth'
 
+export interface CustomAxiosError extends AxiosError {
+  ignore: boolean
+}
+
+const { token } = useAuth()
 const isLoading = ref(false)
-const error = ref(null)
+const error = ref<CustomAxiosError | null>(null)
 
 const config: AxiosRequestConfig = {
   baseURL: apiConfig.baseURL,
@@ -11,27 +23,40 @@ const config: AxiosRequestConfig = {
 
 const client: AxiosInstance = axios.create(config)
 
-client.interceptors.request.use(
-  function (config) {
+export const requestInterceptor = client.interceptors.request.use(
+  (config: AxiosRequestConfig): AxiosRequestConfig => {
+    if (!config) {
+      config = {}
+    }
+    if (!config.headers) {
+      config.headers = {}
+    }
     isLoading.value = true
     error.value = null
+    config.headers.Authorization = token.value ? `API-Key ${token.value}` : ''
+
     return config
   },
-  function (err) {
+  (err: CustomAxiosError): Promise<CustomAxiosError> => {
     isLoading.value = false
     error.value = err
     return Promise.reject(err)
   }
 )
 
-client.interceptors.response.use(
-  function (response) {
+export const responseInterceptor = client.interceptors.response.use(
+  (response: AxiosResponse): AxiosResponse => {
     isLoading.value = false
     return response
   },
-  function (err) {
+  (err: CustomAxiosError): Promise<CustomAxiosError> => {
     isLoading.value = false
-    error.value = err
+    if (err.response?.status === 404) {
+      router.push({ name: 'notFound' })
+      err.ignore = true
+    } else {
+      error.value = err
+    }
     return Promise.reject(err)
   }
 )

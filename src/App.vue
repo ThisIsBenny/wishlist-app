@@ -1,13 +1,14 @@
 <template>
-  <div class="app max-w-[900px] mx-auto p-10">
-    <main>
+  <div class="m-4 h-full">
+    <Header />
+    <main class="mx-auto h-full max-w-[900px]">
       <router-view v-slot="{ Component }">
         <template v-if="Component">
           <div
             v-if="error"
-            class="flex flex-row space-x-2 items-center content-center justify-center m-20 text-red-500"
+            class="m-20 flex flex-row content-center items-center justify-center space-x-2 text-red-500"
           >
-            <IconError class="w-4 h-4" />
+            <IconError class="h-4 w-4 fill-red-500" />
             <span>{{ t('errors.generic.text') }}</span>
           </div>
           <suspense v-else>
@@ -16,9 +17,9 @@
             </template>
             <template #fallback>
               <div
-                class="flex flex-row space-x-2 items-center content-center justify-center m-20"
+                class="m-20 flex flex-row content-center items-center justify-center space-x-2"
               >
-                <IconSpinner class="w-4 h-4" />
+                <IconSpinner class="h-4 w-4" />
                 <span> {{ t('common.loading.text') }} </span>
               </div>
             </template>
@@ -30,14 +31,17 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useTitle } from '@vueuse/core'
 import { onErrorCaptured, ref } from 'vue'
-import { IconSpinner, IconError } from '@/components/icons'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
-const error = ref(null)
+useTitle(t('common.app-title.text'))
 
-onErrorCaptured((e: any) => {
+const error = ref()
+
+onErrorCaptured((e: unknown) => {
+  console.error(e)
   error.value = e
   return false
 })

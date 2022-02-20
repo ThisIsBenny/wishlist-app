@@ -1,58 +1,97 @@
+import { Wishlist } from '@/types'
 import { FastifyRequest, FastifyReply, RouteOptions } from 'fastify'
 import { wishlist } from '../../models'
+import {
+  wishlistRequestSchema,
+  wishlistResponseSchema,
+  wishlistItemRequestSchema,
+  wishlistItemResponseSchema,
+} from '../../config/schemas'
 
-interface GetBySlugUrlTextRequest extends FastifyRequest {
+interface updateRequest extends FastifyRequest {
+  params: {
+    wishlistId: string
+  }
+}
+
+interface updateItemRequest extends FastifyRequest {
   params: {
     wishlistId: string
     itemId: number
   }
 }
 
-export const updateItem = <RouteOptions>{
+export const updateList = <RouteOptions>{
   method: 'PUT',
-  url: '/:wishlistId/item/:itemId',
+  url: '/:wishlistId',
+  config: {
+    protected: true,
+  },
   schema: {
-    body: {
+    body: wishlistRequestSchema,
+    params: {
       type: 'object',
-      additionalProperties: false,
       properties: {
-        title: { type: 'string' },
-        url: { type: 'string' },
-        image: { type: 'string' },
-        description: { type: 'string' },
-        comment: { type: 'string' },
-        bought: { type: 'boolean' },
+        wishlistId: { type: 'string' },
       },
     },
     response: {
-      204: {
-        type: 'object',
-        properties: {
-          id: { type: 'number' },
-          title: { type: 'string' },
-          url: { type: 'string' },
-          image: { type: 'string' },
-          description: { type: 'string' },
-          comment: { type: 'string' },
-          bought: { type: 'boolean' },
-          wishlistId: { type: 'string' },
-        },
-      },
+      200: wishlistResponseSchema,
     },
   },
-  handler: async (request: GetBySlugUrlTextRequest, reply: FastifyReply) => {
+  handler: async (request: updateRequest, reply: FastifyReply) => {
     request.log.debug(request.body)
-    const item = await wishlist.updateItem(
-      Number(request.params.itemId),
-      request.body
+    const item = await wishlist.update(
+      request.params.wishlistId,
+      request.body as Wishlist
     )
-    if (item) {
-      return item
-    } else {
-      return reply.code(404).send({
-        error: 'notFound',
-        http: 404,
-      })
-    }
+    reply.code(201).send(item)
+  },
+}
+
+export const updateItem = <RouteOptions>{
+  method: 'PUT',
+  url: '/:wishlistId/item/:itemId',
+  config: {
+    protected: true,
+  },
+  schema: {
+    body: wishlistItemRequestSchema,
+    params: {
+      type: 'object',
+      properties: {
+        wishlistId: { type: 'string' },
+        itemId: { type: 'number' },
+      },
+    },
+    response: {
+      200: wishlistItemResponseSchema,
+    },
+  },
+  handler: async (request: updateItemRequest, reply: FastifyReply) => {
+    request.log.debug(request.body)
+    reply.send(await wishlist.updateItem(request.params.itemId, request.body))
+  },
+}
+
+export const itemBought = <RouteOptions>{
+  method: 'POST',
+  url: '/:wishlistId/item/:itemId/bought',
+  schema: {
+    params: {
+      type: 'object',
+      properties: {
+        wishlistId: { type: 'string' },
+        itemId: { type: 'number' },
+      },
+    },
+    response: {
+      200: wishlistItemResponseSchema,
+    },
+  },
+  handler: async (request: updateItemRequest, reply: FastifyReply) => {
+    reply.send(
+      await wishlist.updateItem(request.params.itemId, { bought: true })
+    )
   },
 }

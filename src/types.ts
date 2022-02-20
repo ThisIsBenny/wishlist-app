@@ -1,20 +1,20 @@
 export interface WishlistItem {
-  id: string
+  id?: number
   title: string
   url: string
   imageSrc: string
   description: string
-  comment: string
   bought: boolean
-  wishlistId: boolean
+  wishlistId?: boolean
 }
 export interface Wishlist {
-  id: string
+  id?: string
+  public: boolean
   title: string
   description: string
   imageSrc: string
   slugUrlText: string
-  items: WishlistItem[]
+  items?: WishlistItem[]
 }
 export interface TileProp {
   title: string
