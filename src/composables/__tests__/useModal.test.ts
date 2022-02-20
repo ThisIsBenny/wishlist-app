@@ -1,12 +1,12 @@
 import { describe, assert, it, expect } from 'vitest'
 import { nextTick } from 'vue'
-import { mount } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
 import ModalComponent from '../../components/Modal.vue'
 import { useModal } from '../index'
 
 describe('composable: useModal', () => {
   const modal = useModal()
-  const wrapper = mount(ModalComponent, {
+  const wrapper = shallowMount(ModalComponent, {
     global: {
       renderStubDefaultSlot: true,
     },

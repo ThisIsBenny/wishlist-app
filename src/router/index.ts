@@ -5,7 +5,6 @@ import CreateWishlistView from '@/views/CreateWishlistView.vue'
 import AddWishlistItemView from '@/views/AddWishlistItemView.vue'
 import DetailView from '@/views/DetailView.vue'
 import { useAuth } from '@/composables'
-const { isAuthenticated } = useAuth()
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +49,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
+  const { isAuthenticated } = useAuth()
   if (!isAuthenticated.value && to.meta.requiresAuth === true) {
     return { name: 'login' }
   }
