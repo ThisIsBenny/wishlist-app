@@ -27,6 +27,6 @@ model Item {
   imageSrc    String    @default("")
   description String
   bought      Boolean   @default(false)
-  wishlist    Wishlist  @relation(fields: [wishlistId], references: [id])
+  wishlist    Wishlist  @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
   wishlistId  String
 }
