@@ -1,6 +1,6 @@
 <template>
   <header
-    class="mb-4 flex flex-row items-center space-x-3 opacity-60 sm:justify-end"
+    class="mb-4 flex flex-row items-center justify-end space-x-3 opacity-60"
   >
     <div
       v-if="isAuthenticated"
