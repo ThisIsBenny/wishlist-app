@@ -2,9 +2,9 @@
 
 The wishlist app is a simple webapp for publishing wishlists. It allows to share wishlists for different people or occasions with friends and family. If something from the wishlist was bought, it can be removed from the list to prevent duplicate purchases.
 
-[![Open in CodeSandbox](https://img.shields.io/badge/Open%20in-CodeSandbox-blue?style=flat-square&logo=codesandbox)](https://codesandbox.io/s/wishlist-app-h0htfc)
+## Demo
 
-The app can be easily self-hosted via Docker (see docker-compose example below).
+[![Open in CodeSandbox](https://img.shields.io/badge/Open%20in-CodeSandbox-blue?style=flat-square&logo=codesandbox)](https://codesandbox.io/s/wishlist-app-ycygh3)
 
 ## Screenshots
 
@@ -14,17 +14,14 @@ The app can be easily self-hosted via Docker (see docker-compose example below).
 ## Features
 
 - Support of multiple wishlists
-- Items can be removed from the wishlist by users
+- Items can be removed from the wishlist by anonymous users
+- Grab title, description and image-url from url via open graph meta tags
 - i18n support
 
-## Feature Roadmap
+## Install
 
-- Administrate wishlists
-- Grab title, description and image-url from url via open graph meta tags
-- Login
-- Image upload
-
-## Docker Setup
+### Docker Setup
+The app can be easily installed via Docker compose. During installation, only a password (API key) and a path for the SQLite database must be specified.
 
 ```yaml
 version: '3.7'
@@ -40,7 +37,7 @@ services:
       - ./data:/app/data
 ```
 
-## Development Setup
+## Development Guide
 
 ```sh
 npm install
