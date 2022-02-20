@@ -92,11 +92,7 @@ const convertBase64 = (file: File): Promise<string | null> => {
         var height = image.height
         var width = image.width
         if (height > 200 || width > 200) {
-          setErrors([
-            t(
-              'components.wishlist-header.main.form.image-file.error-image-size'
-            ),
-          ])
+          setErrors([t('components.form-wishlist.image-file.error-image-size')])
           return resolve('')
         }
         resolve(fileReader.result as string)
