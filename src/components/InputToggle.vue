@@ -57,7 +57,7 @@ const { checked, handleChange } = useField(props.name, undefined, {
   flex-basis: var(--switch-container-width);
   border-radius: var(--switch-size);
   transition: background-color 0.25s ease-in-out;
-  @apply bg-stone-200;
+  @apply bg-stone-500;
 }
 
 .switch::before {
@@ -67,8 +67,8 @@ const { checked, handleChange } = useField(props.name, undefined, {
   height: calc(var(--switch-size) - 4px);
   width: calc(var(--switch-size) - 4px);
   border-radius: 9999px;
-  background-color: white;
-  transition: transform 0.375s ease-in-out;
+  @apply bg-white;
+  transition: 0.375s transform ease-in-out;
 }
 
 .input:checked + .switch {
