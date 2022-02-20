@@ -106,9 +106,7 @@ const itemBought = async (item: WishlistItem): Promise<void> => {
 const itemDelete = async (item: WishlistItem): Promise<void> => {
   const { error } = await useFetch(
     `/wishlist/${item.wishlistId}/item/${item.id}`
-  )
-    .delete()
-    .json()
+  ).delete()
   if (error.value) {
     throw error.value
   }

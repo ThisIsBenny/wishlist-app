@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "scripts": {
     "dev": "concurrently --kill-others \"npm run dev:frontend\" \"npm run dev:backend\"",
     "demo": "npm run build && prisma migrate deploy && prisma migrate reset -f && node dist/api/server.js",
