@@ -41,7 +41,9 @@ const updateWishlist = async (updatedData: Wishlist): Promise<void> => {
 }
 
 const deleteWishlist = async (): Promise<void> => {
-  const { error } = await useFetch(`/wishlist/${state!.value!.id}`).delete()
+  const { error } = await useFetch(`/wishlist/${state!.value!.id}`)
+    .delete()
+    .json()
   if (error.value) {
     throw error.value
   }
@@ -92,7 +94,9 @@ const updateItem = async (
 const itemBought = async (item: WishlistItem): Promise<void> => {
   const { error } = await useFetch(
     `/wishlist/${item.wishlistId}/item/${item.id}/bought`
-  ).post()
+  )
+    .post()
+    .json()
   if (error.value) {
     throw error.value
   }
@@ -102,7 +106,9 @@ const itemBought = async (item: WishlistItem): Promise<void> => {
 const itemDelete = async (item: WishlistItem): Promise<void> => {
   const { error } = await useFetch(
     `/wishlist/${item.wishlistId}/item/${item.id}`
-  ).delete()
+  )
+    .delete()
+    .json()
   if (error.value) {
     throw error.value
   }
