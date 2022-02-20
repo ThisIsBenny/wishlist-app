@@ -84,7 +84,7 @@
           "text": "Möchten Sie den Gegenstand von der Liste nehmen?"
         },
         "body": {
-          "text": "Durch das das runternehmen von der Liste ist dieser Gegenstand nicht mehr andere sichtbar."
+          "text": "Durch das runternehmen von der Liste ist dieser Gegenstand nicht mehr für andere sichtbar."
         },
         "confirm-button": {
           "text": "Ja"
