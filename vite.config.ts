@@ -20,4 +20,7 @@ export default defineConfig({
   build: {
     outDir: 'dist/static',
   },
+  test: {
+    outputFile: 'reports/unittest.xml',
+  },
 })

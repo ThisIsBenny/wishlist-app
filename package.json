@@ -10,8 +10,8 @@
     "build:backend": "prisma generate && tsc -p tsconfig.backend.json --outDir dist",
     "preview": "vite preview --port 5050",
     "test:unit": "vitest --environment jsdom",
-    "test:unit:ci": "vitest --environment jsdom --run",
-    "coverage": "vitest run --environment jsdom --coverage --reporter=junit",
+    "test:unit:ci": "vitest --environment jsdom --run --reporter=junit",
+    "coverage": "vitest run --environment jsdom --coverage",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "prepare": "husky install"

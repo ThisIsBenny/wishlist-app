@@ -31,6 +31,13 @@ jobs:
         run: npm ci
       - name: Unit tests
         run: npm run test:unit:ci
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Vitest Tests
+          path: reports/unittest.xml
+          reporter: jest-junit
   docker:
     runs-on: ubuntu-latest
     needs:
