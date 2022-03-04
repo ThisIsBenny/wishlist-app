@@ -21,6 +21,6 @@ export default defineConfig({
     outDir: 'dist/static',
   },
   test: {
-    outputFile: 'reports/unittest.json',
+    outputFile: 'reports/unittest.xml',
   },
 })
