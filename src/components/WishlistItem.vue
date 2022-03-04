@@ -2,10 +2,14 @@
 import { useI18n } from 'vue-i18n'
 import IconCart from './icons/IconCart.vue'
 import { WishlistItem } from '@/types'
-defineProps<{
+const props = defineProps<{
   item: WishlistItem
 }>()
 const { t } = useI18n()
+
+const openUrl = (): void => {
+  props.item.url && window?.open(props.item.url, '_blank')?.focus()
+}
 </script>
 
 <template>
@@ -16,12 +20,24 @@ const { t } = useI18n()
       class="max-h-44 flex-shrink-0 flex-grow-0 object-cover sm:w-1/4"
       :src="item.imageSrc"
       :alt="item.title"
+      :class="{ 'cursor-pointer': item.url }"
+      @click.prevent="openUrl()"
     />
 
     <div class="flex flex-col justify-between p-2">
       <div>
-        <h1 class="mb-1 text-lg font-bold">{{ item.title }}</h1>
-        <p class="text-sm sm:line-clamp-3">
+        <h1
+          @click.prevent="openUrl()"
+          class="mb-1 text-lg font-bold"
+          :class="{ 'cursor-pointer': item.url }"
+        >
+          {{ item.title }}
+        </h1>
+        <p
+          @click.prevent="openUrl()"
+          class="text-sm sm:line-clamp-3"
+          :class="{ 'cursor-pointer': item.url }"
+        >
           {{ item.description }}
         </p>
       </div>
