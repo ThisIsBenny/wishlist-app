@@ -11,7 +11,7 @@
     "preview": "vite preview --port 5050",
     "test:unit": "vitest --environment jsdom",
     "test:unit:ci": "vitest --environment jsdom --run",
-    "coverage": "vitest run --environment jsdom --coverage",
+    "coverage": "vitest run --environment jsdom --coverage --reporter=junit",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "prepare": "husky install"
