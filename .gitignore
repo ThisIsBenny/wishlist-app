@@ -30,4 +30,4 @@ dist/
 coverage
 .env
 data
-reports/*.xml
+reports/*
