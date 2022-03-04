@@ -11,6 +11,7 @@
     "preview": "vite preview --port 5050",
     "test:unit": "vitest --environment jsdom",
     "test:unit:ci": "vitest --environment jsdom --run",
+    "coverage": "vitest run --environment jsdom --coverage",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "prepare": "husky install"
@@ -45,6 +46,7 @@
     "@vue/eslint-config-typescript": "^10.0.0",
     "@vue/test-utils": "^2.0.0-rc.18",
     "autoprefixer": "^10.4.2",
+    "c8": "^7.11.0",
     "concurrently": "^7.0.0",
     "dotenv": "^16.0.0",
     "eslint": "^8.9.0",

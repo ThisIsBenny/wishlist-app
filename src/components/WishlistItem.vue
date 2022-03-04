@@ -22,6 +22,7 @@ const openUrl = (): void => {
       :alt="item.title"
       :class="{ 'cursor-pointer': item.url }"
       @click.prevent="openUrl()"
+      data-test="preview-image"
     />
 
     <div class="flex flex-col justify-between p-2">
@@ -30,6 +31,7 @@ const openUrl = (): void => {
           @click.prevent="openUrl()"
           class="mb-1 text-lg font-bold"
           :class="{ 'cursor-pointer': item.url }"
+          data-test="title"
         >
           {{ item.title }}
         </h1>
@@ -37,6 +39,7 @@ const openUrl = (): void => {
           @click.prevent="openUrl()"
           class="text-sm sm:line-clamp-3"
           :class="{ 'cursor-pointer': item.url }"
+          data-test="descriptions"
         >
           {{ item.description }}
         </p>
@@ -46,6 +49,7 @@ const openUrl = (): void => {
           class="mt-4 text-xs sm:mt-2"
           :icon="IconCart"
           @click="$emit('bought')"
+          data-test="bought-button"
           >{{ t('components.wishlist-item.bought-button.text') }}</ButtonBase
         >
         <a
@@ -53,6 +57,7 @@ const openUrl = (): void => {
           :href="item.url"
           target="_blank"
           rel="noopener"
+          data-test="link"
           class="mt-1 flex w-fit flex-row items-center text-sm text-stone-500 dark:text-white/60"
         >
           <IconLink class="mr-1 h-4 w-4 fill-stone-500 dark:fill-white/60" />
