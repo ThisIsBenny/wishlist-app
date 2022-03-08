@@ -6,6 +6,12 @@
 Wishlist App
 </h1>
 <p align="center">
+  <img src="https://img.shields.io/github/package-json/v/thisisbenny/wishlist-app" />
+  <img src="https://img.shields.io/github/workflow/status/thisisbenny/wishlist-app/CI" />
+  <a href="https://hub.docker.com/r/thisisbenny/wishlist-app"><img src="https://img.shields.io/docker/pulls/thisisbenny/wishlist-app" /></a>
+  <img src="https://img.shields.io/github/license/thisisbenny/wishlist-app" />
+  </p>
+<p align="center">
 A simple webapp to manage your wishlist.
 <p>
 <h3 align="center">
