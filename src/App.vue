@@ -11,16 +11,17 @@
             <IconError class="h-4 w-4 fill-red-500" />
             <span>{{ t('errors.generic.text') }}</span>
           </div>
-          <suspense v-else>
+          <suspense>
             <template #default>
-              <component :is="Component"></component>
+              <component :is="Component" />
             </template>
             <template #fallback>
-              <div
-                class="m-20 flex flex-row content-center items-center justify-center space-x-2"
-              >
-                <IconSpinner class="h-4 w-4" />
-                <span> {{ t('common.loading.text') }} </span>
+              <div class="m-20 flex flex-col items-center space-y-3">
+                <img
+                  src="/logo-128.png"
+                  :alt="t('common.loading.text')"
+                  class="motion-safe:animate-pulse"
+                />
               </div>
             </template>
           </suspense>

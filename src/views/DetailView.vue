@@ -16,6 +16,7 @@ const { isActive: editModeIsActive } = useEditMode()
 const {
   fetch,
   state,
+  error,
   isFinished,
   updateWishlist,
   deleteWishlist,
@@ -112,7 +113,7 @@ const handleDeleteItem = async (item: WishlistItemType): Promise<void> => {
 </script>
 
 <template>
-  <div v-if="isFinished && state !== undefined" class="h-full">
+  <div v-if="isFinished && !error && state" class="h-full">
     <div
       class="flex flex-col items-center space-x-0 space-y-2 md:flex-row md:space-x-6 md:space-y-0"
     >
