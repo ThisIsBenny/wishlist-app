@@ -1,15 +1,20 @@
-# Wishlist App
+<p align="center">
+<img src="https://raw.githubusercontent.com/ThisIsBenny/wishlist-app/main/public/logo-256.png" height="200">
+</p>
+
+<h1 align="center">
+Wishlist App
+</h1>
+<p align="center">
+A simple webapp to manage your wishlist.
+<p>
+<h3 align="center">
+<a href="https://codesandbox.io/s/wishlist-app-ycygh3"><i>Demo</i></a>
+</h3>
+<br>
+<br>
 
 The wishlist app is a simple webapp for publishing wishlists. It allows to share wishlists for different people or occasions with friends and family. If something from the wishlist was bought, it can be removed from the list to prevent duplicate purchases.
-
-## Demo
-
-[![Open in CodeSandbox](https://img.shields.io/badge/Open%20in-CodeSandbox-blue?style=flat-square&logo=codesandbox)](https://codesandbox.io/s/wishlist-app-ycygh3)
-
-## Screenshots
-
-![Overview Image](.github/assets/overview.jpg)
-![Detail Image](.github/assets/details.jpg)
 
 ## Features
 
@@ -17,6 +22,11 @@ The wishlist app is a simple webapp for publishing wishlists. It allows to share
 - Items can be removed from the wishlist by everyone (no registration needed for friends and family).
 - Grab title, description and image-url from url via open graph meta tags
 - i18n support
+
+## Screenshots
+
+![Overview Image](.github/assets/overview.jpg)
+![Detail Image](.github/assets/details.jpg)
 
 ## Install
 
