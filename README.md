@@ -66,8 +66,6 @@ Now you can select the bookmark on a product page. This will redirect you to the
 ![Demo Bookmark adding](.github/assets/demo-bookmark.gif)
 
 
-
-
 Once the wish list is ready, it can be shared with friends and family. They have the option to remove purchased items from the wish list so that they are not bought a second time.
 
 Wishlists that have been set as non-public can only be opened with a deep link. They do not appear on the start page (unless the API key is set).
