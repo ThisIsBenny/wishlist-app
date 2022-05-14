@@ -14,7 +14,9 @@
     "coverage": "vitest run --environment jsdom --coverage",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "preversion": "git pull --ff-only",
+    "postversion": "git push --follow-tags"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
