@@ -36,7 +36,7 @@ fetch()
 if (route.query.url) {
   prefillData.value.url = route.query.url as string
   const { data: opData, isFinished: opDataLoaded } = useFetch(
-    `/utils/fetch-open-graph?url=${route.query.url}`
+    `/utils/fetch-meta-data-from-url?url=${route.query.url}`
   ).json()
   syncRef(opDataLoaded, isFinished)
 

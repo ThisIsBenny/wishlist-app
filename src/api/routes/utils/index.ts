@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
-import { fetchOpenGraph } from './opengraph'
+import { fetchMetaData } from './fetchmetadata'
 
 export default async (app: FastifyInstance) => {
-  await app.route(fetchOpenGraph)
+  await app.route(fetchMetaData)
 }
