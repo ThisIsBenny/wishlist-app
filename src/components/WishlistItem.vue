@@ -44,9 +44,11 @@ const openUrl = (): void => {
           {{ item.description }}
         </p>
       </div>
-      <div class="flex flex-row items-baseline space-x-2">
+      <div
+        class="mt-4 flex w-full flex-row flex-wrap-reverse items-baseline sm:mt-2"
+      >
         <ButtonBase
-          class="mt-4 text-xs sm:mt-2"
+          class="mr-4 mt-4 text-xs sm:mt-0"
           :icon="IconCart"
           @click="$emit('bought')"
           data-test="bought-button"
@@ -58,7 +60,7 @@ const openUrl = (): void => {
           target="_blank"
           rel="noopener"
           data-test="link"
-          class="mt-1 flex w-fit flex-row items-center text-sm text-stone-500 dark:text-white/60"
+          class="flex w-fit flex-row items-center text-sm text-stone-500 dark:text-white/60"
         >
           <IconLink class="mr-1 h-4 w-4 fill-stone-500 dark:fill-white/60" />
           <span>{{
