@@ -4,7 +4,6 @@ FROM node:lts as builder
 RUN mkdir /app
 WORKDIR /app
 COPY package.json package-lock.json /app/
-RUN npm set-script prepare ""
 RUN npm ci
 
 ENV NODE_ENV=production
@@ -26,7 +25,6 @@ RUN mkdir data
 
 COPY package.json package-lock.json /app/
 COPY ./prisma /app/prisma
-RUN npm set-script prepare ""
 RUN npm ci
 COPY --from=builder /app/dist /app
 
