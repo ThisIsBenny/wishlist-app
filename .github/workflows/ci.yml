@@ -8,11 +8,11 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up NodeJs
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
       - name: Linter
@@ -22,11 +22,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up NodeJs
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Install dependencies
         run: npm ci
       - name: Unit tests
@@ -38,11 +38,11 @@ jobs:
       - test
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       - name: Prepare
         id: prep
         run: |
