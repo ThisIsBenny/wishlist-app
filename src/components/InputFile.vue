@@ -85,12 +85,12 @@ const convertBase64 = (file: File): Promise<string | null> => {
     const fileReader = new FileReader()
     fileReader.readAsDataURL(file)
 
-    let image = new Image()
+    const image = new Image()
     fileReader.onload = () => {
       image.src = fileReader.result as string
       image.onload = function () {
-        var height = image.height
-        var width = image.width
+        const height = image.height
+        const width = image.width
         if (height > 200 || width > 200) {
           setErrors([t('components.form-wishlist.image-file.error-image-size')])
           return resolve('')
@@ -116,7 +116,7 @@ const handleChange = async (event: Event) => {
 }
 const handleDrop = async (event: DragEvent) => {
   showDropzone.value = false
-  let droppedFiles = event.dataTransfer?.files
+  const droppedFiles = event.dataTransfer?.files
   if (!droppedFiles) return
   handleFile(droppedFiles[0])
 }

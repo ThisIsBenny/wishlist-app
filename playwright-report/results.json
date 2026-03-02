@@ -1,0 +1,474 @@
+{
+  "config": {
+    "configFile": "/home/benny/Projects/wishlist-app/playwright.config.ts",
+    "rootDir": "/home/benny/Projects/wishlist-app/e2e",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 4
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/benny/Projects/wishlist-app/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 4
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/benny/Projects/wishlist-app/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "playwright-report/results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "runAgents": "none",
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.58.2",
+    "workers": 4,
+    "webServer": {
+      "command": "npm run demo",
+      "url": "http://localhost:5000",
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "auth.spec.ts",
+      "file": "auth.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Authentication",
+          "file": "auth.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load login page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 7156,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-02T13:53:00.095Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-556c2dbd23da75172464",
+              "file": "auth.spec.ts",
+              "line": 6,
+              "column": 7
+            },
+            {
+              "title": "should login with valid API key",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 9426,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-02T13:53:00.197Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-87faa2ec3bebb669060a",
+              "file": "auth.spec.ts",
+              "line": 11,
+              "column": 7
+            },
+            {
+              "title": "should redirect to login for protected route",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 6333,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-02T13:53:00.154Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d748ac400d08b85935ef-dd07b689d5dc6fb0cbb9",
+              "file": "auth.spec.ts",
+              "line": 32,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "homepage.spec.ts",
+      "file": "homepage.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Homepage",
+          "file": "homepage.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load homepage without JavaScript errors",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 10856,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-02T13:53:00.145Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "84e7eb052e8cbae1c9f0-64197169e355c7b63e1a",
+              "file": "homepage.spec.ts",
+              "line": 4,
+              "column": 7
+            },
+            {
+              "title": "should load API data successfully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1233,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-02T13:53:07.512Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "84e7eb052e8cbae1c9f0-c34493cbeb74368ce2ed",
+              "file": "homepage.spec.ts",
+              "line": 18,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "item-crud.spec.ts",
+      "file": "item-crud.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Item CRUD",
+          "file": "item-crud.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display wishlist detail page after login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 10450,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-02T13:53:08.269Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2e0005809f16c4273e60-3a942c91698292d995bb",
+              "file": "item-crud.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "navigation.spec.ts",
+      "file": "navigation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Navigation",
+          "file": "navigation.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load login page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 5883,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-02T13:53:08.871Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5d2868f7d23420c27cca-34af95f84cc7ee4a78a4",
+              "file": "navigation.spec.ts",
+              "line": 4,
+              "column": 7
+            },
+            {
+              "title": "should redirect to login for protected route",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 5064,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-02T13:53:10.520Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5d2868f7d23420c27cca-b9896e51547f0b650dfa",
+              "file": "navigation.spec.ts",
+              "line": 9,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "wishlist-crud.spec.ts",
+      "file": "wishlist-crud.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Wishlist CRUD",
+          "file": "wishlist-crud.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display wishlists on homepage after login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 3,
+                      "status": "passed",
+                      "duration": 8171,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-03-02T13:53:12.024Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "59b0af626c49968d19fa-c4d47c99df548abe36e7",
+              "file": "wishlist-crud.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-03-02T13:52:19.102Z",
+    "duration": 61319.747,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

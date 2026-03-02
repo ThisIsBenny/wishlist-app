@@ -1,4 +1,4 @@
-import { Wishlist, WishlistItem } from '@/types'
+import { Wishlist, WishlistItem, WishlistCreateInput } from '@/types'
 import { FastifyRequest, FastifyReply, RouteOptions } from 'fastify'
 import { wishlist } from '../../models'
 import {
@@ -28,7 +28,15 @@ export const createList = <RouteOptions>{
   },
   handler: async (request: FastifyRequest, reply: FastifyReply) => {
     request.log.debug(request.body)
-    const item = await wishlist.create(request.body as Wishlist)
+    const payload = request.body as Wishlist
+    const createInput: WishlistCreateInput = {
+      public: payload.public,
+      title: payload.title,
+      description: payload.description,
+      imageSrc: payload.imageSrc,
+      slugUrlText: payload.slugUrlText,
+    }
+    const item = await wishlist.create(createInput)
     reply.code(201).send(item)
   },
 }

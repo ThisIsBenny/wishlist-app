@@ -4,7 +4,7 @@ import { defaultErrorHandler, notFoundHandler } from '../config/errors'
 import { default as utilsRoute } from './utils/'
 
 export default {
-  register: (app: FastifyInstance) => {
+  Register: (app: FastifyInstance) => {
     return app.register(
       async (app) => {
         await app.setNotFoundHandler(notFoundHandler)

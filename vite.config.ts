@@ -1,10 +1,8 @@
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'url'
 import Components from 'unplugin-vue-components/vite'
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
@@ -19,8 +17,5 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist/static',
-  },
-  test: {
-    outputFile: 'reports/unittest.xml',
   },
 })

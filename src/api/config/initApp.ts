@@ -1,8 +1,8 @@
-import helmet from 'fastify-helmet'
+import FastifyHelmet from '@fastify/helmet'
 import Fastify, { FastifyContextConfig } from 'fastify'
-import compress from 'fastify-compress'
-import cors from 'fastify-cors'
-import { fastify as defaultConfig } from './'
+import FastifyCompress from '@fastify/compress'
+import FastifyCors from '@fastify/cors'
+import fastifyConfig from './fastify'
 import auth from './auth'
 
 declare module 'fastify' {
@@ -16,24 +16,24 @@ declare module 'fastify' {
 
 export default async (opts: FastifyContextConfig = {}) => {
   const app = Fastify({
-    ...defaultConfig,
+    ...fastifyConfig,
     ...opts,
   })
 
-  await app.register(helmet, {
+  await app.register(FastifyHelmet, {
     contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false,
   })
 
-  await app.register(cors, {
+  await app.register(FastifyCors, {
     origin:
       process.env.NODE_ENV === 'development'
         ? /https?:\/\/localhost(:\d+)?/
         : false,
   })
 
-  await app.register(compress)
-  await auth.init(app)
+  await app.register(FastifyCompress)
+  await auth.init(app as any)
 
   return app
 }

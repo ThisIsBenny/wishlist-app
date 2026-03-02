@@ -9,8 +9,10 @@ module.exports = {
     '@vue/eslint-config-typescript/recommended',
     '@vue/eslint-config-prettier',
   ],
-  plugins: ['prettier'],
   env: {
     'vue/setup-compiler-macros': true,
+  },
+  rules: {
+    'vue/multi-word-component-names': 'off',
   },
 }

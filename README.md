@@ -10,34 +10,27 @@ Wishlist App
   <img src="https://img.shields.io/github/workflow/status/thisisbenny/wishlist-app/CI" />
   <a href="https://hub.docker.com/r/thisisbenny/wishlist-app"><img src="https://img.shields.io/docker/pulls/thisisbenny/wishlist-app" /></a>
   <img src="https://img.shields.io/github/license/thisisbenny/wishlist-app" />
-  </p>
-<p align="center">
-A simple webapp to manage your wishlist.
-<p>
-<h3 align="center">
-<a href="https://codesandbox.io/s/wishlist-app-ycygh3"><i>Demo</i></a>
-</h3>
-<br>
-<br>
+</p>
 
-The wishlist app is a simple webapp for publishing wishlists. It allows to share wishlists for different people or occasions with friends and family. If something from the wishlist was bought, it can be removed from the list to prevent duplicate purchases.
+A simple webapp to manage your wishlists. Share them with friends and family, and let them mark items as purchased.
 
 ## Features
 
-- Support of multiple wishlists
-- Items can be removed from the wishlist by everyone (no registration needed for friends and family).
-- Grab title, description and image-url from url via open graph meta tags
-- i18n support
+- **Multiple Wishlists**: Create and manage unlimited wishlists
+- **Open Graph Metadata**: Automatically fetch title, description and images from product URLs
+- **Public/Private Lists**: Control which lists appear on the homepage
+- **Item Tracking**: Mark items as purchased to prevent duplicate gifts
+- **Dark Mode**: Built-in dark theme support
+- **i18n**: Available in English and German
 
 ## Screenshots
 
 ![Overview Image](.github/assets/overview.jpg)
 ![Detail Image](.github/assets/details.jpg)
 
-## Install
+## Quick Start
 
-### Docker Setup
-The app can be easily installed via Docker compose. During installation, only a password (API key) and a path for the SQLite database must be specified.
+### Docker (Recommended)
 
 ```yaml
 version: '3.7'
@@ -53,61 +46,94 @@ services:
       - ./data:/app/data
 ```
 
-## Usage
+### Manual Setup
 
-When you open the app for the first time, you have to enter the API key. To do this, click the icon on the right in the header or open the `/login` page. If the API key is stored, a toggle for the edit mode appears in the header. The edit mode allows you to create new wishlists or edit existing ones.
-
-If you want add new entries to the wishlist, open a wishlist and activate the edit mode. To more easily to add something to the wishlist, you can create a bookmark with the following content (replace [DOMAIN] with your own domain):
-
-`javascript:window.location='[DOMAIN]/add-wishlist-item?url=' + window.location`
-
-Now you can select the bookmark on a product page. This will redirect you to the app and pre-fill the form with the Open Graph data from the original page.
-
-![Demo Bookmark adding](.github/assets/demo-bookmark.gif)
-
-
-Once the wish list is ready, it can be shared with friends and family. They have the option to remove purchased items from the wish list so that they are not bought a second time.
-
-Wishlists that have been set as non-public can only be opened with a deep link. They do not appear on the start page (unless the API key is set).
-
-## Development Guide
-
-```sh
+```bash
+# Install dependencies
 npm install
+
+# Setup environment
+cp .env.template .env
+
+# Initialize database
 npx prisma generate
 npx prisma migrate deploy
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
+# Start development server
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Visit http://localhost:5173
 
-```sh
-npm run build
+## Usage
+
+### First Login
+
+1. Click the login icon in the header (top-right)
+2. Enter your API key (default: `TOP_SECRET`)
+3. A toggle for edit mode will appear
+
+### Creating Wishlists
+
+1. Activate edit mode (toggle in header)
+2. Click the "+" tile to create a new wishlist
+3. Fill in title, description, and choose public/private
+
+### Adding Items
+
+1. Open any wishlist
+2. Activate edit mode
+3. Add items manually or use the bookmarklet
+
+### Bookmarklet
+
+Create a bookmark with this JavaScript to quickly add items:
+
+```javascript
+javascript: window.location =
+  'http://localhost:5000/add-wishlist-item?url=' + window.location
 ```
 
-### Run Unit Tests
+### Sharing
 
-```sh
-npm run test:unit
+Share wishlists via their unique URLs. Friends and family can mark items as purchased without needing the API key.
+
+## Development
+
+### Commands
+
+| Command             | Description              |
+| ------------------- | ------------------------ |
+| `npm run dev`       | Start frontend + backend |
+| `npm run build`     | Build for production     |
+| `npm run test:e2e`  | Run E2E tests            |
+| `npm run lint`      | Lint code                |
+| `npm run typecheck` | Type check               |
+
+See [DEVELOPER.md](DEVELOPER.md) for complete documentation.
+
+## API
+
+The app exposes a REST API. See [API.md](API.md) for complete API documentation.
+
+### Example: Get Public Wishlists
+
+```bash
+curl http://localhost:5000/api/wishlist
 ```
 
-### Lint
+### Example: Mark Item as Bought
 
-```sh
-npm run lint
+```bash
+curl -X POST http://localhost:5000/api/wishlist/{id}/item/{itemId}/bought
 ```
 
-### Typecheck
+## Tech Stack
 
-```sh
-npm run typecheck
-```
+- **Frontend**: Vue 3, Vue Router, Vue I18n, Tailwind CSS
+- **Backend**: Fastify, Prisma, SQLite
+- **Testing**: Vitest, Playwright
 
-## Other stuff
+## License
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png)](https://www.buymeacoffee.com/hierlDev)
+MIT

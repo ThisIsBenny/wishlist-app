@@ -74,38 +74,21 @@ const emits = defineEmits(['create', 'update', 'delete'])
 
 const { t } = useI18n()
 
-const schema = object().shape(
-  {
-    title: string().required(
-      t('components.form-wishlist.title.error-requried')
-    ),
-    public: boolean(),
-    description: string().max(
-      300,
-      t('components.form-wishlist.description.error-max')
-    ),
-    slugUrlText: string()
-      .required(t('components.form-wishlist.slug-text.error-requried'))
-      .matches(/^[\w-]+$/, t('components.form-wishlist.slug-text.error-regex')),
-    imageSrc: string().when('imageFile', {
-      is: (imageFile: string) => !imageFile || imageFile.length === 0,
-      then: string().required(
-        t('components.form-wishlist.image-src.error-requried')
-      ),
-    }),
-    imageFile: string().when('imageSrc', {
-      is: (imageSrc: string) => !imageSrc || imageSrc.length === 0,
-      then: string().required(
-        t('components.form-wishlist.image-file.error-requried')
-      ),
-    }),
-  },
-  //@ts-expect-error ...
-  ['imageSrc', 'imageFile']
-)
+const schema = object({
+  title: string().required(t('components.form-wishlist.title.error-requried')),
+  public: boolean(),
+  description: string().max(
+    300,
+    t('components.form-wishlist.description.error-max')
+  ),
+  slugUrlText: string()
+    .required(t('components.form-wishlist.slug-text.error-requried'))
+    .matches(/^[\w-]+$/, t('components.form-wishlist.slug-text.error-regex')),
+  imageSrc: string(),
+  imageFile: string(),
+})
 
 const { handleSubmit, meta } = useForm({
-  //@ts-expect-error ...
   validationSchema: schema,
 })
 

@@ -1,5 +1,10 @@
 import { prisma } from '../../services'
-import { Wishlist, WishlistItem } from '@/types'
+import {
+  Wishlist,
+  WishlistItem,
+  WishlistCreateInput,
+  WishlistUpdateInput,
+} from '@/types'
 
 interface WishlistWhereInput {
   public?: boolean
@@ -20,19 +25,17 @@ export default {
       include: { items: includeItems },
     })
   },
-  create: async (payload: Wishlist) => {
+  create: async (payload: WishlistCreateInput) => {
     return await prisma.client.wishlist.create({
       data: payload,
     })
   },
-  update: async (id: string, payload: Wishlist) => {
+  update: async (id: string, payload: WishlistUpdateInput) => {
     return await prisma.client.wishlist.update({
       where: {
         id: id,
       },
-      data: {
-        ...payload,
-      },
+      data: payload,
     })
   },
   delete: async (id: string) => {
@@ -58,8 +61,7 @@ export default {
     })
     return wishlist.items.pop()
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  updateItem: async (itemId: number, payload: any) => {
+  updateItem: async (itemId: number, payload: WishlistItem) => {
     return await prisma.client.item.update({
       where: {
         id: itemId,

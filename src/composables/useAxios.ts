@@ -1,8 +1,9 @@
 import axios, {
   AxiosError,
   AxiosInstance,
-  AxiosRequestConfig,
+  InternalAxiosRequestConfig,
   AxiosResponse,
+  AxiosHeaders,
 } from 'axios'
 import { apiConfig } from '@/config'
 import { ref } from 'vue'
@@ -17,20 +18,15 @@ const { token } = useAuth()
 const isLoading = ref(false)
 const error = ref<CustomAxiosError | null>(null)
 
-const config: AxiosRequestConfig = {
+const config: InternalAxiosRequestConfig = {
   baseURL: apiConfig.baseURL,
+  headers: new AxiosHeaders(),
 }
 
 const client: AxiosInstance = axios.create(config)
 
 export const requestInterceptor = client.interceptors.request.use(
-  (config: AxiosRequestConfig): AxiosRequestConfig => {
-    if (!config) {
-      config = {}
-    }
-    if (!config.headers) {
-      config.headers = {}
-    }
+  (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
     isLoading.value = true
     error.value = null
     config.headers.Authorization = token.value ? `API-Key ${token.value}` : ''

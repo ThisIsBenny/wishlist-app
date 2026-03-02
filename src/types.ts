@@ -1,3 +1,7 @@
+import { Prisma } from '@prisma/client'
+
+export { Prisma }
+
 export interface WishlistItem {
   id?: number
   title: string
@@ -5,7 +9,7 @@ export interface WishlistItem {
   imageSrc: string
   description: string
   bought: boolean
-  wishlistId?: boolean
+  wishlistId?: string
 }
 export interface Wishlist {
   id?: string
@@ -16,6 +20,9 @@ export interface Wishlist {
   slugUrlText: string
   items?: WishlistItem[]
 }
+
+export type WishlistCreateInput = Prisma.WishlistCreateInput
+export type WishlistUpdateInput = Prisma.WishlistUpdateInput
 export interface TileProp {
   title: string
   imageSrc: string

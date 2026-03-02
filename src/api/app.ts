@@ -1,4 +1,4 @@
-import staticFiles from 'fastify-static'
+import FastifyStatic from '@fastify/static'
 import path from 'path'
 import { initApp } from './config'
 import routes from './routes'
@@ -6,8 +6,8 @@ import routes from './routes'
 const build = async (opts = {}) => {
   const app = await initApp(opts)
 
-  routes.register(app)
-  app.register(staticFiles, {
+  routes.Register(app as any)
+  app.register(FastifyStatic, {
     root: path.join(__dirname, '..', 'static'),
   })
   app.setNotFoundHandler((req, res) => {

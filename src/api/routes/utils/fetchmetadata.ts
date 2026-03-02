@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply, RouteOptions } from 'fastify'
-import ogs, { OpenGraphImage } from 'open-graph-scraper'
+import ogs from 'open-graph-scraper'
 import axios from 'axios'
 import cheerio from 'cheerio'
 
@@ -50,10 +50,10 @@ export const fetchMetaData = <RouteOptions>{
       })
       request.log.debug(result)
       if (result.success) {
-        response.imageSrc =
-          result.ogImage && (result.ogImage as OpenGraphImage).url
-            ? (result.ogImage as OpenGraphImage).url
-            : ''
+        const ogImage = result.ogImage as unknown as
+          | { url?: string }
+          | undefined
+        response.imageSrc = ogImage?.url || ''
         response.title = result.ogTitle || ''
         response.description = result.ogDescription || ''
       }

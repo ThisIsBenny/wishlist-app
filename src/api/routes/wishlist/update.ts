@@ -1,4 +1,4 @@
-import { Wishlist } from '@/types'
+import { Wishlist, WishlistItem, WishlistUpdateInput, Prisma } from '@/types'
 import { FastifyRequest, FastifyReply, RouteOptions } from 'fastify'
 import { wishlist } from '../../models'
 import {
@@ -41,10 +41,15 @@ export const updateList = <RouteOptions>{
   },
   handler: async (request: updateRequest, reply: FastifyReply) => {
     request.log.debug(request.body)
-    const item = await wishlist.update(
-      request.params.wishlistId,
-      request.body as Wishlist
-    )
+    const payload = request.body as Wishlist
+    const updateInput: WishlistUpdateInput = {
+      public: payload.public,
+      title: payload.title,
+      description: payload.description,
+      imageSrc: payload.imageSrc,
+      slugUrlText: payload.slugUrlText,
+    }
+    const item = await wishlist.update(request.params.wishlistId, updateInput)
     reply.code(201).send(item)
   },
 }
@@ -70,7 +75,8 @@ export const updateItem = <RouteOptions>{
   },
   handler: async (request: updateItemRequest, reply: FastifyReply) => {
     request.log.debug(request.body)
-    reply.send(await wishlist.updateItem(request.params.itemId, request.body))
+    const payload = request.body as WishlistItem
+    reply.send(await wishlist.updateItem(request.params.itemId, payload))
   },
 }
 
@@ -90,8 +96,14 @@ export const itemBought = <RouteOptions>{
     },
   },
   handler: async (request: updateItemRequest, reply: FastifyReply) => {
+    const updatePayload: Prisma.ItemUpdateInput = {
+      bought: true,
+    }
     reply.send(
-      await wishlist.updateItem(request.params.itemId, { bought: true })
+      await wishlist.updateItem(
+        request.params.itemId,
+        updatePayload as unknown as WishlistItem
+      )
     )
   },
 }
