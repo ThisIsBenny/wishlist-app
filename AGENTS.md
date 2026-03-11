@@ -207,3 +207,41 @@ Note: Tests and build require Node.js >= 18.18.0 (Prisma requirement)
 ## Recent Changes
 
 - 001-nodejs-22-upgrade: Added Node.js 22.x (upgrading from v22.22.1) + npm packages (same as current, no changes)
+
+## Release Process
+
+### Versioning
+
+This project uses Semantic Versioning:
+
+- **MAJOR** (x.0.0): Breaking changes
+- **MINOR** (x.y.0): New features, backward compatible
+- **PATCH** (x.y.z): Bug fixes
+
+### Tag-Based Releases
+
+Release workflow triggers on:
+
+- Push to `release/*` branches
+- Push of `v*` tags (e.g., `v1.6.0`)
+
+### Release Steps
+
+1. Ensure on main:
+
+   ```bash
+   git checkout main && git pull
+   ```
+
+2. Bump version in `package.json` (e.g., 1.5.1 → 1.6.0)
+
+3. Commit and tag:
+   ```bash
+   git add package.json && git commit -m "release: v1.6.0"
+   git tag v1.6.0 && git push origin v1.6.0
+   ```
+
+### Docker Tags Created
+
+- `latest` - latest release
+- `v1.6.0` - specific version
