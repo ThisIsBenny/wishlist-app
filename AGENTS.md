@@ -9,7 +9,7 @@ This document provides essential information for agents working on the Wishlist 
 - **Backend**: Fastify (Node.js) with Prisma ORM
 - **Database**: SQLite (via Prisma)
 - **Testing**: Vitest + Playwright
-- **Node.js**: >= 18.18.0
+- **Node.js**: >= 22.22.1
 
 ## Build, Lint, and Test Commands
 
@@ -161,7 +161,7 @@ src/
 
 ## Environment
 
-- Node.js version specified in `.nvmrc` (currently v18.18.0)
+- Node.js version specified in `.nvmrc` (currently v22.22.1)
 - Use `nvm use` to switch to the correct Node version
 - Copy `.env.template` to `.env` for local development
 - Database schema managed via Prisma in `prisma/schema.prisma`
@@ -198,3 +198,12 @@ Note: Tests and build require Node.js >= 18.18.0 (Prisma requirement)
 - Set via `API_KEY` environment variable
 - Required for protected routes (create, update, delete)
 - Default from `.env.template`: `TOP_SECRET`
+
+## Active Technologies
+
+- Node.js 22.x (upgrading from v22.22.1) + npm packages (same as current, no changes) (001-nodejs-22-upgrade)
+- N/A (configuration-only change) (001-nodejs-22-upgrade)
+
+## Recent Changes
+
+- 001-nodejs-22-upgrade: Added Node.js 22.x (upgrading from v22.22.1) + npm packages (same as current, no changes)

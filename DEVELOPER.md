@@ -26,7 +26,7 @@ The Wishlist App is a full-stack application:
 
 ### System Requirements
 
-- Node.js >= 18.18.0
+- Node.js >= 22.22.1
 - npm >= 9.x
 
 ---
@@ -247,7 +247,7 @@ lsof -ti:5000 | xargs kill -9
 
 ### Node Version
 
-Make sure Node.js 18.18.0 is being used:
+Make sure Node.js v22.22.1 is being used:
 
 ```bash
 nvm use

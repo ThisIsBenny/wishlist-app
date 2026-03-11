@@ -1,5 +1,5 @@
 # Stage 1: Generate Prisma client for target platform
-FROM node:lts AS prisma
+FROM node:22-slim AS prisma
 
 RUN mkdir /app
 WORKDIR /app
@@ -9,7 +9,7 @@ RUN npm ci --ignore-scripts && \
     npx prisma generate
 
 # Stage 2: Build frontend and backend
-FROM node:lts AS builder
+FROM node:22-slim AS builder
 
 RUN mkdir /app
 WORKDIR /app
@@ -22,7 +22,7 @@ COPY . /app/
 RUN npm run build
 
 # Stage 3: Runtime
-FROM node:lts
+FROM node:22-slim
 
 LABEL maintainer="github.com/thisisbenny"
 
