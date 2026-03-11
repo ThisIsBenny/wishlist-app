@@ -275,3 +275,59 @@ For backend issues:
 # Development Mode with more logs
 NODE_ENV=development npm run dev:backend
 ```
+
+---
+
+## Release Process
+
+### Versioning
+
+This project uses [Semantic Versioning](https://semver.org/):
+
+- **MAJOR** (x.0.0): Breaking changes
+- **MINOR** (x.y.0): New features, backward compatible
+- **PATCH** (x.y.z): Bug fixes
+
+### Tag-Based Releases
+
+The release workflow triggers on:
+
+- Push to `release/*` branches
+- Push of `v*` tags (e.g., `v1.6.0`)
+
+### Release Steps
+
+1. **Ensure you're on main** and have the latest:
+
+   ```bash
+   git checkout main
+   git pull
+   ```
+
+2. **Bump version** in `package.json`:
+   - Minor: `1.5.1` → `1.6.0`
+   - Patch: `1.6.0` → `1.6.1`
+
+3. **Commit the version bump**:
+
+   ```bash
+   git add package.json
+   git commit -m "release: v1.6.0"
+   ```
+
+4. **Create and push the tag**:
+
+   ```bash
+   git tag v1.6.0
+   git push origin v1.6.0
+   ```
+
+5. **GitHub Actions** will:
+   - Run lint, typecheck, and tests
+   - Build and push Docker image to `thisisbenny/wishlist-app:latest` and version tags
+
+### Docker Tags Created
+
+- `latest` - always points to latest release
+- `v1.6.0` - specific version tag
+- `main` - bleeding edge from main branch (optional)
