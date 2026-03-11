@@ -31,3 +31,7 @@ coverage
 .env
 data
 reports/*
+
+# Specification/Agent tools
+.opencode/
+.specify/
