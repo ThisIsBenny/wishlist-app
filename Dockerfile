@@ -1,5 +1,15 @@
-# Build artifacts
-FROM node:lts as builder
+# Stage 1: Generate Prisma client for target platform
+FROM node:lts AS prisma
+
+RUN mkdir /app
+WORKDIR /app
+COPY package.json package-lock.json /app/
+COPY prisma /app/prisma
+RUN npm ci --ignore-scripts && \
+    npx prisma generate
+
+# Stage 2: Build frontend and backend
+FROM node:lts AS builder
 
 RUN mkdir /app
 WORKDIR /app
@@ -11,6 +21,7 @@ ENV NODE_ENV=production
 COPY . /app/
 RUN npm run build
 
+# Stage 3: Runtime
 FROM node:lts
 
 LABEL maintainer="github.com/thisisbenny"
@@ -26,6 +37,9 @@ RUN mkdir data
 COPY package.json package-lock.json /app/
 COPY ./prisma /app/prisma
 RUN npm ci --ignore-scripts
+
+COPY --from=prisma /app/node_modules/.prisma /app/node_modules/.prisma
+COPY --from=prisma /app/node_modules/@prisma /app/node_modules/@prisma
 COPY --from=builder /app/dist /app
 
 EXPOSE 5000
