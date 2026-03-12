@@ -14,7 +14,6 @@ switch (process.env.NODE_ENV) {
 export default {
   logger: {
     level: logLevel,
-    prettyPrint: process.env.NODE_ENV === 'development',
     redact: ['err.stack'],
   },
 }

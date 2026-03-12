@@ -6,8 +6,8 @@ This document provides essential information for agents working on the Wishlist 
 
 - **Type**: Full-stack Vue 3 + Fastify application
 - **Frontend**: Vue 3 with Composition API, Vue Router, Vue I18n
-- **Backend**: Fastify (Node.js) with Prisma ORM
-- **Database**: SQLite (via Prisma)
+- **Backend**: Fastify (Node.js) with Drizzle ORM
+- **Database**: SQLite (via Drizzle)
 - **Testing**: Vitest + Playwright
 - **Node.js**: >= 22.22.1
 
@@ -26,7 +26,7 @@ npm run dev:backend  # Run nodemon for backend (watch mode)
 ```bash
 npm run build         # Build both frontend + backend
 npm run build:frontend  # Vite build to dist/static
-npm run build:backend   # Prisma generate + tsc to dist/
+npm run build:backend   # Drizzle generate + tsc to dist/
 npm run preview       # Preview production build on port 5050
 npm run demo          # Build + reset DB + start server
 ```
@@ -147,7 +147,7 @@ src/
 │   ├── routes/        # API endpoints
 │   │   ├── utils/     # Utility routes (fetchmetadata)
 │   │   └── wishlist/  # Wishlist CRUD routes
-│   └── services/       # Business logic (Prisma client)
+│   └── services/       # Business logic (Drizzle client)
 ├── components/         # Vue components
 │   └── icons/         # Icon components
 ├── composables/       # Vue composables (hooks)
@@ -162,22 +162,37 @@ src/
 ## Environment
 
 - Node.js version specified in `.nvmrc` (currently v22.22.1)
-- Use `nvm use` to switch to the correct Node version
 - Copy `.env.template` to `.env` for local development
-- Database schema managed via Prisma in `prisma/schema.prisma`
+- Database schema managed via Drizzle in `src/db/schema/`
+- For new database setups: run `npx drizzle-kit push` to create tables (works with existing DBs)
 
 ### Important: Use nvm for Node.js
 
-```bash
-# Activate correct Node.js version
-nvm use
+Always use the correct Node.js version from `.nvmrc`. The easiest way is to add this alias to your shell config (`~/.zshrc` or `~/.bashrc`):
 
-# Or manually
-nvm install 18
-nvm use 18
+```bash
+# Add to ~/.zshrc or ~/.bashrc
+alias node22='export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm use'
 ```
 
-Note: Tests and build require Node.js >= 18.18.0 (Prisma requirement)
+Then before any npm commands:
+
+```bash
+# Source nvm and switch to correct Node version
+node22
+
+# Now run npm commands
+npm install
+npm run dev
+```
+
+Or chain it directly:
+
+```bash
+export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm use && npm install
+```
+
+**Note**: Always run `nvm use` before npm commands to ensure the correct Node version is active. Drizzle and better-sqlite3 require Node.js >= 22.22.1.
 
 ## Important Notes
 
@@ -200,6 +215,9 @@ Note: Tests and build require Node.js >= 18.18.0 (Prisma requirement)
 - Default from `.env.template`: `TOP_SECRET`
 
 ## Active Technologies
+
+- Node.js v22.22.1 + Drizzle ORM (latest), drizzle-kit (latest), better-sqlite3 (002-prisma-to-drizzle)
+- SQLite (existing database at data/data.db) (002-prisma-to-drizzle)
 
 - Node.js 22.x (upgrading from v22.22.1) + npm packages (same as current, no changes) (001-nodejs-22-upgrade)
 - N/A (configuration-only change) (001-nodejs-22-upgrade)

@@ -6,8 +6,8 @@ describe('config: fastify', () => {
     expect(fastifyConfig.logger?.level).toBe('silent')
   })
 
-  it('has prettyPrint disabled by default', () => {
-    expect(fastifyConfig.logger?.prettyPrint).toBe(false)
+  it('has prettyPrint removed (for pino-pretty v13+ compatibility)', () => {
+    expect('prettyPrint' in fastifyConfig.logger!).toBe(false)
   })
 
   it('redacts err.stack from logs', () => {

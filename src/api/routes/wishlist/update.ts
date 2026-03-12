@@ -1,4 +1,4 @@
-import { Wishlist, WishlistItem, WishlistUpdateInput, Prisma } from '@/types'
+import { Wishlist, WishlistItem, WishlistUpdateInput } from '@/types'
 import { FastifyRequest, FastifyReply, RouteOptions } from 'fastify'
 import { wishlist } from '../../models'
 import {
@@ -96,14 +96,9 @@ export const itemBought = <RouteOptions>{
     },
   },
   handler: async (request: updateItemRequest, reply: FastifyReply) => {
-    const updatePayload: Prisma.ItemUpdateInput = {
+    const updatePayload: Partial<WishlistItem> = {
       bought: true,
     }
-    reply.send(
-      await wishlist.updateItem(
-        request.params.itemId,
-        updatePayload as unknown as WishlistItem
-      )
-    )
+    reply.send(await wishlist.updateItem(request.params.itemId, updatePayload))
   },
 }

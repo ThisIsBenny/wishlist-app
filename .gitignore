@@ -34,4 +34,7 @@ reports/*
 
 # Specification/Agent tools
 .opencode/
-.specify/
+
+
+test-results/
+playwright-report/
