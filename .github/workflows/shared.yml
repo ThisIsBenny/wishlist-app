@@ -1,0 +1,142 @@
+name: 'Shared CI Jobs'
+
+on:
+  workflow_call:
+    inputs:
+      run_docker_test:
+        type: boolean
+        default: false
+      run_docker_publish:
+        type: boolean
+        default: false
+      version:
+        type: string
+        default: ''
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up NodeJs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
+      - name: Linter
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up NodeJs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm ci
+      - name: Unit tests
+        run: npm run test:unit:ci
+
+  docker-build-test:
+    if: inputs.run_docker_test
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker
+        uses: docker/setup-docker-action@v5
+        with:
+          daemon-config: |
+            {
+              "features": {
+                "containerd-snapshotter": true
+              }
+            }
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and load multi-platform image
+        uses: docker/build-push-action@v5
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          load: true
+          tags: wishlist-app:test
+
+      - name: Test container runs
+        run: |
+          OUTPUT=$(docker run --rm wishlist-app:test node -e "console.log('ok')" 2>&1) || true
+          echo "Output: $OUTPUT"
+          if echo "$OUTPUT" | grep -q "ok"; then
+            echo "Container executes successfully"
+          else
+            echo "Container test failed"
+            exit 1
+          fi
+
+  docker-publish:
+    if: inputs.run_docker_publish
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - test
+      - docker-build-test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ghcr.io/thisisbenny/wishlist-app:${{ inputs.version }}
+            ghcr.io/thisisbenny/wishlist-app:v${{ inputs.version }}
+            ghcr.io/thisisbenny/wishlist-app:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Print image tags
+        run: |
+          echo "Published images:"
+          echo "  ghcr.io/thisisbenny/wishlist-app:${{ inputs.version }}"
+          echo "  ghcr.io/thisisbenny/wishlist-app:v{{ inputs.version }}"
+          echo "  ghcr.io/thisisbenny/wishlist-app:latest"
