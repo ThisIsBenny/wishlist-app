@@ -138,5 +138,5 @@ jobs:
         run: |
           echo "Published images:"
           echo "  ghcr.io/thisisbenny/wishlist-app:${{ inputs.version }}"
-          echo "  ghcr.io/thisisbenny/wishlist-app:v{{ inputs.version }}"
+          echo "  ghcr.io/thisisbenny/wishlist-app:v${{ inputs.version }}"
           echo "  ghcr.io/thisisbenny/wishlist-app:latest"
