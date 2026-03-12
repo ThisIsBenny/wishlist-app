@@ -93,9 +93,10 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}
-            ghcr.io/${{ github.repository }}:v${{ steps.version.outputs.version }}
-            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/thisisbenny/wishlist-app:${{ steps.version.outputs.version }}
+            ghcr.io/thisisbenny/wishlist-app:v${{ steps.version.outputs.version }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Print image tags
         run: |
