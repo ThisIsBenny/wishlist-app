@@ -1,12 +1,8 @@
 name: 'CI'
 
 on:
-  push:
-    branches:
-      - main
-      - 'release/*'
-    tags-ignore: ['v*']
   pull_request:
+    branches: [main]
 
 jobs:
   call-shared-ci:
