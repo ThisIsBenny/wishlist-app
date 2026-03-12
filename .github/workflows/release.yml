@@ -40,12 +40,18 @@ jobs:
         with:
           node-version: 22
 
-      - name: Extract version
+      - name: Extract version from release tag
         id: version
         run: |
-          VERSION=$(node -e "console.log(require('./package.json').version);")
+          # Extract version from tag (e.g., v2.0.0-beta.1 -> 2.0.0-beta.1)
+          VERSION=${GITHUB_REF#refs/tags/v}
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "is_prerelease=$(echo $VERSION | grep -q '-' && echo 'true' || echo 'false')" >> $GITHUB_OUTPUT
+          # Check if prerelease (contains -)
+          if echo "$VERSION" | grep -q '-'; then
+            echo "is_prerelease=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_prerelease=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -63,7 +69,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Docker Build for push
+      - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           builder: ${{ steps.buildx.outputs.name }}
@@ -74,10 +80,16 @@ jobs:
           tags: |
             ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}
             ghcr.io/${{ github.repository }}:v${{ steps.version.outputs.version }}
+            ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}
             ghcr.io/${{ github.repository }}:latest
 
-      - name: Update latest tag for stable releases
-        if: steps.version.outputs.is_prerelease != 'true'
-        continue-on-error: true
+      - name: Print image tags
         run: |
-          echo "Stable release - latest tag already set above"
+          echo "Built and pushed images:"
+          echo "  ghcr.io/${{ github.repository }}:${{ steps.version.outputs.version }}"
+          echo "  ghcr.io/${{ github.repository }}:v${{ steps.version.outputs.version }}"
+          if [ "${{ steps.version.outputs.is_prerelease }}" != "true" ]; then
+            echo "  ghcr.io/${{ github.repository }}:latest"
+          else
+            echo "  (Skipping :latest tag - prerelease)"
+          fi
