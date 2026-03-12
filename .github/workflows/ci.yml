@@ -8,4 +8,4 @@ jobs:
   call-shared-ci:
     uses: ./.github/workflows/shared.yml
     with:
-      run_docker_test: true
+      run_docker: true

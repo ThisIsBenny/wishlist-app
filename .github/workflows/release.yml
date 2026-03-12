@@ -8,7 +8,7 @@ jobs:
   call-shared-ci:
     uses: ./.github/workflows/shared.yml
     with:
-      run_docker_test: true
+      run_docker: true
       run_docker_publish: true
       version: ${{ github.event.release.tag_name }}
     secrets: inherit
