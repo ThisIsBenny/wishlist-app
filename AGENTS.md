@@ -216,6 +216,8 @@ export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
 
 ## Active Technologies
 
+- YAML (GitHub Actions syntax) + GitHub Actions, Docker Buildx, GitHub Container Registry (ghcr.io) (003-deploy-release-workflow)
+
 - Node.js v22.22.1 + Drizzle ORM (latest), drizzle-kit (latest), better-sqlite3 (002-prisma-to-drizzle)
 - SQLite (existing database at data/data.db) (002-prisma-to-drizzle)
 
@@ -263,3 +265,40 @@ Release workflow triggers on:
 
 - `latest` - latest release
 - `v1.6.0` - specific version
+
+## GitHub Actions Workflows
+
+This project uses GitHub Actions for CI/CD automation:
+
+### CI Workflow (ci.yml)
+
+Runs on every push to main branch and all feature branches, plus pull requests:
+
+- **lint**: Runs `npm run lint` and `npm run typecheck`
+- **test**: Runs `npm run test:unit:ci`
+- **build-test**: Builds Docker image and verifies it starts successfully (without pushing)
+
+### Release Workflow (release.yml)
+
+Runs when a new GitHub Release is published:
+
+- **lint-test**: Runs lint, typecheck, and unit tests
+- **docker**: Builds multi-platform images (amd64, arm64), pushes to ghcr.io
+
+**Triggering a Release:**
+
+1. Update version in `package.json` (e.g., `1.2.0` or `1.0.0-beta.1`)
+2. Create a release via GitHub UI or CLI:
+
+   ```bash
+   gh release create 1.2.0 --title "Version 1.2.0" --notes "Release notes"
+   ```
+
+**Image Tags:**
+
+| Release Type              | Tags Applied                    |
+| ------------------------- | ------------------------------- |
+| Stable (1.2.0)            | `1.2.0`, `v1.2.0`, `latest`     |
+| Prerelease (1.0.0-beta.1) | `1.0.0-beta.1`, `v1.0.0-beta.1` |
+
+**Registry**: Images are pushed to GitHub Container Registry (ghcr.io)
