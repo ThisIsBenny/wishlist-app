@@ -29,7 +29,12 @@
     "lint": "eslint .",
     "prepare": "husky install",
     "preversion": "git pull --ff-only",
-    "postversion": "git push --follow-tags"
+    "postversion": "git push --follow-tags",
+    "release:create": "gh release create v$(node -p \"require('./package.json').version\") --title \"Release v$(node -p \"require('./package.json').version\")\" --generate-notes",
+    "release:patch": "npm version patch && npm run release:create",
+    "release:minor": "npm version minor && npm run release:create",
+    "release:major": "npm version major && npm run release:create",
+    "release:pre": "npm version prerelease --preid=beta && npm run release:create"
   },
   "dependencies": {
     "@fastify/compress": "^6.5.0",
