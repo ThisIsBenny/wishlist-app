@@ -73,7 +73,14 @@ jobs:
 
       - name: Test container starts
         run: |
-          docker run --rm --detach -p 5555:5000 wishlist-app:test
+          CONTAINER_ID=$(docker run --rm --detach -p 5555:5000 wishlist-app:test)
           sleep 5
-          docker ps | grep wishlist-app && echo "Container started successfully" || (echo "Container failed to start" && exit 1)
-          docker stop $(docker ps -q -f name=wishlist-app:test) || true
+          if docker ps -q --filter "id=$CONTAINER_ID" | grep -q .; then
+            echo "Container started successfully"
+          else
+            echo "Container failed to start - logs:"
+            docker logs $CONTAINER_ID || true
+            docker ps -a || true
+            exit 1
+          fi
+          docker stop $CONTAINER_ID || true
