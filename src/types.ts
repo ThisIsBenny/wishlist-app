@@ -1,7 +1,3 @@
-import { Prisma } from '@prisma/client'
-
-export { Prisma }
-
 export interface WishlistItem {
   id?: number
   title: string
@@ -21,8 +17,10 @@ export interface Wishlist {
   items?: WishlistItem[]
 }
 
-export type WishlistCreateInput = Prisma.WishlistCreateInput
-export type WishlistUpdateInput = Prisma.WishlistUpdateInput
+export type WishlistCreateInput = Omit<Wishlist, 'items'> & {
+  id?: string
+}
+export type WishlistUpdateInput = Partial<WishlistCreateInput>
 export interface TileProp {
   title: string
   imageSrc: string
