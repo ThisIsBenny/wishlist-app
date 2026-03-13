@@ -9,7 +9,9 @@ vi.mock('axios', () => ({
 
 vi.mock('cheerio', () => ({
   default: {
-    load: vi.fn(),
+    load: vi.fn().mockReturnValue(() => {
+      return vi.fn().mockReturnValue('  Test Product  ')
+    }),
   },
 }))
 
@@ -48,6 +50,23 @@ describe('UtilsService', () => {
 
     it('should return empty response for null URL', async () => {
       const result = await service.fetchMetadata(null as unknown as string)
+
+      expect(result).toEqual({
+        title: '',
+        description: '',
+        imageSrc: '',
+      })
+    })
+
+    it('should handle failed og scraper result', async () => {
+      const ogs = (await import('open-graph-scraper')).default
+      vi.mocked(ogs).mockResolvedValueOnce({
+        result: {
+          success: false,
+        },
+      } as any)
+
+      const result = await service.fetchMetadata('https://example.com/page')
 
       expect(result).toEqual({
         title: '',
