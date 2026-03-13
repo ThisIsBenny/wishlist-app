@@ -12,9 +12,9 @@ describe('composable: useWishlistStore', () => {
     expect(isFinished.value).toBe(false)
   })
 
-  it('provides error as undefined by default', () => {
+  it('provides error as null by default', () => {
     const { error } = useWishlistStore()
-    expect(error.value).toBeUndefined()
+    expect(error.value).toBeNull()
   })
 
   it('provides fetch function', () => {

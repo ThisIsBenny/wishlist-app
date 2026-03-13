@@ -1,7 +1,7 @@
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
 import { wishlists } from './wishlists'
 
-export const items = sqliteTable('Item', {
+export const items = sqliteTable('items', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   title: text('title').notNull(),
   url: text('url').default(''),

@@ -4,9 +4,9 @@ import { useEditMode } from './useEditMode'
 const { isActive: editModeIsActive } = useEditMode()
 import { useFetch } from './useFetch'
 
-const state = ref<Wishlist>()
+const state = ref<Wishlist | undefined>(undefined)
 const isFinished = ref<boolean>(false)
-const error = ref<any>()
+const error = ref<Error | null>(null)
 
 const fetch = async (slugText: string) => {
   const request = await useFetch(`/wishlist/${slugText}`).json()
@@ -41,9 +41,11 @@ const updateWishlist = async (updatedData: Wishlist): Promise<void> => {
 }
 
 const deleteWishlist = async (): Promise<void> => {
-  const { error } = await useFetch(`/wishlist/${state!.value!.id}`)
-    .delete()
-    .json()
+  const id = state.value?.id
+  if (!id) {
+    throw new Error('No wishlist selected')
+  }
+  const { error } = await useFetch(`/wishlist/${id}`).delete().json()
   if (error.value) {
     throw error.value
   }

@@ -1,11 +1,17 @@
+import swc from 'unplugin-swc'
 import { configDefaults, defineConfig } from 'vitest/config'
 import { fileURLToPath, URL } from 'url'
 
 export default defineConfig({
+  plugins: [swc.vite({})],
   test: {
+    environment: 'node',
     globals: true,
     setupFiles: ['./vitest.setup.ts', './vitest.api.setup.ts'],
-    include: ['src/api/__tests__/**/*.test.ts'],
+    include: [
+      'src/api/__tests__/**/*.test.ts',
+      'src/api/__tests__/**/*.spec.ts',
+    ],
     exclude: [
       ...configDefaults.exclude,
       'src/components/**/*',

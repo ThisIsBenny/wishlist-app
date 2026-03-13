@@ -19,6 +19,7 @@ export default defineConfig({
     environment: 'jsdom',
     exclude: [
       '**/e2e/**',
+      '**/api/__tests__/**',
       '**/node_modules/**',
       '**/dist/**',
       '**/playwright-report/**',

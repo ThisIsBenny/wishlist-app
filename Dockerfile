@@ -26,8 +26,12 @@ WORKDIR /app
 COPY package.json package-lock.json /app/
 RUN npm ci --ignore-scripts && npm rebuild better-sqlite3
 
+# Copy only what's needed for runtime
 COPY --from=builder /app/dist /app
+COPY --from=builder /app/drizzle.config.js /app/
+COPY --from=builder /app/drizzle /app/drizzle
+COPY --from=builder /app/src/db/schema /app/src/db/schema
 
 EXPOSE 5000
 
-CMD ["node", "api/server.js"]
+CMD ["node", "api/main.js"]

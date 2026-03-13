@@ -51,7 +51,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Unit tests
-        run: npm run test:unit:ci
+        run: npm run test:unit
+      - name: API tests
+        run: npm run test:api
 
   docker:
     if: inputs.run_docker

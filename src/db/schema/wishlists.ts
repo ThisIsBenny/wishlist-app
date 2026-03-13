@@ -1,7 +1,9 @@
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core'
 
 export const wishlists = sqliteTable('Wishlist', {
-  id: text('id').primaryKey(),
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   public: integer('public', { mode: 'boolean' }).default(true).notNull(),
   title: text('title').notNull(),
   imageSrc: text('imageSrc').default(''),

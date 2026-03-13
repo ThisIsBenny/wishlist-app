@@ -1,13 +1,10 @@
 <!--
 Sync Impact Report:
-- Version change: N/A → 1.0.0 (initial version)
-- Modified principles: None (all new)
-- Added sections: Technology Standards, Development Workflow
+- Version change: 1.0.0 → 1.1.0
+- Modified principles: IV. API-First Design, V. Technology Standards
+- Added sections: None
 - Removed sections: None
-- Templates requiring updates: ⚠ pending review
-  - .specify/templates/plan-template.md (Constitution Check section references constitution)
-  - .specify/templates/spec-template.md (no direct references)
-  - .specify/templates/tasks-template.md (no direct references)
+- Templates requiring updates: None
 - Follow-up TODOs: None
 -->
 
@@ -29,7 +26,7 @@ Vue Composition API with `<script setup lang="ts">` required for all components.
 
 ### IV. API-First Design
 
-RESTful endpoints with JSON schemas for request/response validation. Fastify built-in error handling with appropriate HTTP status codes (201 created, 404 not found). Protected routes require API key authentication. Contract tests verify API contracts.
+RESTful endpoints with Zod schemas for request/response validation. NestJS exception filters and pipes for validation. Protected routes require API key authentication via ApiKeyGuard. DTOs with class-validator. Repository pattern for database operations.
 
 ### V. Internationalization First
 
@@ -37,22 +34,23 @@ All user-facing strings MUST use Vue I18n keys. Support English and German local
 
 ## Technology Standards
 
-**Stack**: Vue 3 + Fastify full-stack application with Drizzle ORM and SQLite. Frontend: Vue Router, Vue I18n, Tailwind CSS. Testing: Vitest (unit), Playwright (E2E).
+**Stack**: Vue 3 + NestJS full-stack application with Drizzle ORM and SQLite. Frontend: Vue Router, Vue I18n, Tailwind CSS. Backend: NestJS with DTOs, Guards, Services, Repository pattern. Testing: Vitest (unit + API), Playwright (E2E).
 
 **Code Style**: 2-space indentation, single quotes, trailing commas in ES5 contexts. Prettier formatting enforced. ESLint with auto-fix. Named exports for composables (use prefix). Path alias @/ for src-relative imports.
 
 **CSS/Tailwind**: Use Tailwind CSS utility classes exclusively. Follow default class ordering. Dark mode support via dark: modifier. Avoid custom CSS; prefer utility classes.
 
-**Database**: Drizzle ORM with SQLite for development. Schema defined in src/db/schema/. Models use existing database tables (PascalCase for backward compatibility with Prisma).
+**Database**: Drizzle ORM with SQLite. Schema defined in src/db/schema/. Tables auto-created on app start via `migrate()` - works with Docker Volumes. Migration files in drizzle/ directory.
 
 ## Development Workflow
 
-**Quality Gates**: All PRs must pass lint (`npm run lint`) and typecheck (`npm run typecheck`) before merge. Tests must pass (`npm run test:unit` and `npm run test:e2e`). Pre-commit hooks enforce these checks.
+**Quality Gates**: All PRs must pass lint (`npm run lint`) and typecheck (`npm run typecheck`) before merge. Tests must pass (`npm run test:unit`, `npm run test:api` and `npm run test:e2e`). Pre-commit hooks enforce these checks.
 
 **Docker Testing (Required)**: Before merging any database-related changes, Docker tests MUST be executed:
-1. Test with existing/old database (Prisma-migrated data)
-2. Test with fresh/empty database
-Both scenarios must work correctly to prevent production issues.
+
+1. Test with existing/old database (migrated data)
+2. Test with fresh/empty database (new volume)
+   Both scenarios must work correctly to prevent production issues.
 
 **Feature Process**: User stories defined in spec.md with priorities (P1, P2, P3). Each story independently testable and deployable. Tasks organized by user story in tasks.md. Tests written before implementation.
 
@@ -65,15 +63,17 @@ Constitution supersedes all other practices. Amendments require: (1) documentati
 ### Release Process
 
 This project uses Semantic Versioning and tag-based releases:
+
 - **MAJOR** (x.0.0): Breaking changes
-- **MINOR** (x.y.0): New features, backward compatible  
+- **MINOR** (x.y.0): New features, backward compatible
 - **PATCH** (x.y.z): Bug fixes
 
 Release workflow triggers on `v*` tags. To release:
+
 1. Update version in `package.json`
 2. Commit with message "release: vX.Y.Z"
 3. Tag and push: `git tag vX.Y.Z && git push origin vX.Y.Z`
 
 All team members responsible for constitution compliance. Use this document for runtime development guidance. Reference AGENTS.md for detailed development commands.
 
-**Version**: 1.0.0 | **Ratified**: 2026-03-11 | **Last Amended**: 2026-03-11
+**Version**: 1.1.0 | **Ratified**: 2026-03-11 | **Last Amended**: 2026-03-13

@@ -4,7 +4,7 @@ import { useFetch } from './useFetch'
 
 const state = ref<Wishlist[]>([])
 const isFinished = ref<boolean>(false)
-const error = ref<any>()
+const error = ref<Error | null>(null)
 
 const fetch = async () => {
   const request = await useFetch('/wishlist').json()

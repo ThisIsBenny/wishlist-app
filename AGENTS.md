@@ -4,9 +4,9 @@ This document provides essential information for agents working on the Wishlist 
 
 ## Project Overview
 
-- **Type**: Full-stack Vue 3 + Fastify application
+- **Type**: Full-stack Vue 3 + NestJS application
 - **Frontend**: Vue 3 with Composition API, Vue Router, Vue I18n
-- **Backend**: Fastify (Node.js) with Drizzle ORM
+- **Backend**: NestJS (Node.js) with Drizzle ORM
 - **Database**: SQLite (via Drizzle)
 - **Testing**: Vitest + Playwright
 - **Node.js**: >= 22.22.1
@@ -34,12 +34,12 @@ npm run demo          # Build + reset DB + start server
 ### Testing
 
 ```bash
-npm run test:unit           # Run unit tests (watch mode)
-npm run test:unit:ci        # Run tests in CI mode (single run)
-npm run test:api             # Run API handler tests
-npm run test:e2e             # Run Playwright E2E tests
-npm run test:e2e:ui          # Run E2E tests with UI
-npm run coverage            # Run tests with coverage report
+npm run test:unit           # Run unit tests (single run)
+npm run test:unit:watch     # Run unit tests (watch mode)
+npm run test:api            # Run API tests (NestJS handler tests)
+npm run test:e2e            # Run Playwright E2E tests
+npm run test:e2e:ui         # Run E2E tests with UI
+npm run coverage             # Run tests with coverage report
 ```
 
 #### Running a Single Test
@@ -104,17 +104,16 @@ npm run lint && npm run typecheck
 
 ### Error Handling
 
-- Use Fastify's built-in error handling with schemas
-- Validate request/response payloads with JSON schemas
+- Use NestJS exception filters and pipes for validation
 - Return appropriate HTTP status codes (201 for created, 404 for not found)
 - Use try/catch for async operations in route handlers
 
 ### API Routes
 
-- Define routes in `src/api/routes/`
-- Use route options object pattern with `method`, `url`, `schema`, `handler`
-- Mark protected routes with `config: { protected: true }`
-- Use Prisma models in `src/api/models/` for database operations
+- Define routes in `src/api/wishlist/` (controller pattern)
+- Use DTOs with class-validator and Zod for validation
+- Use NestJS guards for protected routes (ApiKeyGuard)
+- Use repository pattern in `src/api/wishlist/` for database operations
 
 ### CSS/Tailwind
 
@@ -126,7 +125,7 @@ npm run lint && npm run typecheck
 ### Testing
 
 - Place tests in `__tests__/` directories alongside source files
-- API handler tests in `src/api/__tests__/handlers/`
+- API handler tests in `src/api/__tests__/`
 - Use `describe`, `it`, `expect` from Vitest
 - Use `@vue/test-utils` with `shallowMount` for components
 - Follow naming: `ComponentName.test.ts` or `composableName.test.ts`
@@ -141,22 +140,25 @@ npm run lint && npm run typecheck
 
 ```
 src/
-├── api/               # Fastify backend
-│   ├── config/        # App config, schemas, errors
-│   ├── models/        # Prisma models
-│   ├── routes/        # API endpoints
-│   │   ├── utils/     # Utility routes (fetchmetadata)
-│   │   └── wishlist/  # Wishlist CRUD routes
-│   └── services/       # Business logic (Drizzle client)
+├── api/               # NestJS backend
+│   ├── auth/         # Authentication (ApiKeyGuard)
+│   ├── config/       # App configuration
+│   ├── database.module.ts  # Database module with Drizzle
+│   ├── health/       # Health check endpoints
+│   ├── main.ts       # NestJS entry point
+│   ├── utils/        # Utility services (fetchmetadata)
+│   └── wishlist/     # Wishlist controller, service, repository, DTOs
 ├── components/         # Vue components
 │   └── icons/         # Icon components
 ├── composables/       # Vue composables (hooks)
 ├── config/            # App configuration (i18n)
 ├── router/            # Vue Router config
+├── db/               # Drizzle database schema
+│   └── schema/       # Table definitions
 ├── types.ts           # Shared TypeScript types
 ├── views/             # Page-level Vue components
 ├── App.vue            # Root component
-└── main.ts           # App entry point
+└── main.ts           # Vue entry point
 ```
 
 ## Environment
@@ -164,7 +166,8 @@ src/
 - Node.js version specified in `.nvmrc` (currently v22.22.1)
 - Copy `.env.template` to `.env` for local development
 - Database schema managed via Drizzle in `src/db/schema/`
-- For new database setups: run `npx drizzle-kit push` to create tables (works with existing DBs)
+- Database tables are created automatically on app start via `migrate()` (works with Docker Volumes)
+- For manual DB setup: run `npx drizzle-kit push` to create tables
 
 ### Important: Use nvm for Node.js
 
@@ -216,6 +219,10 @@ export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
 
 ## Active Technologies
 
+- Node.js v22.22.1, TypeScript ~5.7.3 + NestJS 11.x (@nestjs/core, @nestjs/common, @nestjs/platform-express, @nestjs/testing, @nestjs/config, @nestjs/throttler, @nestjs/swagger) replacing Fastify packages (004-nestjs-migration)
+- SQLite with Drizzle ORM + drizzle-kit für Migrationen (004-nestjs-migration)
+- Database wird beim Start erstellt (migrate()) - funktioniert mit Docker Volumes (004-nestjs-migration)
+
 - YAML (GitHub Actions syntax) + GitHub Actions, Docker Buildx, GitHub Container Registry (ghcr.io) (003-deploy-release-workflow)
 
 - Node.js v22.22.1 + Drizzle ORM (latest), drizzle-kit (latest), better-sqlite3 (002-prisma-to-drizzle)
@@ -226,6 +233,7 @@ export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
 
 ## Recent Changes
 
+- 004-nestjs-migration: Fastify → NestJS Migration mit Drizzle ORM, migrate() für DB-Setup
 - 001-nodejs-22-upgrade: Added Node.js 22.x (upgrading from v22.22.1) + npm packages (same as current, no changes)
 
 ## Release Process
@@ -275,7 +283,7 @@ This project uses GitHub Actions for CI/CD automation:
 Runs on every push to main branch and all feature branches, plus pull requests:
 
 - **lint**: Runs `npm run lint` and `npm run typecheck`
-- **test**: Runs `npm run test:unit:ci`
+- **test**: Runs `npm run test:unit` and `npm run test:api`
 - **build-test**: Builds Docker image and verifies it starts successfully (without pushing)
 
 ### Release Workflow (release.yml)
