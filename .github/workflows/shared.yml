@@ -102,7 +102,7 @@ jobs:
           load: ${{ !inputs.run_docker_publish }}
           tags: |
             ghcr.io/thisisbenny/wishlist-app:${{ inputs.version }}
-            ghcr.io/thisisbenny/wishlist-app:v${{ inputs.version }}
+            ${{ !startsWith(inputs.version, 'v') && format('ghcr.io/thisisbenny/wishlist-app:v{0}', inputs.version) || '' }}
             ghcr.io/thisisbenny/wishlist-app:latest
             wishlist-app:test
           cache-from: type=gha
@@ -125,5 +125,5 @@ jobs:
         run: |
           echo "Published images:"
           echo "  ghcr.io/thisisbenny/wishlist-app:${{ inputs.version }}"
-          echo "  ghcr.io/thisisbenny/wishlist-app:v${{ inputs.version }}"
+          ${{ !startsWith(inputs.version, 'v') && echo "  ghcr.io/thisisbenny/wishlist-app:v${{ inputs.version }}" || '' }}
           echo "  ghcr.io/thisisbenny/wishlist-app:latest"
