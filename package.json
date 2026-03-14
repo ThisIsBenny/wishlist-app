@@ -29,7 +29,7 @@
     "lint": "eslint .",
     "prepare": "husky install",
     "preversion": "git pull --ff-only",
-    "postversion": "git push --follow-tags",
+    "postversion": "git commit --amend -m \"[release] $(node -p 'require(\"./package.json\").version')\" && git push --follow-tags",
     "release:create": "gh release create v$(node -p \"require('./package.json').version\") --title \"Release v$(node -p \"require('./package.json').version\")\" --generate-notes",
     "release:patch": "npm version patch && npm run release:create",
     "release:minor": "npm version minor && npm run release:create",
