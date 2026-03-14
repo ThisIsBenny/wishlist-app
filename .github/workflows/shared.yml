@@ -121,21 +121,3 @@ jobs:
             echo "Container test failed"
             exit 1
           fi
-
-      - name: Print image tags
-        if: inputs.run_docker
-        run: |
-          echo "Docker images:"
-          echo "  ghcr.io/thisisbenny/wishlist-app:${{ inputs.version }}"
-
-      - name: Print v-prefixed tag
-        if: inputs.run_docker && !startsWith(inputs.version, 'v')
-        run: echo "  ghcr.io/thisisbenny/wishlist-app:v${{ inputs.version }}"
-
-      - name: Print latest tag
-        if: inputs.run_docker_publish
-        run: echo "  ghcr.io/thisisbenny/wishlist-app:latest"
-
-      - name: Print latest tag
-        if: inputs.run_docker_publish
-        run: echo "  ghcr.io/thisisbenny/wishlist-app:latest"
