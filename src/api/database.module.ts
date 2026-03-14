@@ -55,6 +55,7 @@ function createDatabase(
       provide: DB_TOKEN,
       inject: [ConfigService],
       useFactory: (configService: ConfigService<AppConfig>): DbInstance => {
+        const isTest = configService.get('NODE_ENV') === 'test'
         console.log('[DEBUG] Creating database...')
         const sqlite = createDatabase(configService)
         console.log('[DEBUG] Initializing Drizzle...')
@@ -66,12 +67,14 @@ function createDatabase(
         })
         console.log('[DEBUG] Migrations complete')
 
-        const dbPath = configService.get('DATABASE_URL').replace('file:', '')
-        const dbPathResolved = path.resolve(process.cwd(), dbPath)
-        const stats = fs.statSync(dbPathResolved)
-        console.log(
-          `[DEBUG] Database file size AFTER migrate: ${stats.size} bytes`
-        )
+        if (!isTest) {
+          const dbPath = configService.get('DATABASE_URL').replace('file:', '')
+          const dbPathResolved = path.resolve(process.cwd(), dbPath)
+          const stats = fs.statSync(dbPathResolved)
+          console.log(
+            `[DEBUG] Database file size AFTER migrate: ${stats.size} bytes`
+          )
+        }
 
         return db
       },

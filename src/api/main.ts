@@ -25,7 +25,20 @@ async function bootstrap() {
   })
 
   const staticPath = join(__dirname, '..', 'static')
-  app.useStaticAssets(staticPath)
+  app.useStaticAssets(staticPath, {
+    maxAge: '1y',
+    immutable: true,
+  })
+
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    if (req.path.startsWith('/api/')) {
+      return next()
+    }
+    if (req.method === 'GET' && !req.path.includes('.')) {
+      return res.sendFile(join(staticPath, 'index.html'))
+    }
+    next()
+  })
 
   app.setGlobalPrefix('api')
 
