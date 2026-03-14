@@ -68,17 +68,30 @@ This project uses Semantic Versioning and tag-based releases:
 - **MINOR** (x.y.0): New features, backward compatible
 - **PATCH** (x.y.z): Bug fixes
 
-Release workflow triggers on `v*` tags. To release:
+Release workflow triggers on GitHub Release (not on git tags directly). Version management via npm:
 
-1. Update version in `package.json`
-2. Create detailed release notes using `git diff vX.Y.Z...HEAD` to see what changed since the last version
-3. Release notes MUST include:
+**Never edit package.json manually for releases.** Use npm scripts which handle both version bump AND git tag creation:
+
+- `npm run release:patch` - Patch release (x.y.z → x.y.z+1)
+- `npm run release:minor` - Minor release (x.y.z → x+1.y.0)
+- `npm run release:major` - Major release (x.y.z → x+1.0.0)
+- `npm run release:pre` - Prerelease (e.g., x.y.z → x.y.z-beta.1)
+
+The npm version command automatically:
+
+1. Updates version in package.json
+2. Creates a git commit with message "x.y.z"
+3. Creates a git tag (vX.Y.Z)
+
+After running the npm script, manually create the GitHub Release:
+
+1. Create detailed release notes using `git diff vX.Y.Z...HEAD` to see what changed
+2. Release notes MUST include:
    - What's new (new features)
    - Bug fixes
    - Breaking changes (if any)
    - Upgrade notes for users
-4. Commit with message "release: vX.Y.Z"
-5. Tag and push: `git tag vX.Y.Z && git push origin vX.Y.Z`
+3. Publish the release in GitHub UI
 
 All team members responsible for constitution compliance. Use this document for runtime development guidance. Reference AGENTS.md for detailed development commands.
 
