@@ -11,4 +11,5 @@ jobs:
     uses: ./.github/workflows/shared.yml
     with:
       run_docker: true
+      run_docker_publish: false
       version: ${{ github.sha }}
