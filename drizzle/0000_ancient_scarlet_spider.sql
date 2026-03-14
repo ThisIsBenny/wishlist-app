@@ -1,4 +1,4 @@
-CREATE TABLE `items` (
+CREATE TABLE IF NOT EXISTS `items` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`title` text NOT NULL,
 	`url` text DEFAULT '',
@@ -9,7 +9,7 @@ CREATE TABLE `items` (
 	FOREIGN KEY (`wishlistId`) REFERENCES `Wishlist`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
-CREATE TABLE `Wishlist` (
+CREATE TABLE IF NOT EXISTS `Wishlist` (
 	`id` text PRIMARY KEY NOT NULL,
 	`public` integer DEFAULT true NOT NULL,
 	`title` text NOT NULL,
@@ -18,4 +18,4 @@ CREATE TABLE `Wishlist` (
 	`description` text DEFAULT ''
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX `Wishlist_slugUrlText_unique` ON `Wishlist` (`slugUrlText`);
+CREATE UNIQUE INDEX IF NOT EXISTS `Wishlist_slugUrlText_unique` ON `Wishlist` (`slugUrlText`);
