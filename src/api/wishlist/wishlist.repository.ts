@@ -42,6 +42,16 @@ export class WishlistRepository {
     return mapWishlist(result)
   }
 
+  async findById(id: string): Promise<Wishlist | undefined> {
+    const result = await this.db
+      .select()
+      .from(wishlists)
+      .where(eq(wishlists.id, id))
+      .get()
+    if (!result) return undefined
+    return mapWishlist(result)
+  }
+
   async findItemsByWishlistId(wishlistId: string): Promise<WishlistItem[]> {
     const results = await this.db
       .select()

@@ -34,7 +34,7 @@ describe('WishlistController (e2e)', () => {
     it('should reject missing title', async () => {
       const response = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('x-api-key', apiKey)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({ slugUrlText: 'test', public: true })
 
       expect(response.status).toBe(400)
@@ -43,7 +43,7 @@ describe('WishlistController (e2e)', () => {
     it('should reject missing slugUrlText', async () => {
       const response = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('x-api-key', apiKey)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({ title: 'Test', public: true })
 
       expect(response.status).toBe(400)
@@ -52,7 +52,7 @@ describe('WishlistController (e2e)', () => {
     it('should reject missing public', async () => {
       const response = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('x-api-key', apiKey)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({ title: 'Test', slugUrlText: 'test' })
 
       expect(response.status).toBe(400)
@@ -69,7 +69,7 @@ describe('WishlistController (e2e)', () => {
     it('should create wishlist with valid data', async () => {
       const response = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('x-api-key', apiKey)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({
           title: 'Valid Wishlist',
           slugUrlText: 'valid-' + Date.now(),
@@ -84,7 +84,7 @@ describe('WishlistController (e2e)', () => {
       const slug = 'defaults-' + Date.now()
       const response = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('x-api-key', apiKey)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({
           title: 'With Defaults',
           slugUrlText: slug,
@@ -97,36 +97,40 @@ describe('WishlistController (e2e)', () => {
     })
   })
 
-  describe('PATCH /wishlist/:slugText', () => {
+  describe('PUT /wishlist/:id', () => {
     it('should update wishlist with partial data', async () => {
       const slug = 'update-' + Date.now()
 
-      await request(app.getHttpServer())
+      const createResponse = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('x-api-key', apiKey)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({ title: 'Original', slugUrlText: slug, public: true })
 
+      const wishlistId = createResponse.body.id
+
       const response = await request(app.getHttpServer())
-        .patch(`/api/wishlist/${slug}`)
-        .set('x-api-key', apiKey)
+        .put(`/api/wishlist/${wishlistId}`)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({ title: 'Updated' })
 
       expect(response.status).toBe(200)
     })
   })
 
-  describe('POST /wishlist/:slugText/item', () => {
+  describe('POST /wishlist/:id/item', () => {
     it('should reject item without title', async () => {
       const slug = 'item-' + Date.now()
 
-      await request(app.getHttpServer())
+      const createResponse = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('x-api-key', apiKey)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({ title: 'Test', slugUrlText: slug, public: true })
 
+      const wishlistId = createResponse.body.id
+
       const response = await request(app.getHttpServer())
-        .post(`/api/wishlist/${slug}/item`)
-        .set('x-api-key', apiKey)
+        .post(`/api/wishlist/${wishlistId}/item`)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({ description: 'No title' })
 
       expect(response.status).toBe(400)
@@ -135,14 +139,16 @@ describe('WishlistController (e2e)', () => {
     it('should create item with valid data', async () => {
       const slug = 'item-valid-' + Date.now()
 
-      await request(app.getHttpServer())
+      const createResponse = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('x-api-key', apiKey)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({ title: 'Test', slugUrlText: slug, public: true })
 
+      const wishlistId = createResponse.body.id
+
       const response = await request(app.getHttpServer())
-        .post(`/api/wishlist/${slug}/item`)
-        .set('x-api-key', apiKey)
+        .post(`/api/wishlist/${wishlistId}/item`)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({
           title: 'New Item',
           description: 'Item description',
@@ -158,14 +164,16 @@ describe('WishlistController (e2e)', () => {
     it('should apply default values for optional item fields', async () => {
       const slug = 'item-defaults-' + Date.now()
 
-      await request(app.getHttpServer())
+      const createResponse = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('x-api-key', apiKey)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({ title: 'Test', slugUrlText: slug, public: true })
 
+      const wishlistId = createResponse.body.id
+
       const response = await request(app.getHttpServer())
-        .post(`/api/wishlist/${slug}/item`)
-        .set('x-api-key', apiKey)
+        .post(`/api/wishlist/${wishlistId}/item`)
+        .set('Authorization', 'API-Key ' + apiKey)
         .send({ title: 'Minimal Item' })
 
       expect(response.status).toBe(201)

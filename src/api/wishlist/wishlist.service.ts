@@ -31,6 +31,16 @@ export class WishlistService {
     return result
   }
 
+  async getById(id: string) {
+    const result = await this.wishlistRepository.findById(id)
+
+    if (!result) {
+      throw new NotFoundException('Wishlist not found')
+    }
+
+    return result
+  }
+
   async create(payload: WishlistCreateInput): Promise<Wishlist> {
     return await this.wishlistRepository.create(payload)
   }

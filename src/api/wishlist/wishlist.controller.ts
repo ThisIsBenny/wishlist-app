@@ -2,7 +2,7 @@ import {
   Controller,
   Get,
   Post,
-  Patch,
+  Put,
   Delete,
   Body,
   Param,
@@ -14,7 +14,7 @@ import {
   ParseIntPipe,
 } from '@nestjs/common'
 import { WishlistService } from './wishlist.service'
-import { ApiKeyGuard } from '../auth/api-key.guard'
+import { ApiKeyGuard, OptionalApiKey } from '../auth/api-key.guard'
 import {
   CreateWishlistDto,
   UpdateWishlistDto,
@@ -24,7 +24,6 @@ import {
 
 interface AuthenticatedRequest {
   isAuthenticated?: boolean
-  headers: Record<string, string>
 }
 
 @Controller('wishlist')
@@ -32,9 +31,10 @@ export class WishlistController {
   constructor(private readonly wishlistService: WishlistService) {}
 
   @Get()
+  @UseGuards(ApiKeyGuard)
+  @OptionalApiKey()
   async getAll(@Req() req: AuthenticatedRequest) {
-    const isAuthenticated =
-      req.isAuthenticated === true || !!req.headers['x-api-key']
+    const isAuthenticated = req.isAuthenticated === true
     return await this.wishlistService.getAll(isAuthenticated)
   }
 
@@ -50,40 +50,34 @@ export class WishlistController {
     return await this.wishlistService.create(createWishlistDto)
   }
 
-  @Post(':slugText/item')
+  @Post(':id/item')
   @UseGuards(ApiKeyGuard)
   @HttpCode(HttpStatus.CREATED)
   async createItem(
-    @Param('slugText') slugText: string,
+    @Param('id') id: string,
     @Body() createItemDto: CreateWishlistItemDto
   ) {
-    const wishlist = await this.wishlistService.getBySlugUrlText(
-      slugText,
-      false
-    )
+    const wishlist = await this.wishlistService.getById(id)
     if (!wishlist || !wishlist.id) {
       throw new NotFoundException('Wishlist not found')
     }
     return await this.wishlistService.createItem(wishlist.id, createItemDto)
   }
 
-  @Patch(':slugText')
+  @Put(':id')
   @UseGuards(ApiKeyGuard)
   async updateWishlist(
-    @Param('slugText') slugText: string,
+    @Param('id') id: string,
     @Body() updateWishlistDto: UpdateWishlistDto
   ) {
-    const wishlist = await this.wishlistService.getBySlugUrlText(
-      slugText,
-      false
-    )
+    const wishlist = await this.wishlistService.getById(id)
     if (!wishlist || !wishlist.id) {
       throw new NotFoundException('Wishlist not found')
     }
     return await this.wishlistService.update(wishlist.id, updateWishlistDto)
   }
 
-  @Patch(':slugText/item/:itemId')
+  @Put(':id/item/:itemId')
   @UseGuards(ApiKeyGuard)
   async updateItem(
     @Param('itemId', ParseIntPipe) itemId: number,
@@ -92,8 +86,7 @@ export class WishlistController {
     return await this.wishlistService.updateItem(itemId, updateItemDto)
   }
 
-  @Patch(':slugText/item/:itemId/bought')
-  @UseGuards(ApiKeyGuard)
+  @Post(':id/item/:itemId/bought')
   async markItemBought(
     @Param('itemId', ParseIntPipe) itemId: number,
     @Body('bought') bought: boolean
@@ -101,21 +94,18 @@ export class WishlistController {
     return await this.wishlistService.updateItem(itemId, { bought })
   }
 
-  @Delete(':slugText')
+  @Delete(':id')
   @UseGuards(ApiKeyGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
-  async deleteWishlist(@Param('slugText') slugText: string) {
-    const wishlist = await this.wishlistService.getBySlugUrlText(
-      slugText,
-      false
-    )
+  async deleteWishlist(@Param('id') id: string) {
+    const wishlist = await this.wishlistService.getById(id)
     if (!wishlist || !wishlist.id) {
       throw new NotFoundException('Wishlist not found')
     }
     await this.wishlistService.delete(wishlist.id)
   }
 
-  @Delete(':slugText/item/:itemId')
+  @Delete(':id/item/:itemId')
   @UseGuards(ApiKeyGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   async deleteItem(@Param('itemId', ParseIntPipe) itemId: number) {
