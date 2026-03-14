@@ -111,7 +111,7 @@ jobs:
           cache-to: ${{ inputs.run_docker_publish && 'type=gha,mode=max' || '' }}
 
       - name: Test container runs
-        if: inputs.run_docker
+        if: inputs.run_docker_publish
         run: |
           OUTPUT=$(docker run --rm wishlist-app:test node -e "console.log('ok')" 2>&1) || true
           echo "Output: $OUTPUT"
@@ -123,12 +123,12 @@ jobs:
           fi
 
       - name: Print image tags
-        if: inputs.run_docker
+        if: inputs.run_docker_publish
         run: |
-          echo "Docker images:"
+          echo "Published images:"
           echo "  ghcr.io/thisisbenny/wishlist-app:${{ inputs.version }}"
           echo "  ghcr.io/thisisbenny/wishlist-app:latest"
 
       - name: Print v-prefixed tag
-        if: inputs.run_docker && !startsWith(inputs.version, 'v')
+        if: inputs.run_docker_publish && !startsWith(inputs.version, 'v')
         run: echo "  ghcr.io/thisisbenny/wishlist-app:v${{ inputs.version }}"
