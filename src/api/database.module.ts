@@ -43,9 +43,18 @@ function createDatabase(configService: ConfigService): Database.Database {
         const sqlite = createDatabase(configService)
         const db = drizzle(sqlite, { schema })
 
-        migrate(db, {
-          migrationsFolder: './drizzle',
-        })
+        try {
+          migrate(db, {
+            migrationsFolder: './drizzle',
+          })
+        } catch (error) {
+          const err = error as { message?: string }
+          if (err.message?.includes('already exists')) {
+            console.log('Database tables already exist, skipping migration')
+          } else {
+            throw error
+          }
+        }
 
         return db
       },

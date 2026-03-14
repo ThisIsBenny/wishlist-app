@@ -105,8 +105,8 @@ jobs:
           tags: |
             ghcr.io/thisisbenny/wishlist-app:${{ inputs.version }}
             ghcr.io/thisisbenny/wishlist-app:latest
-            wishlist-app:test
             ${{ !startsWith(inputs.version, 'v') && format('ghcr.io/thisisbenny/wishlist-app:v{0}', inputs.version) || '' }}
+            ${{ !inputs.run_docker_publish && 'wishlist-app:test' || '' }}
           cache-from: type=gha
           cache-to: ${{ inputs.run_docker_publish && 'type=gha,mode=max' || '' }}
 
