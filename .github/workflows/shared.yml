@@ -104,9 +104,9 @@ jobs:
           load: ${{ !inputs.run_docker_publish }}
           tags: |
             ghcr.io/thisisbenny/wishlist-app:${{ inputs.version }}
-            ${{ !startsWith(inputs.version, 'v') && format('ghcr.io/thisisbenny/wishlist-app:v{0}', inputs.version) || '' }}
             ghcr.io/thisisbenny/wishlist-app:latest
             wishlist-app:test
+            ${{ !startsWith(inputs.version, 'v') && format('ghcr.io/thisisbenny/wishlist-app:v{0}', inputs.version) || '' }}
           cache-from: type=gha
           cache-to: ${{ inputs.run_docker_publish && 'type=gha,mode=max' || '' }}
 
