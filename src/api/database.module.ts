@@ -45,6 +45,27 @@ function createDatabase(
   const stats = fs.statSync(dbPath)
   console.log(`[DEBUG] Database file size AFTER open: ${stats.size} bytes`)
 
+  // Log all tables in the database using raw SQL
+  const tables = sqlite
+    .prepare(
+      "SELECT name, sql FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"
+    )
+    .all() as { name: string; sql: string }[]
+  console.log(`[DEBUG] Tables in database:`)
+  tables.forEach((t) => console.log(`[DEBUG]   - ${t.name}: ${t.sql}`))
+
+  // Try to count records in each table
+  tables.forEach((t) => {
+    try {
+      const count = sqlite
+        .prepare(`SELECT COUNT(*) as count FROM "${t.name}"`)
+        .get() as { count: number }
+      console.log(`[DEBUG]   ${t.name}: ${count.count} rows`)
+    } catch (e) {
+      console.log(`[DEBUG]   ${t.name}: error counting - ${e}`)
+    }
+  })
+
   return sqlite
 }
 
@@ -74,6 +95,15 @@ function createDatabase(
           console.log(
             `[DEBUG] Database file size AFTER migrate: ${stats.size} bytes`
           )
+
+          try {
+            const items = db.select().from(schema.items).all()
+            console.log(
+              `[DEBUG] Items count: ${(items as unknown as []).length}`
+            )
+          } catch (e) {
+            console.log(`[DEBUG] Error counting items: ${e}`)
+          }
         }
 
         return db
