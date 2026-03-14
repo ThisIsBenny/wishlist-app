@@ -28,6 +28,6 @@ export default defineConfig({
     command: 'npm run build && API_KEY=TOP_SECRET node dist/api/main.js',
     url: 'http://localhost:5000',
     reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
+    timeout: 180 * 1000,
   },
 })

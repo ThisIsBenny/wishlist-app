@@ -1,36 +1,31 @@
-import { spawn } from 'child_process'
-
 export default async function globalSetup() {
-  const server = spawn('node', ['dist/api/main.js'], {
-    env: {
-      ...process.env,
-      NODE_ENV: 'test',
-      API_KEY: 'TOP_SECRET',
-      PORT: '5001',
-    },
-    stdio: 'pipe',
-  })
+  const { drizzle } = await import('drizzle-orm/better-sqlite3')
+  const Database = (await import('better-sqlite3')).default
+  const { wishlists } = await import('./src/db/schema')
+  const { eq } = await import('drizzle-orm')
+  const { migrate } = await import('drizzle-orm/better-sqlite3/migrator')
 
-  await new Promise<void>((resolve) => {
-    server.stdout?.on('data', (data) => {
-      if (data.toString().includes('Server listening')) {
-        resolve()
-      }
-    })
-  })
+  const sqlite = new Database(':memory:')
+  const db = drizzle(sqlite)
 
-  await fetch('http://localhost:5001/api/wishlist', {
-    method: 'POST',
-    headers: {
-      Authorization: 'API-Key TOP_SECRET',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      title: 'Test Wishlist',
-      slugUrlText: 'test',
-      public: true,
-    }),
-  })
+  await migrate(db, { migrationsFolder: './drizzle' })
 
-  server.kill()
+  const existing = await db
+    .select()
+    .from(wishlists)
+    .where(eq(wishlists.slugUrlText, 'test'))
+    .get()
+
+  if (!existing) {
+    await db
+      .insert(wishlists)
+      .values({
+        title: 'Test Wishlist',
+        slugUrlText: 'test',
+        public: true,
+      })
+      .run()
+  }
+
+  sqlite.close()
 }
