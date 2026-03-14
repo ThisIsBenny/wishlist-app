@@ -24,6 +24,7 @@ import {
 
 interface AuthenticatedRequest {
   isAuthenticated?: boolean
+  headers: Record<string, string>
 }
 
 @Controller('wishlist')
@@ -32,7 +33,8 @@ export class WishlistController {
 
   @Get()
   async getAll(@Req() req: AuthenticatedRequest) {
-    const isAuthenticated = req.isAuthenticated === true
+    const isAuthenticated =
+      req.isAuthenticated === true || !!req.headers['x-api-key']
     return await this.wishlistService.getAll(isAuthenticated)
   }
 
