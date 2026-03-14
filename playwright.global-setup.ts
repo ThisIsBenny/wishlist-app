@@ -1,31 +1,40 @@
+import { spawn } from 'child_process'
+
 export default async function globalSetup() {
-  const { drizzle } = await import('drizzle-orm/better-sqlite3')
-  const Database = (await import('better-sqlite3')).default
-  const { wishlists } = await import('./src/db/schema')
-  const { eq } = await import('drizzle-orm')
-  const { migrate } = await import('drizzle-orm/better-sqlite3/migrator')
+  const server = spawn('node', ['dist/api/main.js'], {
+    env: {
+      ...process.env,
+      NODE_ENV: 'test',
+      DATABASE_URL: 'file:./data/playwright-test.db',
+      API_KEY: 'TOP_SECRET',
+      PORT: '5001',
+    },
+    stdio: 'pipe',
+  })
 
-  const sqlite = new Database(':memory:')
-  const db = drizzle(sqlite)
+  let resolved = false
+  await new Promise<void>((resolve) => {
+    server.stdout?.on('data', (data) => {
+      const str = data.toString()
+      if (str.includes('Server listening') && !resolved) {
+        resolved = true
+        resolve()
+      }
+    })
+  })
 
-  await migrate(db, { migrationsFolder: './drizzle' })
+  await fetch('http://localhost:5001/api/wishlist', {
+    method: 'POST',
+    headers: {
+      Authorization: 'API-Key TOP_SECRET',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title: 'Test Wishlist',
+      slugUrlText: 'test',
+      public: true,
+    }),
+  })
 
-  const existing = await db
-    .select()
-    .from(wishlists)
-    .where(eq(wishlists.slugUrlText, 'test'))
-    .get()
-
-  if (!existing) {
-    await db
-      .insert(wishlists)
-      .values({
-        title: 'Test Wishlist',
-        slugUrlText: 'test',
-        public: true,
-      })
-      .run()
-  }
-
-  sqlite.close()
+  server.kill()
 }
