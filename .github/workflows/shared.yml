@@ -127,5 +127,8 @@ jobs:
         run: |
           echo "Published images:"
           echo "  ghcr.io/thisisbenny/wishlist-app:${{ inputs.version }}"
-          ${{ !startsWith(inputs.version, 'v') && echo "  ghcr.io/thisisbenny/wishlist-app:v${{ inputs.version }}" || '' }}
           echo "  ghcr.io/thisisbenny/wishlist-app:latest"
+
+      - name: Print v-prefixed tag
+        if: inputs.run_docker_publish && !startsWith(inputs.version, 'v')
+        run: echo "  ghcr.io/thisisbenny/wishlist-app:v${{ inputs.version }}"
