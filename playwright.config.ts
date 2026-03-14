@@ -25,7 +25,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run build && node --env-file=.env dist/api/main.js',
+    command: 'npm run build && API_KEY=TOP_SECRET node dist/api/main.js',
     url: 'http://localhost:5000',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
