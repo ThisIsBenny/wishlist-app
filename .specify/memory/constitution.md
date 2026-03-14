@@ -71,8 +71,14 @@ This project uses Semantic Versioning and tag-based releases:
 Release workflow triggers on `v*` tags. To release:
 
 1. Update version in `package.json`
-2. Commit with message "release: vX.Y.Z"
-3. Tag and push: `git tag vX.Y.Z && git push origin vX.Y.Z`
+2. Create detailed release notes using `git diff vX.Y.Z...HEAD` to see what changed since the last version
+3. Release notes MUST include:
+   - What's new (new features)
+   - Bug fixes
+   - Breaking changes (if any)
+   - Upgrade notes for users
+4. Commit with message "release: vX.Y.Z"
+5. Tag and push: `git tag vX.Y.Z && git push origin vX.Y.Z`
 
 All team members responsible for constitution compliance. Use this document for runtime development guidance. Reference AGENTS.md for detailed development commands.
 
