@@ -1,7 +1,9 @@
-import { Module } from '@nestjs/common'
+import { Module, OnModuleInit } from '@nestjs/common'
 import { APP_PIPE, APP_INTERCEPTOR } from '@nestjs/core'
 import { ZodValidationPipe, ZodSerializerInterceptor } from 'nestjs-zod'
 import { DatabaseModule } from './database.module'
+import { MigrationModule } from './migrations/migration.module'
+import { MigrationService } from './migrations/migration.service'
 import { WishlistModule } from './wishlist/wishlist.module'
 import { UtilsModule } from './utils/utils.module'
 import { AuthModule } from './auth/auth.module'
@@ -16,6 +18,7 @@ import { ConfigModule } from '@nestjs/config'
       isGlobal: true,
     }),
     DatabaseModule,
+    MigrationModule,
     WishlistModule,
     UtilsModule,
     AuthModule,
@@ -32,4 +35,10 @@ import { ConfigModule } from '@nestjs/config'
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(private readonly migrationService: MigrationService) {}
+
+  async onModuleInit() {
+    await this.migrationService.runMigrations()
+  }
+}
