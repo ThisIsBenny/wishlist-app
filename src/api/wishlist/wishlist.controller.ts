@@ -89,8 +89,11 @@ export class WishlistController {
   @Post(':id/item/:itemId/bought')
   async markItemBought(
     @Param('itemId', ParseIntPipe) itemId: number,
-    @Body('bought') bought: boolean
+    @Body('bought') bought: boolean | undefined
   ) {
+    if (typeof bought !== 'boolean') {
+      throw new NotFoundException('Missing or invalid "bought" field')
+    }
     return await this.wishlistService.updateItem(itemId, { bought })
   }
 

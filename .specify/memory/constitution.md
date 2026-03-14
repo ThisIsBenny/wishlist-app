@@ -1,7 +1,7 @@
 <!--
 Sync Impact Report:
-- Version change: 1.0.0 → 1.1.0
-- Modified principles: IV. API-First Design, V. Technology Standards
+- Version change: 1.1.0 → 1.1.1
+- Modified principles: Release Process (added rule for English release notes)
 - Added sections: None
 - Removed sections: None
 - Templates requiring updates: None
@@ -91,8 +91,9 @@ After running the npm script, create the GitHub Release using gh cli:
    - Bug fixes
    - Breaking changes (if any)
    - Upgrade notes for users
-3. Create release: `gh release create vX.Y.Z --title "Release vX.Y.Z" --notes "..."`
+3. Release notes MUST be in **English** only
+4. Create release: `gh release create vX.Y.Z --title "Release vX.Y.Z" --notes "..."`
 
 All team members responsible for constitution compliance. Use this document for runtime development guidance. Reference AGENTS.md for detailed development commands.
 
-**Version**: 1.1.0 | **Ratified**: 2026-03-11 | **Last Amended**: 2026-03-13
+**Version**: 1.1.1 | **Ratified**: 2026-03-11 | **Last Amended**: 2026-03-14
