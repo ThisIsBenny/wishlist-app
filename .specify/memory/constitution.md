@@ -83,7 +83,7 @@ The npm version command automatically:
 2. Creates a git commit with message "x.y.z"
 3. Creates a git tag (vX.Y.Z)
 
-After running the npm script, manually create the GitHub Release:
+After running the npm script, create the GitHub Release using gh cli:
 
 1. Create detailed release notes using `git diff vX.Y.Z...HEAD` to see what changed
 2. Release notes MUST include:
@@ -91,7 +91,7 @@ After running the npm script, manually create the GitHub Release:
    - Bug fixes
    - Breaking changes (if any)
    - Upgrade notes for users
-3. Publish the release in GitHub UI
+3. Create release: `gh release create vX.Y.Z --title "Release vX.Y.Z" --notes "..."`
 
 All team members responsible for constitution compliance. Use this document for runtime development guidance. Reference AGENTS.md for detailed development commands.
 
