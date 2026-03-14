@@ -181,4 +181,41 @@ describe('WishlistController (e2e)', () => {
       expect(response.body.url).toBe('')
     })
   })
+
+  describe('PUT /wishlist/:id/item/:itemId', () => {
+    it('should update item with full object including extra fields', async () => {
+      const slug = 'item-update-' + Date.now()
+
+      const createResponse = await request(app.getHttpServer())
+        .post('/api/wishlist')
+        .set('Authorization', 'API-Key ' + apiKey)
+        .send({ title: 'Test', slugUrlText: slug, public: true })
+
+      const wishlistId = createResponse.body.id
+
+      const itemResponse = await request(app.getHttpServer())
+        .post(`/api/wishlist/${wishlistId}/item`)
+        .set('Authorization', 'API-Key ' + apiKey)
+        .send({ title: 'Test Item' })
+
+      const itemId = itemResponse.body.id
+
+      const updateResponse = await request(app.getHttpServer())
+        .put(`/api/wishlist/${wishlistId}/item/${itemId}`)
+        .set('Authorization', 'API-Key ' + apiKey)
+        .send({
+          id: itemId,
+          title: 'Updated Title',
+          description: 'Updated description',
+          imageSrc: 'https://example.com/img.jpg',
+          url: 'https://example.com',
+          bought: true,
+          wishlistId: wishlistId,
+        })
+
+      expect(updateResponse.status).toBe(200)
+      expect(updateResponse.body.title).toBe('Updated Title')
+      expect(updateResponse.body.bought).toBe(true)
+    })
+  })
 })

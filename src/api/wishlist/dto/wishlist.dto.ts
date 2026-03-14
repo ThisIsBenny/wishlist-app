@@ -50,7 +50,7 @@ export const UpdateWishlistItemSchema = WishlistItemSchema.omit({
   wishlistId: true,
 })
   .partial()
-  .strict()
+  .strip()
 export class UpdateWishlistItemDto extends createZodDto(
   UpdateWishlistItemSchema
 ) {}
