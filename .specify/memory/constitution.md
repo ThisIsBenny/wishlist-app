@@ -1,7 +1,7 @@
 <!--
 Sync Impact Report:
-- Version change: 1.1.0 → 1.1.1
-- Modified principles: Release Process (added rule for English release notes)
+- Version change: 1.1.1 → 1.2.0
+- Modified principles: Technology Standards (added undici HTTP client)
 - Added sections: None
 - Removed sections: None
 - Templates requiring updates: None
@@ -34,7 +34,7 @@ All user-facing strings MUST use Vue I18n keys. Support English and German local
 
 ## Technology Standards
 
-**Stack**: Vue 3 + NestJS full-stack application with Drizzle ORM and SQLite. Frontend: Vue Router, Vue I18n, Tailwind CSS. Backend: NestJS with DTOs, Guards, Services, Repository pattern. Testing: Vitest (unit + API), Playwright (E2E).
+**Stack**: Vue 3 + NestJS full-stack application with Drizzle ORM and SQLite. Frontend: Vue Router, Vue I18n, Tailwind CSS. Backend: NestJS with DTOs, Guards, Services, Repository pattern. Testing: Vitest (unit + API), Playwright (E2E). HTTP Client: undici (request) for metadata fetching.
 
 **Code Style**: 2-space indentation, single quotes, trailing commas in ES5 contexts. Prettier formatting enforced. ESLint with auto-fix. Named exports for composables (use prefix). Path alias @/ for src-relative imports.
 
@@ -96,4 +96,4 @@ After running the npm script, create the GitHub Release using gh cli:
 
 All team members responsible for constitution compliance. Use this document for runtime development guidance. Reference AGENTS.md for detailed development commands.
 
-**Version**: 1.1.1 | **Ratified**: 2026-03-11 | **Last Amended**: 2026-03-14
+**Version**: 1.2.0 | **Ratified**: 2026-03-11 | **Last Amended**: 2026-03-15

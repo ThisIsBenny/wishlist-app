@@ -219,6 +219,8 @@ export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
 
 ## Active Technologies
 
+- TypeScript 5.7 + open-graph-scraper, undici (request), cheerio, NestJS (existing) (005-metadata-plugin-system)
+
 - Node.js v22.22.1, TypeScript ~5.7.3 + NestJS 11.x (@nestjs/core, @nestjs/common, @nestjs/platform-express, @nestjs/testing, @nestjs/config, @nestjs/throttler, @nestjs/swagger) replacing Fastify packages (004-nestjs-migration)
 - SQLite with Drizzle ORM + drizzle-kit für Migrationen (004-nestjs-migration)
 - Database wird beim Start erstellt (migrate()) - funktioniert mit Docker Volumes (004-nestjs-migration)
@@ -233,6 +235,7 @@ export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
 
 ## Recent Changes
 
+- 005-metadata-plugin-system: Plugin system for URL metadata extraction with domain-specific plugins (Amazon, Shopify, LEGO, Smyths) and OpenGraph fallback
 - 004-nestjs-migration: Fastify → NestJS Migration mit Drizzle ORM, migrate() für DB-Setup
 - 001-nodejs-22-upgrade: Added Node.js 22.x (upgrading from v22.22.1) + npm packages (same as current, no changes)
 
@@ -255,19 +258,24 @@ Release workflow triggers on:
 
 ### Release Steps
 
-1. Ensure on main:
+**Never edit package.json manually for releases.** Use npm scripts which handle both version bump AND git tag creation:
 
-   ```bash
-   git checkout main && git pull
-   ```
+- `npm run release:patch` - Patch release (x.y.z → x.y.z+1)
+- `npm run release:minor` - Minor release (x.y.z → x+1.y.0)
+- `npm run release:major` - Major release (x.y.z → x+1.0.0)
+- `npm run release:pre` - Prerelease (e.g., x.y.z → x.y.z-beta.1)
 
-2. Bump version in `package.json` (e.g., 1.5.1 → 1.6.0)
+The npm version command automatically:
 
-3. Commit and tag:
-   ```bash
-   git add package.json && git commit -m "release: v1.6.0"
-   git tag v1.6.0 && git push origin v1.6.0
-   ```
+1. Updates version in package.json
+2. Creates a git commit with message "x.y.z"
+3. Creates a git tag (vX.Y.Z)
+
+After running the npm script, create the GitHub Release using gh cli:
+
+1. Create detailed release notes using `git diff vX.Y.Z...HEAD` to see what changed
+2. Release notes MUST be in **English** only
+3. Create release: `gh release create vX.Y.Z --title "Release vX.Y.Z" --notes "..."`
 
 ### Docker Tags Created
 

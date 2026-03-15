@@ -1,23 +1,13 @@
 import { UtilsService } from '../utils.service'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-vi.mock('axios', () => ({
-  default: {
-    get: vi.fn(),
-  },
+vi.mock('../metadata-plugins', () => ({
+  runPipeline: vi.fn(),
 }))
 
-vi.mock('cheerio', () => ({
-  default: {
-    load: vi.fn().mockReturnValue(() => {
-      return vi.fn().mockReturnValue('  Test Product  ')
-    }),
-  },
-}))
+import { runPipeline } from '../metadata-plugins'
 
-vi.mock('open-graph-scraper', () => ({
-  default: vi.fn(),
-}))
+vi.mocked(runPipeline)
 
 describe('UtilsService', () => {
   let service: UtilsService
@@ -36,6 +26,7 @@ describe('UtilsService', () => {
         description: '',
         imageSrc: '',
       })
+      expect(runPipeline).not.toHaveBeenCalled()
     })
 
     it('should return empty response for undefined URL', async () => {
@@ -58,18 +49,46 @@ describe('UtilsService', () => {
       })
     })
 
-    it('should handle failed og scraper result', async () => {
-      const ogs = (await import('open-graph-scraper')).default
-      vi.mocked(ogs).mockResolvedValueOnce({
-        result: {
-          success: false,
-        },
-      } as any)
+    it('should call runPipeline with URL', async () => {
+      vi.mocked(runPipeline).mockResolvedValueOnce({
+        title: 'Test Product',
+        description: 'Test Description',
+        imageSrc: 'https://example.com/image.jpg',
+      })
 
-      const result = await service.fetchMetadata('https://example.com/page')
+      const result = await service.fetchMetadata('https://example.com/product')
+
+      expect(runPipeline).toHaveBeenCalledWith('https://example.com/product')
+      expect(result).toEqual({
+        title: 'Test Product',
+        description: 'Test Description',
+        imageSrc: 'https://example.com/image.jpg',
+      })
+    })
+
+    it('should return empty result when runPipeline throws', async () => {
+      vi.mocked(runPipeline).mockRejectedValueOnce(new Error('Network error'))
+
+      const result = await service.fetchMetadata('https://example.com/product')
 
       expect(result).toEqual({
         title: '',
+        description: '',
+        imageSrc: '',
+      })
+    })
+
+    it('should handle runPipeline returning partial data', async () => {
+      vi.mocked(runPipeline).mockResolvedValueOnce({
+        title: 'Test Product',
+        description: '',
+        imageSrc: '',
+      })
+
+      const result = await service.fetchMetadata('https://example.com/product')
+
+      expect(result).toEqual({
+        title: 'Test Product',
         description: '',
         imageSrc: '',
       })
