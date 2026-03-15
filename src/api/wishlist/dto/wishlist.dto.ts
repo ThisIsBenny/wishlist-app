@@ -29,7 +29,7 @@ export const CreateWishlistSchema = WishlistSchema.omit({
 }).strict()
 export class CreateWishlistDto extends createZodDto(CreateWishlistSchema) {}
 
-export const UpdateWishlistSchema = CreateWishlistSchema.partial().strict()
+export const UpdateWishlistSchema = CreateWishlistSchema.strict()
 export class UpdateWishlistDto extends createZodDto(UpdateWishlistSchema) {}
 
 export const CreateWishlistItemSchema = WishlistItemSchema.omit({

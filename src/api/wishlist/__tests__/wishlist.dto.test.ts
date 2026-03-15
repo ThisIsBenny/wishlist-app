@@ -172,46 +172,52 @@ describe('Wishlist DTOs', () => {
   })
 
   describe('UpdateWishlistSchema', () => {
-    it('should parse partial update input', () => {
+    it('should parse full wishlist update (PUT)', () => {
+      const fullInput = {
+        title: 'Updated Title',
+        slugUrlText: 'updated-slug',
+        public: false,
+        description: 'New description',
+        imageSrc: 'https://new-image.com/img.jpg',
+      }
+
+      const result = UpdateWishlistSchema.safeParse(fullInput)
+      expect(result.success).toBe(true)
+    })
+
+    it('should reject partial update (use PATCH for partial)', () => {
       const partialInput = {
         title: 'Updated Title',
       }
 
       const result = UpdateWishlistSchema.safeParse(partialInput)
-      expect(result.success).toBe(true)
+      expect(result.success).toBe(false)
     })
 
-    it('should parse empty object (no updates)', () => {
+    it('should reject empty object', () => {
       const emptyInput = {}
 
       const result = UpdateWishlistSchema.safeParse(emptyInput)
-      expect(result.success).toBe(true)
-    })
-
-    it('should allow updating all fields', () => {
-      const fullUpdate = {
-        title: 'Updated',
-        slugUrlText: 'updated',
-        public: false,
-        description: 'New desc',
-        imageSrc: 'https://new-image.com/img.jpg',
-      }
-
-      const result = UpdateWishlistSchema.safeParse(fullUpdate)
-      expect(result.success).toBe(true)
+      expect(result.success).toBe(false)
     })
 
     it('should not allow setting id', () => {
       const withId = {
         id: 'new-id',
+        title: 'Updated',
+        slugUrlText: 'updated',
+        public: true,
       }
 
       const result = UpdateWishlistSchema.safeParse(withId)
       expect(result.success).toBe(false)
     })
 
-    it('should not allow setting items', () => {
+    it('should not allow setting items (not in CreateWishlistSchema)', () => {
       const withItems = {
+        title: 'Updated',
+        slugUrlText: 'updated',
+        public: true,
         items: [{ id: 1, title: 'Item' }],
       }
 
@@ -293,20 +299,33 @@ describe('Wishlist DTOs', () => {
   })
 
   describe('UpdateWishlistItemSchema', () => {
-    it('should parse partial item update', () => {
+    it('should parse full item update (PUT)', () => {
+      const fullInput = {
+        title: 'Updated',
+        description: 'New description',
+        imageSrc: 'https://new.com/img.jpg',
+        url: 'https://new.com',
+        bought: true,
+      }
+
+      const result = UpdateWishlistItemSchema.safeParse(fullInput)
+      expect(result.success).toBe(true)
+    })
+
+    it('should reject partial item update (use PATCH for partial)', () => {
       const partialInput = {
         bought: true,
       }
 
       const result = UpdateWishlistItemSchema.safeParse(partialInput)
-      expect(result.success).toBe(true)
+      expect(result.success).toBe(false)
     })
 
-    it('should parse empty object (no updates)', () => {
+    it('should reject empty object', () => {
       const emptyInput = {}
 
       const result = UpdateWishlistItemSchema.safeParse(emptyInput)
-      expect(result.success).toBe(true)
+      expect(result.success).toBe(false)
     })
 
     it('should allow updating all fields', () => {

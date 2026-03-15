@@ -98,7 +98,7 @@ describe('WishlistController (e2e)', () => {
   })
 
   describe('PUT /wishlist/:id', () => {
-    it('should update wishlist with partial data', async () => {
+    it('should update wishlist with full data', async () => {
       const slug = 'update-' + Date.now()
 
       const createResponse = await request(app.getHttpServer())
@@ -111,7 +111,13 @@ describe('WishlistController (e2e)', () => {
       const response = await request(app.getHttpServer())
         .put(`/api/wishlist/${wishlistId}`)
         .set('Authorization', 'API-Key ' + apiKey)
-        .send({ title: 'Updated' })
+        .send({
+          title: 'Updated',
+          slugUrlText: slug,
+          public: true,
+          description: '',
+          imageSrc: '',
+        })
 
       expect(response.status).toBe(200)
     })
