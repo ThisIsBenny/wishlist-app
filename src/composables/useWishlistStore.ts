@@ -73,9 +73,15 @@ const updateItem = async (
   newValues: WishlistItem
 ): Promise<void> => {
   const id = state.value?.id
+  const {
+    id: _currentId,
+    wishlistId: _currentWishlistId,
+    ...restCurrent
+  } = currentValues
+  const { id: _newId, wishlistId: _newWishlistId, ...restNew } = newValues
   const payload = {
-    ...currentValues,
-    ...newValues,
+    ...restCurrent,
+    ...restNew,
   }
 
   const { data, error } = await useFetch(

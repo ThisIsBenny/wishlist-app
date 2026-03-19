@@ -341,21 +341,33 @@ describe('Wishlist DTOs', () => {
       expect(result.success).toBe(true)
     })
 
-    it('should not allow setting id', () => {
+    it('should allow setting id (but it will be ignored)', () => {
       const withId = {
+        title: 'Test Item',
         id: 999,
       }
 
       const result = UpdateWishlistItemSchema.safeParse(withId)
-      expect(result.success).toBe(false)
+      expect(result.success).toBe(true)
     })
 
-    it('should not allow setting wishlistId', () => {
+    it('should allow setting wishlistId (but it will be ignored)', () => {
       const withWishlistId = {
+        title: 'Test Item',
         wishlistId: 'new-wishlist',
       }
 
       const result = UpdateWishlistItemSchema.safeParse(withWishlistId)
+      expect(result.success).toBe(true)
+    })
+
+    it('should reject unknown fields', () => {
+      const withUnknown = {
+        title: 'test',
+        unknownField: 'value',
+      }
+
+      const result = UpdateWishlistItemSchema.safeParse(withUnknown)
       expect(result.success).toBe(false)
     })
   })

@@ -6,7 +6,15 @@ export const WishlistItemSchema = z.object({
   title: z.string().min(1),
   description: z.string().default(''),
   imageSrc: z.string().default(''),
-  url: z.string().default(''),
+  url: z
+    .string()
+    .default('')
+    .refine(
+      (val) =>
+        val === '' ||
+        /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(val),
+      { message: 'Invalid URL format' }
+    ),
   bought: z.boolean().default(false),
   wishlistId: z.string(),
 })
@@ -48,7 +56,12 @@ export class CreateWishlistItemDto extends createZodDto(
 export const UpdateWishlistItemSchema = WishlistItemSchema.omit({
   id: true,
   wishlistId: true,
-}).strip()
+})
+  .extend({
+    id: z.number().optional(),
+    wishlistId: z.string().optional(),
+  })
+  .strict()
 export class UpdateWishlistItemDto extends createZodDto(
   UpdateWishlistItemSchema
 ) {}

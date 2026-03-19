@@ -210,13 +210,11 @@ describe('WishlistController (e2e)', () => {
         .put(`/api/wishlist/${wishlistId}/item/${itemId}`)
         .set('Authorization', 'API-Key ' + apiKey)
         .send({
-          id: itemId,
           title: 'Updated Title',
           description: 'Updated description',
           imageSrc: 'https://example.com/img.jpg',
           url: 'https://example.com',
           bought: true,
-          wishlistId: wishlistId,
         })
 
       expect(updateResponse.status).toBe(200)

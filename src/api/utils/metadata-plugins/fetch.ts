@@ -1,5 +1,6 @@
 import { request } from 'undici'
 import { FetchOptions, FetchResult } from './types'
+import { validateUrlForFetch } from './url-validator'
 
 export async function fetchHtml(
   url: string,
@@ -7,8 +8,19 @@ export async function fetchHtml(
 ): Promise<FetchResult> {
   const { timeout = 60000 } = options
 
+  let parsedUrl: URL
   try {
-    const { statusCode, body } = await request(url, {
+    parsedUrl = validateUrlForFetch(url)
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Invalid URL'
+    return {
+      html: '',
+      error: message,
+    }
+  }
+
+  try {
+    const { statusCode, body } = await request(parsedUrl, {
       method: 'GET',
       headers: {
         'User-Agent':
