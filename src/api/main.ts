@@ -3,7 +3,8 @@ import { AppModule } from './app.module'
 import { ConfigService } from '@nestjs/config'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { join } from 'path'
-import { Request, Response, NextFunction } from 'express'
+import { NextFunction, Request, Response } from 'express'
+import cookieParser from 'cookie-parser'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
@@ -16,11 +17,17 @@ async function bootstrap() {
     credentials: true,
   })
 
+  app.use(cookieParser())
+
   app.use((req: Request, res: Response, next: NextFunction) => {
     res.setHeader('X-Content-Type-Options', 'nosniff')
     res.setHeader('X-Frame-Options', 'DENY')
     res.setHeader('X-XSS-Protection', '1; mode=block')
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin')
+    res.setHeader(
+      'Strict-Transport-Security',
+      'max-age=31536000; includeSubDomains'
+    )
     res.setHeader(
       'Content-Security-Policy',
       "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; script-src 'self'"

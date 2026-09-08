@@ -37,13 +37,71 @@
           "text": "Anmelden"
         },
         "form": {
-          "api-key": {
-            "placeholder": "API-Key",
-            "error-requried": "API-Key wird benötigt"
+          "email": {
+            "label": "E-Mail",
+            "error-required": "E-Mail ist erforderlich",
+            "error-email": "Ungültiges E-Mail-Format"
+          },
+          "password": {
+            "label": "Passwort",
+            "error-required": "Passwort ist erforderlich"
           },
           "submit": {
             "text": "Anmelden"
           }
+        },
+        "register-link": {
+          "text": "Noch nicht registriert? Konto erstellen"
+        },
+        "login-disabled": {
+          "text": "Anmeldung ist derzeit deaktiviert"
+        },
+        "invalid-credentials": {
+          "text": "Ungültige E-Mail oder Passwort"
+        },
+        "rate-limit": {
+          "text": "Zu viele Anmeldeversuche. Bitte versuchen Sie es später erneut."
+        },
+        "oidc-login": {
+          "text": "Anmelden mit {provider}"
+        }
+      }
+    },
+    "register-view": {
+      "main": {
+        "title": {
+          "text": "Konto erstellen"
+        },
+        "form": {
+          "email": {
+            "label": "E-Mail",
+            "error-required": "E-Mail ist erforderlich",
+            "error-email": "Ungültiges E-Mail-Format"
+          },
+          "password": {
+            "label": "Passwort",
+            "error-required": "Passwort ist erforderlich",
+            "policy-min-length": "Mindestens 8 Zeichen",
+            "policy-uppercase": "Mindestens ein Großbuchstabe",
+            "policy-lowercase": "Mindestens ein Kleinbuchstabe",
+            "policy-digit": "Mindestens eine Ziffer",
+            "policy-special": "Mindestens ein Sonderzeichen"
+          },
+          "submit": {
+            "text": "Konto erstellen"
+          }
+        },
+        "register-disabled": {
+          "text": "Registrierung ist derzeit deaktiviert"
+        },
+        "email-taken": {
+          "text": "Ein Benutzer mit dieser E-Mail existiert bereits"
+        },
+        "validation-error": {
+          "text": "Bitte überprüfen Sie Ihre Eingabe"
+        },
+        "login-link": {
+          "text": "Bereits ein Konto? Anmelden"
         }
       }
     },
@@ -121,6 +179,11 @@
     "create-wishlist-title": {
       "text": "Wunschliste erstellen"
     },
+    "header": {
+      "edit-mode": {
+        "text": "Bearbeitungsmodus"
+      }
+    },
     "file": {
       "text-dropzone-link": "hier",
       "text-dropzone": "Ziehen Sie ein beliebiges Bild hierher oder klicken Sie {0}, um den Dialog zu öffnen."
@@ -156,8 +219,6 @@
       },
       "image-file": {
         "label": "Bild-Datei",
-        "text-dropzone-link": "hier",
-        "text-dropzone": "Ziehen Sie ein beliebiges Bild hierher oder klicken Sie {0}, um den Dialog zu öffnen.",
         "error-requried": "Bild-Datei wird benötigt.",
         "error-image-size": "Höhe und Breite dürfen 200px nicht überschreiten."
       },
@@ -200,11 +261,6 @@
       },
       "delete-button": {
         "text": "Löschen"
-      }
-    },
-    "header": {
-      "edit-mode": {
-        "text": "Bearbeitungsmodus"
       }
     }
   }

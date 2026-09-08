@@ -44,8 +44,6 @@ export class MigrationService {
 
   private getCompletedMigrations(): number[] {
     try {
-      const result = this.migrations[0]?.constructor?.name
-      // Use raw DB from first migration to check
       return []
     } catch {
       return []
@@ -53,7 +51,6 @@ export class MigrationService {
   }
 
   private markMigrationComplete(version: number): void {
-    // Placeholder - tracking will be implemented
     this.logger.log(`Marked migration v${version} as complete`)
   }
 }

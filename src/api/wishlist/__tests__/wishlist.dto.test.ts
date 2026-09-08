@@ -13,11 +13,14 @@ describe('Wishlist DTOs', () => {
     it('should parse valid wishlist data', () => {
       const validWishlist = {
         id: 'test-123',
+        userId: 'user-1',
         title: 'My Wishlist',
         slugUrlText: 'my-wishlist',
         public: true,
         description: 'A description',
         imageSrc: 'https://example.com/img.jpg',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
         items: [],
       }
 
@@ -28,9 +31,12 @@ describe('Wishlist DTOs', () => {
     it('should apply default values for optional fields', () => {
       const minimalWishlist = {
         id: 'test-123',
+        userId: 'user-1',
         title: 'My Wishlist',
         slugUrlText: 'my-wishlist',
         public: true,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       }
 
       const result = WishlistSchema.safeParse(minimalWishlist)
@@ -45,9 +51,12 @@ describe('Wishlist DTOs', () => {
     it('should reject invalid data types', () => {
       const invalidWishlist = {
         id: 123,
+        userId: 'user-1',
         title: 42,
         slugUrlText: 'test',
         public: 'yes',
+        createdAt: '2026-01-01',
+        updatedAt: '2026-01-01',
       }
 
       const result = WishlistSchema.safeParse(invalidWishlist)

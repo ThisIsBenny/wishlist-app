@@ -8,6 +8,7 @@ import { MigrationService } from './migrations/migration.service'
 import { WishlistModule } from './wishlist/wishlist.module'
 import { UtilsModule } from './utils/utils.module'
 import { AuthModule } from './auth/auth.module'
+import { JwtAuthGuard } from './auth/jwt-auth.guard'
 import { HealthModule } from './health/health.module'
 import { GlobalExceptionFilter } from './filters/http-exception.filter'
 import configuration from './config/configuration'
@@ -28,9 +29,9 @@ import { ConfigModule } from '@nestjs/config'
     ]),
     DatabaseModule,
     MigrationModule,
+    AuthModule,
     WishlistModule,
     UtilsModule,
-    AuthModule,
     HealthModule,
   ],
   providers: [
@@ -45,6 +46,10 @@ import { ConfigModule } from '@nestjs/config'
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
     },
     {
       provide: APP_FILTER,

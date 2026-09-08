@@ -6,7 +6,7 @@ export default async function globalSetup() {
       ...process.env,
       NODE_ENV: 'test',
       DATABASE_URL: 'file:./data/playwright-test.db',
-      API_KEY: 'TOP_SECRET',
+      JWT_SECRET: 'test-jwt-secret-at-least-32-characters-long!!',
       PORT: '5001',
     },
     stdio: 'pipe',
@@ -21,19 +21,6 @@ export default async function globalSetup() {
         resolve()
       }
     })
-  })
-
-  await fetch('http://localhost:5001/api/wishlist', {
-    method: 'POST',
-    headers: {
-      Authorization: 'API-Key TOP_SECRET',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      title: 'Test Wishlist',
-      slugUrlText: 'test',
-      public: true,
-    }),
   })
 
   server.kill()

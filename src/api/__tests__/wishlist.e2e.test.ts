@@ -4,11 +4,13 @@ import { ConfigModule } from '@nestjs/config'
 import request from 'supertest'
 import { AppModule } from '../app.module'
 import configuration from '../config/configuration'
+import cookieParser from 'cookie-parser'
 import { describe, beforeEach, afterEach, it, expect } from 'vitest'
 
 describe('WishlistController (e2e)', () => {
   let app: INestApplication
-  const apiKey = 'TOP_SECRET'
+  let jwtCookie: string
+  let sessionExpiryCookie: string
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -23,18 +25,42 @@ describe('WishlistController (e2e)', () => {
 
     app = moduleFixture.createNestApplication()
     app.setGlobalPrefix('api')
+    app.use(cookieParser())
     await app.init()
+
+    const email = `test-${Date.now()}@example.com`
+    const password = 'TestPass123!'
+
+    await request(app.getHttpServer())
+      .post('/api/auth/register')
+      .send({ email, password })
+
+    const loginResponse = await request(app.getHttpServer())
+      .post('/api/auth/login')
+      .send({ email, password })
+
+    const cookies = loginResponse.headers['set-cookie']
+    const cookieArray = Array.isArray(cookies)
+      ? cookies
+      : [cookies]
+
+    jwtCookie = cookieArray.find((c: string) => c.startsWith('access_token=')) || ''
+    sessionExpiryCookie = cookieArray.find((c: string) => c.startsWith('session_expiry=')) || ''
   })
 
   afterEach(() => {
     app.close()
   })
 
+  function getCookies(): string {
+    return [jwtCookie, sessionExpiryCookie].filter(Boolean).join('; ')
+  }
+
   describe('POST /wishlist', () => {
     it('should reject missing title', async () => {
       const response = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({ slugUrlText: 'test', public: true })
 
       expect(response.status).toBe(400)
@@ -43,7 +69,7 @@ describe('WishlistController (e2e)', () => {
     it('should reject missing slugUrlText', async () => {
       const response = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({ title: 'Test', public: true })
 
       expect(response.status).toBe(400)
@@ -52,7 +78,7 @@ describe('WishlistController (e2e)', () => {
     it('should reject missing public', async () => {
       const response = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({ title: 'Test', slugUrlText: 'test' })
 
       expect(response.status).toBe(400)
@@ -69,14 +95,13 @@ describe('WishlistController (e2e)', () => {
     it('should create wishlist with valid data', async () => {
       const response = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({
           title: 'Valid Wishlist',
           slugUrlText: 'valid-' + Date.now(),
           public: true,
         })
 
-      console.log('Create wishlist response:', response.status, response.body)
       expect(response.status).toBe(201)
     })
 
@@ -84,7 +109,7 @@ describe('WishlistController (e2e)', () => {
       const slug = 'defaults-' + Date.now()
       const response = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({
           title: 'With Defaults',
           slugUrlText: slug,
@@ -103,14 +128,14 @@ describe('WishlistController (e2e)', () => {
 
       const createResponse = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({ title: 'Original', slugUrlText: slug, public: true })
 
       const wishlistId = createResponse.body.id
 
       const response = await request(app.getHttpServer())
         .put(`/api/wishlist/${wishlistId}`)
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({
           title: 'Updated',
           slugUrlText: slug,
@@ -129,14 +154,14 @@ describe('WishlistController (e2e)', () => {
 
       const createResponse = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({ title: 'Test', slugUrlText: slug, public: true })
 
       const wishlistId = createResponse.body.id
 
       const response = await request(app.getHttpServer())
         .post(`/api/wishlist/${wishlistId}/item`)
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({ description: 'No title' })
 
       expect(response.status).toBe(400)
@@ -147,14 +172,14 @@ describe('WishlistController (e2e)', () => {
 
       const createResponse = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({ title: 'Test', slugUrlText: slug, public: true })
 
       const wishlistId = createResponse.body.id
 
       const response = await request(app.getHttpServer())
         .post(`/api/wishlist/${wishlistId}/item`)
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({
           title: 'New Item',
           description: 'Item description',
@@ -172,14 +197,14 @@ describe('WishlistController (e2e)', () => {
 
       const createResponse = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({ title: 'Test', slugUrlText: slug, public: true })
 
       const wishlistId = createResponse.body.id
 
       const response = await request(app.getHttpServer())
         .post(`/api/wishlist/${wishlistId}/item`)
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({ title: 'Minimal Item' })
 
       expect(response.status).toBe(201)
@@ -194,21 +219,21 @@ describe('WishlistController (e2e)', () => {
 
       const createResponse = await request(app.getHttpServer())
         .post('/api/wishlist')
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({ title: 'Test', slugUrlText: slug, public: true })
 
       const wishlistId = createResponse.body.id
 
       const itemResponse = await request(app.getHttpServer())
         .post(`/api/wishlist/${wishlistId}/item`)
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({ title: 'Test Item' })
 
       const itemId = itemResponse.body.id
 
       const updateResponse = await request(app.getHttpServer())
         .put(`/api/wishlist/${wishlistId}/item/${itemId}`)
-        .set('Authorization', 'API-Key ' + apiKey)
+        .set('Cookie', getCookies())
         .send({
           title: 'Updated Title',
           description: 'Updated description',

@@ -1,6 +1,6 @@
 import { vi } from 'vitest'
 
-process.env.API_KEY = 'TOP_SECRET'
+process.env.JWT_SECRET = 'test-jwt-secret-at-least-32-characters-long!!'
 process.env.DATABASE_URL = ':memory:'
 process.env.NODE_ENV = 'test'
 

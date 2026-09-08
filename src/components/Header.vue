@@ -14,7 +14,7 @@
     <div @click="() => toggleDark()">
       <IconLightDark class="h-6 w-6 cursor-pointer fill-current" />
     </div>
-    <div v-if="isAuthenticated" @click="() => setToken('')">
+    <div v-if="isAuthenticated" @click="() => logout()">
       <IconLogout class="h-6 w-6 cursor-pointer fill-current"></IconLogout>
     </div>
     <router-link to="/login" v-else>
@@ -29,7 +29,7 @@ import { useDark, useToggle } from '@vueuse/core'
 import { useAuth, useEditMode } from '@/composables'
 
 const { t } = useI18n()
-const { isAuthenticated, setToken } = useAuth()
+const { isAuthenticated, logout } = useAuth()
 const { state: editMode, toggle } = useEditMode()
 
 const toggleDark = useToggle(useDark())

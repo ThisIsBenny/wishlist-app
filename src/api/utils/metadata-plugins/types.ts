@@ -16,7 +16,7 @@ export interface PipelineContext {
   html: string
 }
 
-export interface PluginRegistry {
+interface PluginRegistry {
   domainSpecific: MetadataPlugin[]
   generic: MetadataPlugin[]
 }

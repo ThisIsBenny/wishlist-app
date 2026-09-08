@@ -1,31 +1,21 @@
-import { describe, it, expect, beforeEach } from 'vitest'
-import { useAuth } from '../useAuth'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 
 describe('composable: useAuth', () => {
   beforeEach(() => {
-    localStorage.clear()
+    document.cookie = 'session_expiry=; Max-Age=0'
+    vi.resetModules()
   })
 
-  it('provides isAuthenticated as false when token is empty', () => {
+  it('provides isAuthenticated as false when session_expiry cookie is absent', async () => {
+    const { useAuth } = await import('../useAuth')
     const { isAuthenticated } = useAuth()
     expect(isAuthenticated.value).toBe(false)
   })
 
-  it('provides isAuthenticated as true when token is set', () => {
-    const { setToken, isAuthenticated } = useAuth()
-    setToken('test-token')
+  it('provides isAuthenticated as true when session_expiry cookie is present', async () => {
+    document.cookie = 'session_expiry=2026-12-31T23:59:59Z'
+    const { useAuth } = await import('../useAuth')
+    const { isAuthenticated } = useAuth()
     expect(isAuthenticated.value).toBe(true)
-  })
-
-  it('allows setting a token', () => {
-    const { setToken, token } = useAuth()
-    setToken('my-secret-token')
-    expect(token.value).toBe('my-secret-token')
-  })
-
-  it('returns readonly token', () => {
-    const { setToken, token } = useAuth()
-    setToken('test-token')
-    expect(token.value).toBe('test-token')
   })
 })

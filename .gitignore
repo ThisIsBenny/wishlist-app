@@ -29,11 +29,17 @@ dist/
 .vscode
 coverage
 .env
+.env.local
+.env.*.local
+*.pem
+*.key
 data
 reports/*
 
 # Specification/Agent tools
 .opencode/
+.fallow/
+.fallowrc.json
 
 
 test-results/

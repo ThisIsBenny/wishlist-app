@@ -1,12 +1,51 @@
 @BASE_URL=http://localhost:5000/api
-@API_KEY=TOP_SECRET
+
+# Authentication - Cookie-based JWT (no API key needed after login)
+# Login first to get the access_token cookie set by the server
+
+
+###
+# @name register
+POST {{BASE_URL}}/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "securePassword123"
+}
+
+###
+# @name login
+# After login, the server sets an HttpOnly cookie with the JWT token
+POST {{BASE_URL}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "securePassword123"
+}
+
+###
+# @name logout
+# Clears the access_token cookie
+POST {{BASE_URL}}/auth/logout
+
+###
+# @name getCurrentUser
+# Returns the currently authenticated user (cookie sent automatically)
+GET {{BASE_URL}}/auth/me
+
+###
+# @name getAuthConfig
+# Check which auth methods are enabled
+GET {{BASE_URL}}/auth/config
 
 
 ###
 # @name createWishlistFirst
+# Protected endpoint - requires authentication (cookie-based)
 POST {{BASE_URL}}/wishlist
 Content-Type: application/json
-Authorization: API-Key {{API_KEY}}
 
 {
   "title": "Junior",
@@ -16,9 +55,9 @@ Authorization: API-Key {{API_KEY}}
 
 ###
 # @name createWishlistSecond
+# Protected endpoint - requires authentication (cookie-based)
 POST {{BASE_URL}}/wishlist
 Content-Type: application/json
-Authorization: API-Key {{API_KEY}}
 
 {
   "title": "Wedding",
@@ -37,9 +76,9 @@ GET {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.slugUrlText}}
 
 ###
 # @name updateFirstWishlist
+# Protected endpoint - requires authentication (cookie-based)
 PUT {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}
 Content-Type: application/json
-Authorization: API-Key {{API_KEY}}
 
 {
   "title": "Junior",
@@ -50,9 +89,9 @@ Authorization: API-Key {{API_KEY}}
 
 ###
 # @name addItemToFirstWishlist
+# Protected endpoint - requires authentication (cookie-based)
 POST {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}/item
 Content-Type: application/json
-Authorization: API-Key {{API_KEY}}
 
 {
   "title": "Goldfish 40442 | BrickHeadz",
@@ -63,9 +102,9 @@ Authorization: API-Key {{API_KEY}}
 
 ###
 # @name updateItemOnFirstWishlist
+# Protected endpoint - requires authentication (cookie-based)
 PUT {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}/item/1
 Content-Type: application/json
-Authorization: API-Key {{API_KEY}}
 
 {
   "title": "Goldfish | BrickHeadz",
@@ -76,5 +115,5 @@ Authorization: API-Key {{API_KEY}}
 
 ###
 # @name deleteItemToFirstWishlist
+# Protected endpoint - requires authentication (cookie-based)
 DELETE {{BASE_URL}}/wishlist/{{getWishlists.response.body.0.id}}/item/2
-Authorization: API-Key {{API_KEY}}

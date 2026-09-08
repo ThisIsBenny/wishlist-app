@@ -8,6 +8,13 @@
       "when": 1773437478977,
       "tag": "0000_ancient_scarlet_spider",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1778006106866,
+      "tag": "0001_curious_nicolaos",
+      "breakpoints": true
     }
   ]
 }

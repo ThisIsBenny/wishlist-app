@@ -1,21 +1,21 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { eq, asc } from 'drizzle-orm'
+import { and, asc, eq, inArray } from 'drizzle-orm'
 import { DB_TOKEN, type DbInstance } from '../database.module'
-import { wishlists, items } from '@/db/schema'
+import { items, wishlists } from '@/db/schema'
 import type {
   Wishlist,
   WishlistCreateInput,
-  WishlistUpdateInput,
   WishlistItem,
+  WishlistUpdateInput,
 } from '@/types'
 import type {
   NewWishlist,
   Wishlist as WishlistSchema,
 } from '@/db/schema/wishlists'
-import type { NewItem, Item } from '@/db/schema/items'
+import type { Item, NewItem } from '@/db/schema/items'
 import {
-  WishlistSchema as WishlistZodSchema,
   WishlistItemSchema as WishlistItemZodSchema,
+  WishlistSchema as WishlistZodSchema,
 } from './dto/wishlist.dto'
 
 const mapWishlist = (w: WishlistSchema) => WishlistZodSchema.parse(w)
@@ -61,10 +61,16 @@ export class WishlistRepository {
     return results.map(mapItem)
   }
 
-  async create(data: WishlistCreateInput): Promise<Wishlist> {
+  async create(data: WishlistCreateInput, userId: string): Promise<Wishlist> {
+    const now = new Date().toISOString()
     const result = await this.db
       .insert(wishlists)
-      .values(data as unknown as NewWishlist)
+      .values({
+        ...data,
+        userId,
+        createdAt: now,
+        updatedAt: now,
+      } as NewWishlist)
       .returning()
       .get()
     return mapWishlist(result)
@@ -72,35 +78,54 @@ export class WishlistRepository {
 
   async update(
     id: string,
-    data: WishlistUpdateInput
+    data: WishlistUpdateInput,
+    userId: string
   ): Promise<Wishlist | undefined> {
+    const now = new Date().toISOString()
     const result = await this.db
       .update(wishlists)
-      .set(data)
-      .where(eq(wishlists.id, id))
+      .set({ ...data, updatedAt: now })
+      .where(and(eq(wishlists.id, id), eq(wishlists.userId, userId)))
       .returning()
       .get()
     if (!result) return undefined
     return mapWishlist(result)
   }
 
-  async delete(id: string): Promise<void> {
-    await this.db
+  async delete(id: string, userId: string): Promise<boolean> {
+    const result = await this.db
       .delete(wishlists)
-      .where(eq(wishlists.id, id))
+      .where(and(eq(wishlists.id, id), eq(wishlists.userId, userId)))
       .returning()
       .get()
+    return !!result
   }
 
   async createItem(
     wishlistId: string,
     data: WishlistItem
   ): Promise<WishlistItem> {
+    const now = new Date().toISOString()
     const result = await this.db
       .insert(items)
-      .values({ ...data, wishlistId } as unknown as NewItem)
+      .values({
+        ...data,
+        wishlistId,
+        createdAt: now,
+        updatedAt: now,
+      } as NewItem)
       .returning()
       .get()
+    return mapItem(result)
+  }
+
+  async findItemById(itemId: number): Promise<WishlistItem | undefined> {
+    const result = await this.db
+      .select()
+      .from(items)
+      .where(eq(items.id, itemId))
+      .get()
+    if (!result) return undefined
     return mapItem(result)
   }
 
@@ -108,9 +133,10 @@ export class WishlistRepository {
     itemId: number,
     data: Partial<WishlistItem>
   ): Promise<WishlistItem | undefined> {
+    const now = new Date().toISOString()
     const result = await this.db
       .update(items)
-      .set(data)
+      .set({ ...data, updatedAt: now } as Partial<NewItem>)
       .where(eq(items.id, itemId))
       .returning()
       .get()
@@ -118,7 +144,23 @@ export class WishlistRepository {
     return mapItem(result)
   }
 
-  async deleteItem(itemId: number): Promise<void> {
-    await this.db.delete(items).where(eq(items.id, itemId)).returning().get()
+  async deleteItem(itemId: number, userId: string): Promise<boolean> {
+    const result = await this.db
+      .delete(items)
+      .where(
+        and(
+          eq(items.id, itemId),
+          inArray(
+            items.wishlistId,
+            this.db
+              .select({ id: wishlists.id })
+              .from(wishlists)
+              .where(eq(wishlists.userId, userId))
+          )
+        )
+      )
+      .returning()
+      .get()
+    return !!result
   }
 }

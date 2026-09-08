@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common'
 import { WishlistRepository } from './wishlist.repository'
 import type {
   Wishlist,
@@ -11,8 +15,11 @@ import type {
 export class WishlistService {
   constructor(private readonly wishlistRepository: WishlistRepository) {}
 
-  async getAll(isAuthenticated: boolean): Promise<Wishlist[]> {
-    return await this.wishlistRepository.findAll(!isAuthenticated)
+  async getAll(userId?: string): Promise<Wishlist[]> {
+    if (!userId) {
+      return await this.wishlistRepository.findAll(true)
+    }
+    return await this.wishlistRepository.findAll(false)
   }
 
   async getBySlugUrlText(slugText: string, includeItems = true) {
@@ -41,33 +48,66 @@ export class WishlistService {
     return result
   }
 
-  async create(payload: WishlistCreateInput): Promise<Wishlist> {
-    return await this.wishlistRepository.create(payload)
+  async create(
+    payload: WishlistCreateInput,
+    userId: string
+  ): Promise<Wishlist> {
+    return await this.wishlistRepository.create(payload, userId)
   }
 
-  async update(id: string, payload: WishlistUpdateInput): Promise<Wishlist> {
-    const result = await this.wishlistRepository.update(id, payload)
+  async update(
+    id: string,
+    payload: WishlistUpdateInput,
+    userId: string
+  ): Promise<Wishlist> {
+    const result = await this.wishlistRepository.update(id, payload, userId)
     if (!result) {
       throw new NotFoundException('Wishlist not found')
     }
     return result
   }
 
-  async delete(id: string): Promise<void> {
-    await this.wishlistRepository.delete(id)
+  async delete(id: string, userId: string): Promise<void> {
+    const deleted = await this.wishlistRepository.delete(id, userId)
+    if (!deleted) {
+      throw new NotFoundException('Wishlist not found')
+    }
   }
 
   async createItem(
     wishlistId: string,
-    payload: WishlistItem
+    payload: WishlistItem,
+    userId: string
   ): Promise<WishlistItem> {
+    const wishlist = await this.wishlistRepository.findById(wishlistId)
+    if (!wishlist) {
+      throw new NotFoundException('Wishlist not found')
+    }
+    if (wishlist.userId !== userId) {
+      throw new ForbiddenException('Access denied')
+    }
     return await this.wishlistRepository.createItem(wishlistId, payload)
   }
 
   async updateItem(
     itemId: number,
-    payload: Partial<WishlistItem>
+    payload: Partial<WishlistItem>,
+    userId?: string
   ): Promise<WishlistItem> {
+    const item = await this.wishlistRepository.findItemById(itemId)
+    if (!item) {
+      throw new NotFoundException('Item not found')
+    }
+
+    if (userId) {
+      const wishlist = await this.wishlistRepository.findById(
+        item.wishlistId as string
+      )
+      if (wishlist && wishlist.userId !== userId) {
+        throw new ForbiddenException('Access denied')
+      }
+    }
+
     const result = await this.wishlistRepository.updateItem(itemId, payload)
     if (!result) {
       throw new NotFoundException('Item not found')
@@ -75,7 +115,10 @@ export class WishlistService {
     return result
   }
 
-  async deleteItem(itemId: number): Promise<void> {
-    await this.wishlistRepository.deleteItem(itemId)
+  async deleteItem(itemId: number, userId: string): Promise<void> {
+    const deleted = await this.wishlistRepository.deleteItem(itemId, userId)
+    if (!deleted) {
+      throw new NotFoundException('Item not found')
+    }
   }
 }

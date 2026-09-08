@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config'
 import request from 'supertest'
 import { AppModule } from '../app.module'
 import configuration from '../config/configuration'
+import cookieParser from 'cookie-parser'
 import { describe, beforeEach, afterEach, it, expect } from 'vitest'
 
 describe('HealthController (e2e)', () => {
@@ -23,6 +24,7 @@ describe('HealthController (e2e)', () => {
 
     app = moduleFixture.createNestApplication()
     app.setGlobalPrefix('api')
+    app.use(cookieParser())
     await app.init()
   })
 

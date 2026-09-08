@@ -25,7 +25,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run build && API_KEY=TOP_SECRET node dist/api/main.js',
+    command:
+      'npm run build && JWT_SECRET=test-jwt-secret-at-least-32-characters-long!! node dist/api/main.js',
     url: 'http://localhost:5000',
     reuseExistingServer: !process.env.CI,
     timeout: 300 * 1000,

@@ -11,6 +11,13 @@ export const items = sqliteTable('items', {
   wishlistId: text('wishlistId')
     .notNull()
     .references(() => wishlists.id, { onDelete: 'cascade' }),
+  createdAt: text('createdAt')
+    .notNull()
+    .$defaultFn(() => new Date().toISOString()),
+  updatedAt: text('updatedAt')
+    .notNull()
+    .$defaultFn(() => new Date().toISOString())
+    .$onUpdateFn(() => new Date().toISOString()),
 })
 
 export type Item = typeof items.$inferSelect

@@ -19,8 +19,8 @@ The Wishlist App is a full-stack application:
 | Component | Technology              |
 | --------- | ----------------------- |
 | Frontend  | Vue 3 + Composition API |
-| Backend   | Fastify (Node.js)       |
-| Database  | SQLite (via Prisma)     |
+| Backend   | NestJS (Node.js)        |
+| Database  | SQLite (via Drizzle)    |
 | Styling   | Tailwind CSS            |
 | Testing   | Vitest + Playwright     |
 
@@ -51,7 +51,9 @@ The `.env` file should contain:
 NODE_ENV=development
 VITE_API_BASEURL=http://localhost:5000/api
 DATABASE_URL="file:../data/data.db"
-API_KEY=YOUR_SECRET_API_KEY
+JWT_SECRET=your-secure-random-secret-at-least-32-chars
+AUTH_EMAIL_LOGIN_ENABLED=true
+AUTH_EMAIL_REGISTER_ENABLED=true
 ```
 
 ### 3. Initialize Database
@@ -227,7 +229,9 @@ services:
   wishlist:
     image: thisisbenny/wishlist-app:latest
     environment:
-      - API_KEY=YOUR_API_KEY
+      - JWT_SECRET=your-secure-random-secret-at-least-32-chars
+      - AUTH_EMAIL_LOGIN_ENABLED=true
+      - AUTH_EMAIL_REGISTER_ENABLED=true
     ports:
       - '5000:5000'
     volumes:

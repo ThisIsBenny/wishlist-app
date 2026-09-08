@@ -1,4 +1,8 @@
 export { wishlists } from './wishlists'
 export { items } from './items'
+export { users } from './users'
+export { sessions } from './sessions'
 export type { Wishlist, NewWishlist } from './wishlists'
 export type { Item, NewItem } from './items'
+export type { User, NewUser } from './users'
+export type { Session, NewSession } from './sessions'

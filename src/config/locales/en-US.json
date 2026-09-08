@@ -37,13 +37,71 @@
           "text": "Login"
         },
         "form": {
-          "api-key": {
-            "placeholder": "API-Key",
-            "error-requried": "API-Key is required"
+          "email": {
+            "label": "Email",
+            "error-required": "Email is required",
+            "error-email": "Invalid email format"
+          },
+          "password": {
+            "label": "Password",
+            "error-required": "Password is required"
           },
           "submit": {
             "text": "Login"
           }
+        },
+        "register-link": {
+          "text": "Not registered? Create an account"
+        },
+        "login-disabled": {
+          "text": "Login is currently disabled"
+        },
+        "invalid-credentials": {
+          "text": "Invalid email or password"
+        },
+        "rate-limit": {
+          "text": "Too many login attempts. Please try again later."
+        },
+        "oidc-login": {
+          "text": "Login with {provider}"
+        }
+      }
+    },
+    "register-view": {
+      "main": {
+        "title": {
+          "text": "Create Account"
+        },
+        "form": {
+          "email": {
+            "label": "Email",
+            "error-required": "Email is required",
+            "error-email": "Invalid email format"
+          },
+          "password": {
+            "label": "Password",
+            "error-required": "Password is required",
+            "policy-min-length": "At least 8 characters",
+            "policy-uppercase": "At least one uppercase letter",
+            "policy-lowercase": "At least one lowercase letter",
+            "policy-digit": "At least one digit",
+            "policy-special": "At least one special character"
+          },
+          "submit": {
+            "text": "Create Account"
+          }
+        },
+        "register-disabled": {
+          "text": "Registration is currently disabled"
+        },
+        "email-taken": {
+          "text": "A user with this email already exists"
+        },
+        "validation-error": {
+          "text": "Please check your input"
+        },
+        "login-link": {
+          "text": "Already have an account? Login"
         }
       }
     },
@@ -52,6 +110,14 @@
         "empty-list": {
           "text": "No wishlists available."
         }
+      }
+    },
+    "create-wishlist-view": {
+      "title": {
+        "text": "Create a wishlist"
+      },
+      "headline": {
+        "text": "Create a wishlist"
       }
     },
     "create-wishlist-item-view": {
@@ -63,14 +129,6 @@
       },
       "headline-wishlist-selection": {
         "text": "To which wish list would you like to add the new item?"
-      }
-    },
-    "create-wishlist-view": {
-      "title": {
-        "text": "Create a wishlist"
-      },
-      "headline": {
-        "text": "Create a wishlist"
       }
     },
     "detail-view": {
@@ -120,6 +178,11 @@
   "components": {
     "create-wishlist-title": {
       "text": "Create wishlist"
+    },
+    "header": {
+      "edit-mode": {
+        "text": "Edit-Mode"
+      }
     },
     "file": {
       "text-dropzone-link": "click here",
@@ -198,11 +261,6 @@
       },
       "delete-button": {
         "text": "Delete"
-      }
-    },
-    "header": {
-      "edit-mode": {
-        "text": "Edit-Mode"
       }
     }
   }

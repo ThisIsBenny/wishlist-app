@@ -35,8 +35,8 @@ This document captures all issues found and fixed during and after the Fastify t
 ### Auth Header Format
 
 **Commit:** `bd02ad6` (part of route migration)
-**Issue:** ApiKeyGuard expected `x-api-key`, frontend used `Authorization: API-Key`
-**Fix:** Updated guard to use correct header format
+**Issue:** Auth system was updated to use JWT session cookies instead of API keys
+**Fix:** Replaced API_KEY environment variable with JWT_SECRET + cookie-based authentication
 
 ### getById Duplication
 

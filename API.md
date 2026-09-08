@@ -8,17 +8,130 @@ http://localhost:5000/api
 
 ## Authentication
 
-Protected routes require an API key passed in the `Authorization` header:
+The API uses **JWT-based session authentication** via HTTP-only cookies.
 
-```
-Authorization: api-key YOUR_API_KEY
-```
+When you log in via `POST /auth/login`, the server sets an `access_token` cookie (HttpOnly, SameSite=Strict). Subsequent requests to protected endpoints automatically include this cookie.
 
-The API key is configured via the `API_KEY` environment variable (default: `TOP_SECRET`).
+**Cookie settings:**
+- HttpOnly (not accessible via JavaScript)
+- SameSite=Strict
+- Secure (in production)
+- Expires after 7 days
 
 ---
 
 ## Endpoints
+
+### Authentication
+
+#### Register (Email/Password)
+
+```http
+POST /auth/register
+Content-Type: application/json
+```
+
+**Request Body:**
+
+```json
+{
+  "email": "user@example.com",
+  "password": "securePassword123"
+}
+```
+
+**Response:** `201 Created`
+
+```json
+{
+  "id": "uuid",
+  "email": "user@example.com"
+}
+```
+
+---
+
+#### Login (Email/Password)
+
+```http
+POST /auth/login
+Content-Type: application/json
+```
+
+**Request Body:**
+
+```json
+{
+  "email": "user@example.com",
+  "password": "securePassword123"
+}
+```
+
+**Response:** `200 OK`
+
+Sets `access_token` cookie.
+
+```json
+{
+  "id": "uuid",
+  "email": "user@example.com"
+}
+```
+
+---
+
+#### Logout
+
+```http
+POST /auth/logout
+```
+
+**Response:** `200 OK`
+
+Clears the `access_token` cookie.
+
+---
+
+#### Get Current User
+
+```http
+GET /auth/me
+```
+
+**Authentication:** Required (cookie-based)
+
+**Response:** `200 OK`
+
+```json
+{
+  "id": "uuid",
+  "email": "user@example.com"
+}
+```
+
+---
+
+#### Get Auth Configuration
+
+```http
+GET /auth/config
+```
+
+**Authentication:** Not required
+
+Returns which login methods are enabled.
+
+**Response:** `200 OK`
+
+```json
+{
+  "emailLoginEnabled": true,
+  "emailRegisterEnabled": true,
+  "oidcProviders": []
+}
+```
+
+---
 
 ### Wishlists
 
@@ -28,7 +141,7 @@ The API key is configured via the `API_KEY` environment variable (default: `TOP_
 GET /api/wishlist
 ```
 
-**Authentication:** Not required (returns only public wishlists)
+**Authentication:** Not required (returns only public wishlists owned by the authenticated user)
 
 **Response:** `200 OK`
 
@@ -92,14 +205,7 @@ GET /api/wishlist/:slugText
 POST /api/wishlist
 ```
 
-**Authentication:** Required
-
-**Headers:**
-
-```
-Authorization: api-key YOUR_API_KEY
-Content-Type: application/json
-```
+**Authentication:** Required (cookie-based JWT)
 
 **Request Body:**
 
@@ -136,14 +242,7 @@ Content-Type: application/json
 PUT /api/wishlist/:wishlistId
 ```
 
-**Authentication:** Required
-
-**Headers:**
-
-```
-Authorization: api-key YOUR_API_KEY
-Content-Type: application/json
-```
+**Authentication:** Required (cookie-based JWT)
 
 **Request Body:**
 
@@ -167,13 +266,7 @@ Content-Type: application/json
 DELETE /api/wishlist/:wishlistId
 ```
 
-**Authentication:** Required
-
-**Headers:**
-
-```
-Authorization: api-key YOUR_API_KEY
-```
+**Authentication:** Required (cookie-based JWT)
 
 **Response:** `204 No Content`
 
@@ -187,14 +280,7 @@ Authorization: api-key YOUR_API_KEY
 POST /api/wishlist/:wishlistId/item
 ```
 
-**Authentication:** Required
-
-**Headers:**
-
-```
-Authorization: api-key YOUR_API_KEY
-Content-Type: application/json
-```
+**Authentication:** Required (cookie-based JWT)
 
 **Request Body:**
 
@@ -218,7 +304,7 @@ Content-Type: application/json
 PUT /api/wishlist/:wishlistId/item/:itemId
 ```
 
-**Authentication:** Required
+**Authentication:** Required (cookie-based JWT)
 
 **Request Body:**
 
@@ -254,7 +340,7 @@ This endpoint allows anyone to mark an item as bought (no authentication require
 DELETE /api/wishlist/:wishlistId/item/:itemId
 ```
 
-**Authentication:** Required
+**Authentication:** Required (cookie-based JWT)
 
 **Response:** `204 No Content`
 
@@ -306,7 +392,7 @@ GET /healthz
 {
   "statusCode": 401,
   "error": "Unauthorized",
-  "message": "Missing or invalid API key"
+  "message": "No token provided"
 }
 ```
 
